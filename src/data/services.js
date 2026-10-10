@@ -1,138 +1,650 @@
 import { M } from "./media";
 
-// Six capabilities. Copy and capability lists come from the profile's service pages.
+/*
+ * All company services.
+ * Each service contains:
+ * - English + Arabic content
+ * - Capabilities
+ * - Related projects
+ * - Theme
+ * - Media used across the website
+ */
+
 export const services = [
+  // =========================================================
+  // 01 — BRANDING
+  // =========================================================
   {
     slug: "branding",
     category: "branding",
-    title: { en: "Branding", ar: "بناء الهوية والعلامة" },
-    short: { en: "Brand", ar: "العلامة" },
-    statement: {
-      en: "Becoming knowable, likable and trustable. A story, not a logo.",
-      ar: "أن تصبح معروفاً ومحبوباً وموثوقاً. حكاية، لا شعاراً.",
+
+    title: {
+      en: "Branding",
+      ar: "بناء الهوية والعلامة",
     },
+
+    short: {
+      en: "Brand",
+      ar: "العلامة",
+    },
+
+    statement: {
+      en: "Building memorable brands with a clear identity, strategy and story.",
+      ar: "نبني علامات تجارية مميزة بهوية واستراتيجية وقصة واضحة.",
+    },
+
     capabilities: [
-      { en: "Branding analysis & market research", ar: "تحليل العلامة وبحث السوق" },
-      { en: "Branding strategy", ar: "استراتيجية العلامة" },
-      { en: "Name creation & visual identity", ar: "ابتكار اسم وهوية بصرية" },
-      { en: "Logo design & corporate identity", ar: "تصميم الشعار والهوية المؤسسية" },
-      { en: "Rebranding & identity enhancement", ar: "إعادة العلامة وتطوير الهوية" },
-      { en: "Stationery, print & packaging", ar: "القرطاسية والمطبوعات والتغليف" },
-      { en: "Brand guidelines development", ar: "إعداد الأدلة الإرشادية للعلامة" },
+      {
+        en: "Brand analysis & market research",
+        ar: "تحليل العلامة وبحث السوق",
+      },
+      {
+        en: "Brand strategy",
+        ar: "استراتيجية العلامة",
+      },
+      {
+        en: "Naming & visual identity",
+        ar: "ابتكار الاسم والهوية البصرية",
+      },
+      {
+        en: "Logo & corporate identity",
+        ar: "تصميم الشعار والهوية المؤسسية",
+      },
+      {
+        en: "Rebranding",
+        ar: "إعادة بناء وتطوير العلامة",
+      },
+      {
+        en: "Packaging & print design",
+        ar: "تصميم التغليف والمطبوعات",
+      },
+      {
+        en: "Brand guidelines",
+        ar: "إعداد دليل الهوية البصرية",
+      },
     ],
+
     projects: ["tawlead", "manafesh", "taj-azal", "we-one"],
-    theme: { bg: "#0c1520", fg: "#f6f4ef", accent: "#12a594", tone: "dark" },
-    media: [M("tawlead/logo"), M("frag/manafesh-bag"), M("frag/we-one-box")],
+
+    theme: {
+      bg: "#0c1520",
+      fg: "#f6f4ef",
+      accent: "#12a594",
+      tone: "dark",
+    },
+
+    media: [
+      M("tawlead/logo"),
+      M("frag/manafesh-bag"),
+      M("frag/we-one-box"),
+    ],
+
     direction: "left",
   },
+
+  // =========================================================
+  // 02 — MARKETING
+  // =========================================================
   {
     slug: "marketing",
     category: "marketing",
-    title: { en: "Marketing", ar: "الحملات التسويقية والترويجية" },
-    short: { en: "Marketing", ar: "التسويق" },
-    statement: {
-      en: "Strategy, content and campaigns that keep one voice across every screen.",
-      ar: "استراتيجية ومحتوى وحملات تحافظ على صوت واحد عبر كل شاشة.",
+
+    title: {
+      en: "Digital Marketing",
+      ar: "التسويق الرقمي",
     },
+
+    short: {
+      en: "Marketing",
+      ar: "التسويق",
+    },
+
+    statement: {
+      en: "Data-driven marketing strategies, content and campaigns built for measurable growth.",
+      ar: "استراتيجيات تسويق ومحتوى وحملات مبنية على البيانات لتحقيق نمو قابل للقياس.",
+    },
+
     capabilities: [
-      { en: "Marketing strategy & planning", ar: "الاستراتيجية التسويقية والتخطيط" },
-      { en: "Social media account management", ar: "إدارة حسابات التواصل الاجتماعي" },
-      { en: "Monthly content plan: design, copywriting, posting schedule", ar: "خطة محتوى شهرية: تصميم وكتابة وجدول نشر" },
-      { en: "Digital advertising campaigns & performance analysis", ar: "حملات إعلانية رقمية وتحليل الأداء" },
-      { en: "Influencer campaign management", ar: "إدارة حملات المؤثرين" },
-      { en: "Seasonal campaigns & promotional offers", ar: "الحملات الموسمية والعروض الترويجية" },
-      { en: "Project launch campaign design & execution", ar: "تصميم وتنفيذ حملات إطلاق المشاريع" },
-      { en: "Public relations", ar: "العلاقات العامة" },
+      {
+        en: "Marketing strategy & planning",
+        ar: "الاستراتيجية التسويقية والتخطيط",
+      },
+      {
+        en: "Social media management",
+        ar: "إدارة حسابات التواصل الاجتماعي",
+      },
+      {
+        en: "Content strategy & creation",
+        ar: "استراتيجية وصناعة المحتوى",
+      },
+      {
+        en: "Paid advertising & media buying",
+        ar: "الإعلانات المدفوعة وشراء المساحات الإعلانية",
+      },
+      {
+        en: "Performance marketing",
+        ar: "التسويق القائم على الأداء",
+      },
+      {
+        en: "Campaign management",
+        ar: "إدارة الحملات التسويقية",
+      },
+      {
+        en: "Influencer marketing",
+        ar: "التسويق عبر المؤثرين",
+      },
+      {
+        en: "Analytics & performance reporting",
+        ar: "تحليل الأداء والتقارير",
+      },
     ],
+
     projects: ["tricycle", "namar-door", "gerflor", "enigma"],
-    theme: { bg: "#f0ece4", fg: "#101b28", accent: "#ff6a1f", tone: "light" },
-    media: [M("namar-door/col1"), M("gerflor/col3"), M("enigma/col2")],
+
+    theme: {
+      bg: "#f0ece4",
+      fg: "#101b28",
+      accent: "#ff6a1f",
+      tone: "light",
+    },
+
+    media: [
+      M("namar-door/col1"),
+      M("gerflor/col3"),
+      M("enigma/col2"),
+    ],
+
     direction: "right",
   },
+
+  // =========================================================
+  // 03 — MEDIA PRODUCTION
+  // =========================================================
   {
     slug: "media-production",
     category: "media",
-    title: { en: "Media Production", ar: "الإنتاج المرئي" },
-    short: { en: "Media", ar: "الإنتاج" },
-    statement: {
-      en: "Vision, execution, final polish — from moodboard to montage.",
-      ar: "الرؤية والتنفيذ واللمسة الأخيرة — من لوحة الإلهام إلى المونتاج.",
+
+    title: {
+      en: "Media Production",
+      ar: "الإنتاج المرئي",
     },
+
+    short: {
+      en: "Media",
+      ar: "الإنتاج",
+    },
+
+    statement: {
+      en: "Creative visual production from concept and shooting to editing and final delivery.",
+      ar: "إنتاج بصري متكامل من الفكرة والتصوير وحتى المونتاج والتسليم النهائي.",
+    },
+
     capabilities: [
-      { en: "Mood board & concept development", ar: "لوحة الإلهام وتطوير الفكرة" },
-      { en: "Storyboarding & scripting", ar: "القصص المصورة وكتابة النصوص" },
-      { en: "Professional photography", ar: "التصوير الفوتوغرافي الاحترافي" },
-      { en: "Cinematography & videography", ar: "التصوير السينمائي والفيديو" },
-      { en: "Lighting & sound engineering", ar: "هندسة الإضاءة والصوت" },
-      { en: "Video editing & montage, color grading", ar: "المونتاج وتصحيح الألوان" },
-      { en: "Sound design & scoring, motion graphics & VFX", ar: "تصميم الصوت والموسيقى والموشن جرافيك" },
-      { en: "Coverage & broadcasting", ar: "التغطية والبث" },
+      {
+        en: "Creative concepts & moodboards",
+        ar: "تطوير الأفكار ولوحات الإلهام",
+      },
+      {
+        en: "Storyboarding & scripting",
+        ar: "القصص المصورة وكتابة النصوص",
+      },
+      {
+        en: "Professional photography",
+        ar: "التصوير الفوتوغرافي الاحترافي",
+      },
+      {
+        en: "Videography & cinematography",
+        ar: "تصوير الفيديو والتصوير السينمائي",
+      },
+      {
+        en: "Video editing & color grading",
+        ar: "المونتاج وتصحيح الألوان",
+      },
+      {
+        en: "Motion graphics",
+        ar: "الموشن جرافيك",
+      },
+      {
+        en: "Sound design",
+        ar: "تصميم وهندسة الصوت",
+      },
+      {
+        en: "Event coverage",
+        ar: "تغطية الفعاليات",
+      },
     ],
+
     projects: ["le-gout", "shavery", "88-port", "bistro-catering"],
-    theme: { bg: "#070b10", fg: "#f6f4ef", accent: "#ff6a1f", tone: "dark" },
-    media: [M("le-gout/top"), M("88-port/top"), M("shavery/bottom")],
+
+    theme: {
+      bg: "#070b10",
+      fg: "#f6f4ef",
+      accent: "#ff6a1f",
+      tone: "dark",
+    },
+
+    media: [
+      M("le-gout/top"),
+      M("88-port/top"),
+      M("shavery/bottom"),
+    ],
+
     direction: "up",
   },
+
+  // =========================================================
+  // 04 — EVENT MANAGEMENT
+  // =========================================================
   {
     slug: "event-management",
     category: "events",
-    title: { en: "Event Management", ar: "تصميم وإدارة الفعاليات" },
-    short: { en: "Events", ar: "الفعاليات" },
-    statement: {
-      en: "We handle every detail of the event so you can focus on what matters.",
-      ar: "نتعامل مع كل تفاصيل الحدث لتركّز على ما هو مهم بالنسبة لك.",
+
+    title: {
+      en: "Event Management",
+      ar: "إدارة الفعاليات",
     },
+
+    short: {
+      en: "Events",
+      ar: "الفعاليات",
+    },
+
+    statement: {
+      en: "Planning and executing memorable events from concept to final production.",
+      ar: "تخطيط وتنفيذ فعاليات متكاملة من الفكرة وحتى الإنتاج النهائي.",
+    },
+
     capabilities: [
-      { en: "Conferences, symposiums & destination meetings", ar: "المؤتمرات والندوات والاجتماعات" },
-      { en: "Long service awards & staff recognition", ar: "جوائز الخدمة الطويلة وتكريم الموظفين" },
-      { en: "Silent & live auctions", ar: "مزادات صامتة ومباشرة" },
-      { en: "Grand openings, ground breakings & building openings", ar: "الافتتاحات الكبرى والرسمية" },
-      { en: "Media & PR events", ar: "أحداث الإعلام والعلاقات العامة" },
-      { en: "Private events & celebrations", ar: "المناسبات والاحتفالات الخاصة" },
+      {
+        en: "Corporate events",
+        ar: "فعاليات الشركات",
+      },
+      {
+        en: "Conferences & exhibitions",
+        ar: "المؤتمرات والمعارض",
+      },
+      {
+        en: "Product launches",
+        ar: "فعاليات إطلاق المنتجات",
+      },
+      {
+        en: "Grand openings",
+        ar: "حفلات الافتتاح",
+      },
+      {
+        en: "Media & PR events",
+        ar: "فعاليات الإعلام والعلاقات العامة",
+      },
+      {
+        en: "Private events & celebrations",
+        ar: "المناسبات والاحتفالات الخاصة",
+      },
     ],
+
     projects: ["fayya", "radicon", "luini-bakery", "the-city-school"],
-    theme: { bg: "#0a5a60", fg: "#f6f4ef", accent: "#ff8a5c", tone: "dark" },
-    media: [M("fayya/event-1"), M("radicon/event-1"), M("luini-bakery/event")],
+
+    theme: {
+      bg: "#0a5a60",
+      fg: "#f6f4ef",
+      accent: "#ff8a5c",
+      tone: "dark",
+    },
+
+    media: [
+      M("fayya/event-1"),
+      M("radicon/event-1"),
+      M("luini-bakery/event"),
+    ],
+
     direction: "left",
   },
+
+  // =========================================================
+  // 05 — WEB & DIGITAL SOLUTIONS
+  // =========================================================
   {
     slug: "digital-solutions",
     category: "digital",
-    title: { en: "Digital Solutions", ar: "الحلول الرقمية" },
-    short: { en: "Digital", ar: "الرقمي" },
-    statement: {
-      en: "Websites and apps designed, written and built to work on every device.",
-      ar: "مواقع وتطبيقات مصممة ومكتوبة ومبرمجة لتعمل على كل جهاز.",
+
+    title: {
+      en: "Web Development",
+      ar: "تطوير المواقع",
     },
+
+    short: {
+      en: "Web",
+      ar: "المواقع",
+    },
+
+    statement: {
+      en: "Fast, responsive and scalable websites designed around your business and your users.",
+      ar: "مواقع سريعة ومتجاوبة وقابلة للتوسع مصممة لخدمة أعمالك وتجربة عملائك.",
+    },
+
     capabilities: [
-      { en: "Website design, content & development", ar: "تصميم وكتابة وبرمجة المواقع الإلكترونية" },
-      { en: "Mobile app design & development (iOS & Android)", ar: "تصميم وتطوير تطبيقات الهواتف الذكية (iOS & Android)" },
-      { en: "UI/UX optimization & cross-device compatibility", ar: "تحسين تجربة المستخدم (UI/UX) والتوافق مع مختلف الأجهزة" },
+      {
+        en: "Corporate websites",
+        ar: "مواقع الشركات",
+      },
+      {
+        en: "Landing pages",
+        ar: "صفحات الهبوط",
+      },
+      {
+        en: "E-commerce development",
+        ar: "تطوير المتاجر الإلكترونية",
+      },
+      {
+        en: "UI/UX design",
+        ar: "تصميم واجهات وتجربة المستخدم",
+      },
+      {
+        en: "Responsive development",
+        ar: "تطوير متوافق مع جميع الأجهزة",
+      },
+      {
+        en: "Website performance optimization",
+        ar: "تحسين سرعة وأداء المواقع",
+      },
+      {
+        en: "Website maintenance & support",
+        ar: "صيانة ودعم المواقع",
+      },
     ],
+
     projects: ["tawlead", "beut-almisk", "sumou", "baab-app"],
-    theme: { bg: "#e6eaee", fg: "#101b28", accent: "#12a594", tone: "light" },
-    media: [M("tawlead/phones"), M("tawlead/ios"), M("tawlead/billboard")],
+
+    theme: {
+      bg: "#e6eaee",
+      fg: "#101b28",
+      accent: "#12a594",
+      tone: "light",
+    },
+
+    media: [
+      M("tawlead/phones"),
+      M("tawlead/ios"),
+      M("tawlead/billboard"),
+    ],
+
     direction: "right",
   },
+
+  // =========================================================
+  // 06 — SOFTWARE DEVELOPMENT
+  // =========================================================
+  {
+    slug: "software-development",
+    category: "software",
+
+    title: {
+      en: "Software Development",
+      ar: "تطوير البرمجيات",
+    },
+
+    short: {
+      en: "Software",
+      ar: "البرمجيات",
+    },
+
+    statement: {
+      en: "Custom software solutions built around real business processes, performance and scalability.",
+      ar: "حلول برمجية مخصصة مبنية حول احتياجات الأعمال الحقيقية والأداء وقابلية التوسع.",
+    },
+
+    capabilities: [
+      {
+        en: "Custom software development",
+        ar: "تطوير البرمجيات المخصصة",
+      },
+      {
+        en: "Web applications",
+        ar: "تطبيقات الويب",
+      },
+      {
+        en: "Business systems",
+        ar: "أنظمة إدارة الأعمال",
+      },
+      {
+        en: "Dashboard development",
+        ar: "تطوير لوحات التحكم",
+      },
+      {
+        en: "API development & integrations",
+        ar: "تطوير وربط واجهات API",
+      },
+      {
+        en: "Database solutions",
+        ar: "حلول قواعد البيانات",
+      },
+      {
+        en: "System integration",
+        ar: "تكامل الأنظمة",
+      },
+      {
+        en: "Maintenance & technical support",
+        ar: "الصيانة والدعم التقني",
+      },
+    ],
+
+    projects: [],
+
+    theme: {
+      bg: "#101b28",
+      fg: "#f6f4ef",
+      accent: "#12a594",
+      tone: "dark",
+    },
+
+    // مؤقتاً بدون صور حتى نضيف صور مشاريع Software حقيقية
+    media: [],
+
+    direction: "left",
+  },
+
+  // =========================================================
+  // 07 — SOFTWARE TESTING & QA
+  // =========================================================
+  {
+    slug: "software-testing",
+    category: "software",
+
+    title: {
+      en: "Software Testing & QA",
+      ar: "اختبار البرمجيات وضمان الجودة",
+    },
+
+    short: {
+      en: "Testing",
+      ar: "الاختبار",
+    },
+
+    statement: {
+      en: "Testing digital products for reliability, usability, compatibility and performance before they reach your customers.",
+      ar: "اختبار المنتجات الرقمية لضمان الجودة وسهولة الاستخدام والتوافق والأداء قبل وصولها إلى العملاء.",
+    },
+
+    capabilities: [
+      {
+        en: "Functional testing",
+        ar: "الاختبارات الوظيفية",
+      },
+      {
+        en: "UI/UX testing",
+        ar: "اختبار واجهة وتجربة المستخدم",
+      },
+      {
+        en: "Responsive testing",
+        ar: "اختبار التوافق مع الأجهزة المختلفة",
+      },
+      {
+        en: "Cross-browser testing",
+        ar: "اختبار التوافق مع المتصفحات",
+      },
+      {
+        en: "Performance testing",
+        ar: "اختبار الأداء",
+      },
+      {
+        en: "Regression testing",
+        ar: "اختبارات الانحدار البرمجي",
+      },
+      {
+        en: "API testing",
+        ar: "اختبار واجهات API",
+      },
+      {
+        en: "Quality assurance",
+        ar: "ضمان الجودة",
+      },
+    ],
+
+    projects: [],
+
+    theme: {
+      bg: "#f0ece4",
+      fg: "#101b28",
+      accent: "#ff6a1f",
+      tone: "light",
+    },
+
+    media: [],
+
+    direction: "right",
+  },
+
+  // =========================================================
+  // 08 — SEO + AEO + GEO
+  // =========================================================
+  {
+    slug: "search-optimization",
+    category: "marketing",
+
+    title: {
+      en: "SEO + AEO + GEO",
+      ar: "تحسين الظهور في محركات البحث والذكاء الاصطناعي",
+    },
+
+    short: {
+      en: "Search",
+      ar: "الظهور",
+    },
+
+    statement: {
+      en: "Helping brands become discoverable across search engines, answer engines and AI-powered discovery experiences.",
+      ar: "نساعد العلامات التجارية على الظهور في محركات البحث ومحركات الإجابة وتجارب البحث المدعومة بالذكاء الاصطناعي.",
+    },
+
+    capabilities: [
+      {
+        en: "Search Engine Optimization (SEO)",
+        ar: "تحسين محركات البحث (SEO)",
+      },
+      {
+        en: "Answer Engine Optimization (AEO)",
+        ar: "تحسين محركات الإجابة (AEO)",
+      },
+      {
+        en: "Generative Engine Optimization (GEO)",
+        ar: "تحسين الظهور في محركات الذكاء الاصطناعي (GEO)",
+      },
+      {
+        en: "Technical SEO",
+        ar: "تحسين SEO التقني",
+      },
+      {
+        en: "On-page SEO",
+        ar: "تحسين صفحات الموقع",
+      },
+      {
+        en: "Keyword research",
+        ar: "بحث وتحليل الكلمات المفتاحية",
+      },
+      {
+        en: "Content optimization",
+        ar: "تحسين المحتوى",
+      },
+      {
+        en: "Search performance analysis",
+        ar: "تحليل أداء الظهور والبحث",
+      },
+    ],
+
+    projects: [],
+
+    theme: {
+      bg: "#0a5a60",
+      fg: "#f6f4ef",
+      accent: "#ff8a5c",
+      tone: "dark",
+    },
+
+    media: [],
+
+    direction: "up",
+  },
+
+  // =========================================================
+  // 09 — CONSULTING & TRAINING
+  // =========================================================
   {
     slug: "consulting-training",
     category: null,
-    title: { en: "Consulting & Training", ar: "الاستشارات والتدريب" },
-    short: { en: "Consulting", ar: "الاستشارات" },
-    statement: {
-      en: "Marketing thinking, handed over — for brands, teams and new projects.",
-      ar: "خبرة تسويقية تنتقل إلى فريقك — للعلامات والفرق والمشاريع الجديدة.",
+
+    title: {
+      en: "Consulting & Training",
+      ar: "الاستشارات والتدريب",
     },
+
+    short: {
+      en: "Consulting",
+      ar: "الاستشارات",
+    },
+
+    statement: {
+      en: "Practical marketing and digital expertise transferred to your business and your team.",
+      ar: "خبرات عملية في التسويق والحلول الرقمية ننقلها إلى أعمالك وفريقك.",
+    },
+
     capabilities: [
-      { en: "Marketing consulting for brands", ar: "استشارات تسويقية للعلامات التجارية" },
-      { en: "Internal training programs for teams & interns", ar: "برامج تدريبية داخلية للفرق أو المتدربين" },
-      { en: "Strategic marketing plans for new projects", ar: "إعداد خطط تسويق استراتيجية للمشاريع الجديدة" },
+      {
+        en: "Marketing consulting",
+        ar: "الاستشارات التسويقية",
+      },
+      {
+        en: "Digital strategy consulting",
+        ar: "استشارات الاستراتيجية الرقمية",
+      },
+      {
+        en: "Team training",
+        ar: "تدريب فرق العمل",
+      },
+      {
+        en: "Marketing workshops",
+        ar: "ورش العمل التسويقية",
+      },
+      {
+        en: "Strategic plans for new projects",
+        ar: "إعداد الخطط الاستراتيجية للمشاريع الجديدة",
+      },
     ],
+
     projects: [],
-    theme: { bg: "#f6f4ef", fg: "#101b28", accent: "#ff6a1f", tone: "light" },
+
+    theme: {
+      bg: "#f6f4ef",
+      fg: "#101b28",
+      accent: "#ff6a1f",
+      tone: "light",
+    },
+
     media: [],
+
     direction: "up",
   },
 ];
 
-export const serviceBySlug = Object.fromEntries(services.map((s) => [s.slug, s]));
+// Fast lookup by service slug
+export const serviceBySlug = Object.fromEntries(
+  services.map((service) => [service.slug, service])
+);
