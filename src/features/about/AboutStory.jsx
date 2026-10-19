@@ -1,55 +1,550 @@
+
 "use client";
+
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+
 import RevealText from "@/components/ui/RevealText";
 import Arrow from "@/components/ui/Arrow";
-import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/Section";
 import PartnersField from "@/features/home/PartnersField";
+import OriginSection from "@/features/about/OriginSection";
 import { useLocale } from "@/components/shared/LocaleProvider";
-import { capabilityLine, companyStatement, site } from "@/data/site";
+import { capabilityLine, site } from "@/data/site";
 import { pad2 } from "@/lib/utils";
+
+/* ==========================================
+   ANIMATION SETTINGS
+========================================== */
+
+const ease = [0.16, 1, 0.3, 1];
+
+const reveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.75, ease },
+};
+
+/* ==========================================
+   GRADIENT BACKGROUND
+========================================== */
+
+function GradientBackground() {
+  return (
+    <>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background: `
+            radial-gradient(
+              ellipse at 5% 25%,
+              rgba(0,133,132,0.22),
+              transparent 48%
+            ),
+            radial-gradient(
+              ellipse at 95% 80%,
+              rgba(0,137,132,0.13),
+              transparent 48%
+            ),
+            radial-gradient(
+              ellipse at 85% 5%,
+              rgba(255,106,31,0.09),
+              transparent 40%
+            ),
+            linear-gradient(
+              135deg,
+              #142535 0%,
+              #101C2A 55%,
+              #0B1724 100%
+            )
+          `,
+        }}
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.035]"
+        style={{
+          backgroundImage: `
+            linear-gradient(
+              rgba(255,255,255,0.25) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              90deg,
+              rgba(255,255,255,0.25) 1px,
+              transparent 1px
+            )
+          `,
+          backgroundSize: "70px 70px",
+        }}
+      />
+    </>
+  );
+}
+
+/* ==========================================
+   01 — HERO
+========================================== */
+
+function AboutHero() {
+  const { t, num, isRTL } = useLocale();
+
+  const heroTitle = t("about.title");
+  const words = heroTitle.split(" ");
+
+  const heroLines = [
+    words[0],
+    words.slice(1).join(" "),
+  ];
+
+  return (
+    <section
+      className="
+        relative isolate flex
+        min-h-[75svh] flex-col justify-end
+        overflow-hidden bg-[#101C2A]
+        px-[var(--pad)] pb-12 pt-36
+        text-white
+        sm:min-h-[85svh] sm:pb-14 sm:pt-40
+      "
+    >
+      <GradientBackground />
+
+      <motion.div
+        aria-hidden="true"
+        className="
+          absolute end-[7%] top-[19%]
+          w-[7vw] min-w-[3.5rem] max-w-[7rem]
+        "
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.5 }}
+      >
+        <Image
+          src="/brand/sail-boat.png"
+          alt=""
+          width={160}
+          height={179}
+          priority
+          className="h-auto w-full"
+        />
+      </motion.div>
+
+      <div className="mb-7 flex items-center gap-3">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
+
+        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+          SAIL Creative Solutions
+        </span>
+      </div>
+
+      <h1
+        className={`
+          display relative z-10
+          max-w-[1100px] text-white
+          ${
+            isRTL
+              ? "text-[clamp(2.8rem,6.5vw,6rem)] leading-[1.4] tracking-normal"
+              : "text-[clamp(4rem,11vw,12rem)] leading-[0.98] tracking-[-0.045em]"
+          }
+        `}
+      >
+        {isRTL ? (
+          <motion.span
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="block"
+          >
+            {heroTitle}
+          </motion.span>
+        ) : (
+          <RevealText
+            lines={heroLines}
+            immediate
+            stagger={0.1}
+          />
+        )}
+      </h1>
+
+      <div className="relative z-10 mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-white/10 pt-6">
+        <p className="meta flex items-center gap-3 text-orange">
+          <Arrow className="h-3 w-3" stroke={16} />
+          {t("hero.location")}
+        </p>
+
+        <p className="meta text-white/55">
+          {num(site.since)} → {num(2026)}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================
+   03 — HOW WE THINK
+========================================== */
+
+const philosophyContent = {
+  ar: {
+    eyebrow: "فلسفتنا",
+    title: "نفكر بشكل مختلف. لنصنع أثرًا حقيقيًا.",
+    description:
+      "نؤمن أن نجاح العلامات التجارية لا يعتمد على التصميم وحده، ولا على التكنولوجيا وحدها. النجاح يبدأ بفهم الأعمال والجمهور، ثم الجمع بين الاستراتيجية والإبداع والتنفيذ التقني لصناعة حلول تحقق أهدافًا واضحة.",
+    quote: "لا نقدم خدمات منفصلة، بل نصنع حلولًا مترابطة.",
+    pillars: [
+      {
+        number: "01",
+        title: "نفهم أولًا",
+        en: "Understand",
+        description:
+          "ندرس أهداف المشروع والجمهور والتحديات قبل اختيار الحل المناسب.",
+      },
+      {
+        number: "02",
+        title: "نبتكر بوضوح",
+        en: "Create",
+        description:
+          "نحوّل الرؤية إلى أفكار وتجارب إبداعية تخدم هوية العلامة التجارية.",
+      },
+      {
+        number: "03",
+        title: "ننفذ ونطوّر",
+        en: "Build & Grow",
+        description:
+          "نجمع بين البرمجة والتسويق والإنتاج الإعلامي لتنفيذ حلول قابلة للتطوير.",
+      },
+    ],
+  },
+
+  en: {
+    eyebrow: "How We Think",
+    title: "Different thinking. Meaningful impact.",
+    description:
+      "Great brands are built through more than design or technology alone. We start by understanding the business and its audience, then combine strategy, creativity, and technical execution to deliver solutions with clear purpose.",
+    quote:
+      "We don't deliver disconnected services. We build connected solutions.",
+    pillars: [
+      {
+        number: "01",
+        title: "Understand",
+        en: "Research & Strategy",
+        description:
+          "We explore business goals, audiences, and challenges before defining the right direction.",
+      },
+      {
+        number: "02",
+        title: "Create",
+        en: "Creative Thinking",
+        description:
+          "We turn ideas into distinctive identities, content, and digital experiences.",
+      },
+      {
+        number: "03",
+        title: "Build & Grow",
+        en: "Execution & Performance",
+        description:
+          "We bring software, marketing, and media together to build scalable solutions.",
+      },
+    ],
+  },
+};
+
+function PhilosophySection() {
+  const { isRTL } = useLocale();
+  const data = isRTL
+    ? philosophyContent.ar
+    : philosophyContent.en;
+
+  return (
+    <section
+      aria-labelledby="philosophy-title"
+      className="
+        relative isolate overflow-hidden
+        bg-[#101B29] px-[var(--pad)]
+        py-20 text-white
+        sm:py-28
+      "
+    >
+      <GradientBackground />
+
+      <div className="relative z-10 mx-auto max-w-[1440px]">
+        <SectionLabel index="02">
+          {data.eyebrow}
+        </SectionLabel>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <motion.div
+            {...reveal}
+            className="lg:col-span-7"
+          >
+            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FF8A4A]">
+              SAIL / Our Philosophy
+            </p>
+
+            <h2
+              id="philosophy-title"
+              className={`
+                display max-w-[850px]
+                ${
+                  isRTL
+                    ? "text-[clamp(2rem,3.8vw,4rem)] leading-[1.5] tracking-normal"
+                    : "text-[clamp(2.8rem,5.8vw,6rem)] leading-[1.12] tracking-[-0.04em]"
+                }
+              `}
+            >
+              {data.title}
+            </h2>
+          </motion.div>
+
+          <motion.div
+            {...reveal}
+            className="lg:col-span-4 lg:col-start-9 lg:self-end"
+          >
+            <p className="max-w-[520px] text-[0.95rem] leading-[2] text-white/65 sm:text-base">
+              {data.description}
+            </p>
+          </motion.div>
+        </div>
+
+        {/* PHILOSOPHY PILLARS */}
+
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 md:grid-cols-3 sm:mt-20">
+          {data.pillars.map((pillar, index) => (
+            <motion.article
+              key={pillar.number}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.1,
+                ease,
+              }}
+              className="
+                group flex min-h-[250px] flex-col
+                bg-[#132334] p-6
+                transition-colors duration-300
+                hover:bg-[#193344]
+                sm:p-8
+              "
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold tabular-nums text-[#FF6A1F]">
+                  {pillar.number}
+                </span>
+
+                <span className="h-2 w-2 rounded-full border border-white/35 transition-colors group-hover:bg-[#FF6A1F]" />
+              </div>
+
+              <div className="mt-12">
+                <h3
+                  className={`
+                    display text-white
+                    ${
+                      isRTL
+                        ? "text-[clamp(1.4rem,2.1vw,2rem)] leading-[1.5]"
+                        : "text-[clamp(1.7rem,2.4vw,2.5rem)] leading-[1.2]"
+                    }
+                  `}
+                >
+                  {pillar.title}
+                </h3>
+
+                <p
+                  dir="ltr"
+                  className="mt-2 text-start text-[10px] uppercase tracking-[0.12em] text-[#69B6B4]"
+                >
+                  {pillar.en}
+                </p>
+
+                <p className="mt-5 max-w-sm text-sm leading-[1.9] text-white/60">
+                  {pillar.description}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* BOTTOM STATEMENT */}
+
+        <motion.div
+          {...reveal}
+          className="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-7"
+        >
+          <span className="h-2 w-2 shrink-0 rounded-full bg-[#FF6A1F]" />
+
+          <p
+            className={`
+              font-medium text-white/80
+              ${
+                isRTL
+                  ? "text-base leading-[1.9]"
+                  : "text-lg leading-[1.6]"
+              }
+            `}
+          >
+            {data.quote}
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================
+   04 — LINE OF WORK
+========================================== */
 
 function LineOfWork() {
   const { t, x, isRTL } = useLocale();
+
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.7", "end 0.6"] });
-  const boatTop = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.7", "end 0.6"],
+  });
+
+  const boatTop = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", "100%"]
+  );
 
   return (
-    <section className="surface-paper relative overflow-x-clip px-[var(--pad)] py-28 sm:py-40" aria-labelledby="line-title">
-      <SectionLabel index="03">{t("about.line.label")}</SectionLabel>
-      <div className="mt-10 grid gap-10 lg:grid-cols-12">
-        <h2 id="line-title" className="display text-[clamp(2.8rem,8vw,9.5rem)] leading-[0.88] lg:col-span-8">
-          <RevealText text={t("about.line.title")} />
+    <section
+      className="surface-paper relative overflow-x-clip px-[var(--pad)] py-20 sm:py-28"
+      aria-labelledby="line-title"
+    >
+      <SectionLabel index="03">
+        {t("about.line.label")}
+      </SectionLabel>
+
+      <div className="mt-9 grid gap-8 lg:grid-cols-12">
+        <h2
+          id="line-title"
+          className={`
+            display lg:col-span-8
+            ${
+              isRTL
+                ? "text-[clamp(2rem,4vw,4.5rem)] leading-[1.35]"
+                : "text-[clamp(2.6rem,6vw,7rem)] leading-[1.05]"
+            }
+          `}
+        >
+          {isRTL ? (
+            t("about.line.title")
+          ) : (
+            <RevealText text={t("about.line.title")} />
+          )}
         </h2>
-        <p className="max-w-sm text-lg leading-relaxed text-ink/75 lg:col-span-3 lg:col-start-10 lg:self-end">{t("about.line.body")}</p>
+
+        <p className="max-w-sm text-sm leading-[1.9] text-ink/75 sm:text-base lg:col-span-3 lg:col-start-10 lg:self-end">
+          {t("about.line.body")}
+        </p>
       </div>
 
-      <div ref={ref} className="relative mx-auto mt-24 max-w-6xl">
-        <span aria-hidden className="absolute inset-y-0 start-1/2 w-px bg-ink/15 max-md:start-3" />
-        <motion.span aria-hidden className="absolute start-1/2 top-0 h-full w-px origin-top bg-orange max-md:start-3" style={{ scaleY: scrollYProgress }} />
-        <motion.div aria-hidden className="absolute start-1/2 z-10 w-10 -translate-x-1/2 max-md:start-3 max-md:w-8" style={{ top: boatTop }}>
-          <Image src="/brand/sail-boat.png" alt="" width={160} height={179} className="-mt-9 h-auto w-full" />
+      <div
+        ref={ref}
+        className="relative mx-auto mt-16 max-w-6xl sm:mt-20"
+      >
+        <span
+          aria-hidden="true"
+          className="absolute inset-y-0 start-1/2 w-px bg-ink/15 max-md:start-3"
+        />
+
+        <motion.span
+          aria-hidden="true"
+          className="absolute start-1/2 top-0 h-full w-px origin-top bg-orange max-md:start-3"
+          style={{ scaleY: scrollYProgress }}
+        />
+
+        <motion.div
+          aria-hidden="true"
+          className="absolute start-1/2 z-10 w-10 -translate-x-1/2 max-md:start-3 max-md:w-8"
+          style={{ top: boatTop }}
+        >
+          <Image
+            src="/brand/sail-boat.png"
+            alt=""
+            width={160}
+            height={179}
+            className="-mt-9 h-auto w-full"
+          />
         </motion.div>
 
-        <ol className="grid gap-16 md:gap-24">
-          {capabilityLine.map((c, i) => {
-            const left = i % 2 === 0;
+        <ol className="grid gap-14 md:gap-20">
+          {capabilityLine.map((item, index) => {
+            const left = index % 2 === 0;
+
             return (
-              <li key={c.en} className="relative grid md:grid-cols-2">
-                <span aria-hidden className="absolute start-1/2 top-6 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-ink max-md:start-3" />
+              <li
+                key={item.en}
+                className="relative grid md:grid-cols-2"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute start-1/2 top-6 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-ink max-md:start-3"
+                />
+
                 <motion.div
-                  className={`ps-10 md:ps-0 ${left ? "md:pe-16 md:text-end" : "md:col-start-2 md:ps-16"}`}
-                  initial={{ opacity: 0, x: (left ? -1 : 1) * (isRTL ? -1 : 1) * 60 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-15% 0px" }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  className={`
+                    ps-10 md:ps-0
+                    ${
+                      left
+                        ? "md:pe-16 md:text-end"
+                        : "md:col-start-2 md:ps-16"
+                    }
+                  `}
+                  initial={{
+                    opacity: 0,
+                    x:
+                      (left ? -1 : 1) *
+                      (isRTL ? -1 : 1) *
+                      60,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    margin: "-15% 0px",
+                  }}
+                  transition={{
+                    duration: 1,
+                    ease,
+                  }}
                 >
-                  <p className="meta text-orange tabular-nums">{pad2(i + 1)}</p>
-                  <h3 className="display text-[clamp(3rem,7.5vw,8rem)] leading-[0.9]">{x(c)}</h3>
-                  <p className="mt-2 text-[1rem] text-ink/65">{x(c.note)}</p>
+                  <p className="meta tabular-nums text-orange">
+                    {pad2(index + 1)}
+                  </p>
+
+                  <h3
+                    className={`
+                      display
+                      ${
+                        isRTL
+                          ? "text-[clamp(1.8rem,3.8vw,3.5rem)] leading-[1.4]"
+                          : "text-[clamp(2.5rem,6vw,6rem)] leading-[1.05]"
+                      }
+                    `}
+                  >
+                    {x(item)}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-[1.8] text-ink/65 sm:text-base">
+                    {x(item.note)}
+                  </p>
                 </motion.div>
               </li>
             );
@@ -60,82 +555,194 @@ function LineOfWork() {
   );
 }
 
-export default function AboutStory() {
-  const { t, x, num, locale } = useLocale();
-  const heroLines = t("about.title").split(" ");
-  const first = [heroLines[0], heroLines.slice(1).join(" ")];
+/* ==========================================
+   05 — TODAY
+========================================== */
+
+const todayContent = {
+  ar: {
+    eyebrow: "سيل اليوم",
+    title: "خبرات متعددة. فريق واحد. رؤية متكاملة.",
+    description:
+      "اليوم، نجمع في سيل بين الخبرة التقنية والتسويقية والإبداعية لنقدم حلولًا تساعد الشركات على بناء حضور أقوى، وتطوير أعمالها، وتحقيق نمو قابل للقياس.",
+    areas: [
+      "تطوير البرمجيات والمواقع",
+      "التسويق الرقمي وإدارة الحملات",
+      "الإنتاج الإعلامي وصناعة المحتوى",
+      "الهوية التجارية والتصميم",
+      "تحسين محركات البحث",
+      "الفعاليات والحلول الإبداعية",
+    ],
+    closing:
+      "شريك واحد يجمع الاستراتيجية والإبداع والتكنولوجيا.",
+  },
+
+  en: {
+    eyebrow: "SAIL Today",
+    title: "Multiple disciplines. One connected team.",
+    description:
+      "Today, SAIL brings together technical, marketing, and creative expertise to help businesses build a stronger presence, develop better experiences, and pursue measurable growth.",
+    areas: [
+      "Software & Web Development",
+      "Digital Marketing & Paid Media",
+      "Media & Content Production",
+      "Branding & Creative Design",
+      "Search Engine Optimization",
+      "Events & Creative Solutions",
+    ],
+    closing:
+      "One partner connecting strategy, creativity, and technology.",
+  },
+};
+
+function TodaySection() {
+  const { isRTL } = useLocale();
+  const data = isRTL
+    ? todayContent.ar
+    : todayContent.en;
 
   return (
-    <>
-      {/* 1 — Since 2018 */}
-      <section className="tex-night grain relative flex min-h-svh flex-col justify-end overflow-hidden px-[var(--pad)] pb-14 pt-40">
-        <motion.div aria-hidden className="absolute end-[7%] top-[18%] w-[9vw] min-w-[4.5rem] max-w-[9rem]" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.4, delay: 0.5 }}>
-          <Image src="/brand/sail-boat.png" alt="" width={160} height={179} priority className="h-auto w-full" />
+    <section
+      aria-labelledby="today-title"
+      className="
+        surface-light relative overflow-hidden
+        px-[var(--pad)] py-20 sm:py-28
+      "
+    >
+      <div className="mx-auto max-w-[1440px]">
+        <SectionLabel index="04">
+          {data.eyebrow}
+        </SectionLabel>
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-16">
+          {/* TITLE AND DESCRIPTION */}
+
+          <motion.div
+            {...reveal}
+            className="lg:col-span-6"
+          >
+            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0A8A86]">
+              SAIL Creative Solutions
+            </p>
+
+            <h2
+              id="today-title"
+              className={`
+                display max-w-[750px] text-ink
+                ${
+                  isRTL
+                    ? "text-[clamp(2rem,3.7vw,3.9rem)] leading-[1.5] tracking-normal"
+                    : "text-[clamp(2.7rem,5.2vw,5.5rem)] leading-[1.12] tracking-[-0.035em]"
+                }
+              `}
+            >
+              {data.title}
+            </h2>
+
+            <div className="mt-7 h-1 w-14 rounded-full bg-[#FF6A1F]" />
+
+            <p className="mt-7 max-w-[580px] text-[0.95rem] leading-[2] text-ink/65 sm:text-base">
+              {data.description}
+            </p>
+          </motion.div>
+
+          {/* EXPERTISE LIST */}
+
+          <motion.div
+            {...reveal}
+            className="lg:col-span-5 lg:col-start-8"
+          >
+            <div className="border-t border-ink/15">
+              {data.areas.map((area, index) => (
+                <div
+                  key={area}
+                  className="
+                    group flex items-center gap-5
+                    border-b border-ink/10
+                    py-5 transition-colors
+                    hover:bg-[#0A8A86]/[0.035]
+                  "
+                >
+                  <span className="w-7 shrink-0 text-xs font-semibold tabular-nums text-[#FF6A1F]">
+                    {pad2(index + 1)}
+                  </span>
+
+                  <h3
+                    className={`
+                      flex-1 font-semibold text-ink
+                      ${
+                        isRTL
+                          ? "text-[0.95rem] leading-[1.8] sm:text-base"
+                          : "text-base leading-[1.5] sm:text-lg"
+                      }
+                    `}
+                  >
+                    {area}
+                  </h3>
+
+                  <span
+                    aria-hidden="true"
+                    className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#0A8A86]/40 transition-colors group-hover:bg-[#FF6A1F]"
+                  />
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* BOTTOM SIGNATURE */}
+
+        <motion.div
+          {...reveal}
+          className="
+            mt-14 flex flex-wrap items-center
+            justify-between gap-5
+            border-t border-ink/10 pt-7
+            sm:mt-20
+          "
+        >
+          <p className="max-w-xl text-sm font-medium leading-[1.9] text-ink/65">
+            {data.closing}
+          </p>
+
+          <span
+            dir="ltr"
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0A8A86]"
+          >
+            SAIL / Built to Grow
+          </span>
         </motion.div>
-        <h1 className="display text-[clamp(4.2rem,17.5vw,23rem)] leading-[0.8]">
-          <RevealText lines={first} immediate stagger={0.1} />
-        </h1>
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
-          <p className="meta flex items-center gap-3 text-orange">
-            <Arrow className="h-3 w-3" stroke={16} />
-            {t("hero.location")}
-          </p>
-          <p className="meta opacity-60">{num(site.since)} → 2026</p>
-        </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* 2 — Origin, in both languages, exactly as the profile has it */}
-      <section className="surface-light tex-day px-[var(--pad)] py-28 sm:py-40" aria-labelledby="origin-title">
-        <SectionLabel index="01">{t("about.origin.label")}</SectionLabel>
-        <h2 id="origin-title" className="sr-only">
-          {t("about.origin.label")}
-        </h2>
-        <div className="mt-14 grid gap-16 lg:grid-cols-2 lg:gap-24">
-          <p lang="en" dir="ltr" className="display display-wide text-[clamp(1.5rem,2.7vw,2.9rem)] leading-[1.14]" style={{ fontStretch: "90%", fontFamily: "'Bricolage Grotesque Variable', system-ui, sans-serif" }}>
-            <RevealText text={companyStatement.en} stagger={0.015} />
-          </p>
-          <p lang="ar" dir="rtl" className="text-[clamp(1.5rem,2.5vw,2.6rem)] font-semibold leading-[1.6]" style={{ fontFamily: "'Noto Kufi Arabic Variable', system-ui, sans-serif" }}>
-            <RevealText text={companyStatement.ar} stagger={0.03} />
-          </p>
-        </div>
-      </section>
+/* ==========================================
+   ABOUT PAGE
+========================================== */
 
-      {/* 3 — Philosophy */}
-      <section className="tex-night relative overflow-hidden px-[var(--pad)] py-32 sm:py-44" aria-labelledby="philosophy-title">
-        <SectionLabel index="02">{t("about.philosophy.label")}</SectionLabel>
-        <h2 id="philosophy-title" className="display mt-12 max-w-[18ch] text-[clamp(2.6rem,7.4vw,8.8rem)] leading-[0.94]">
-          <RevealText text={t("about.philosophy.title")} stagger={0.05} />
-        </h2>
-        <p className="display outline-text mt-16 text-[clamp(3.4rem,13vw,17rem)] leading-[0.86] text-white/80">
-          <RevealText text={t("about.philosophy.body")} stagger={0.12} />
-        </p>
-      </section>
+export default function AboutStory() {
+  return (
+    <>
+      {/* 01 — HERO */}
+      <AboutHero />
 
+      {/* 02 — WHO WE ARE */}
+      <OriginSection />
+
+      {/* 03 — HOW WE THINK */}
+      <PhilosophySection />
+
+      {/* 04 — LINE OF WORK */}
       <LineOfWork />
 
-      {/* 4 — Today */}
-      <section className="surface-light px-[var(--pad)] py-24 sm:py-32">
-        <SectionLabel index="04">{t("about.today.label")}</SectionLabel>
-        <p className="display display-wide mt-10 max-w-4xl text-[clamp(1.6rem,3.2vw,3.6rem)] leading-[1.1]" style={{ fontStretch: "90%" }}>
-          {t("about.today.body")}
-        </p>
-      </section>
+      {/* 05 — TODAY */}
+      <TodaySection />
 
-      {/* 5 — Who sails with us */}
+      {/* 06 — PARTNERS */}
       <PartnersField index="05" />
 
-      {/* 6 — Approach */}
-      <section className="relative overflow-hidden px-[var(--pad)] py-32 sm:py-44" style={{ background: "#0a5a60" }}>
-        <h2 className="display text-[clamp(3.4rem,13.5vw,18rem)] leading-[0.84]">
-          <RevealText text={t("about.approach.title")} stagger={0.1} />
-        </h2>
-        <div className="mt-14 flex flex-wrap items-end justify-between gap-8">
-          <p className="max-w-md text-xl leading-relaxed text-white/85">{t("about.approach.body")}</p>
-          <Button variant="light" href={locale === "ar" ? "/ar/contact" : "/contact"}>
-            {t("cta.button")}
-          </Button>
-        </div>
-      </section>
+      {/* GREEN APPROACH SECTION REMOVED */}
     </>
   );
 }
