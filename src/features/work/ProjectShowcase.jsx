@@ -54,10 +54,21 @@ function Head({ project, index, total }) {
 }
 
 const Name = ({ project, className = "" }) => {
-  const { x } = useLocale();
+  const { x, isRTL } = useLocale();
+
   return (
-    <h2 className={`display relative z-10 leading-[0.84] text-[clamp(3.4rem,11.5vw,14rem)] ${className}`}>
-      <RevealText text={x(project.name)} />
+    <h2
+      className={`display relative z-10 max-w-full ${
+        isRTL
+          ? "text-[clamp(2.5rem,5.5vw,6rem)] leading-[1.4]"
+          : "text-[clamp(2.8rem,8vw,10rem)] leading-[1.02] tracking-[-0.035em]"
+      } ${className}`}
+    >
+      {isRTL ? (
+        x(project.name)
+      ) : (
+        <RevealText text={x(project.name)} />
+      )}
     </h2>
   );
 };

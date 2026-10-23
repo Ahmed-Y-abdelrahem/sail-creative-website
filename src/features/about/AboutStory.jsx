@@ -3,11 +3,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 import RevealText from "@/components/ui/RevealText";
 import Arrow from "@/components/ui/Arrow";
@@ -108,21 +104,24 @@ function AboutHero() {
   return (
     <section
       className="
-        relative isolate flex
-        min-h-[75svh] flex-col justify-end
-        overflow-hidden bg-[#101C2A]
-        px-[var(--pad)] pb-12 pt-36
-        text-white
-        sm:min-h-[85svh] sm:pb-14 sm:pt-40
+        relative isolate flex min-h-[100svh]
+        flex-col overflow-hidden
+        bg-[#101C2A]
+        px-[var(--pad)]
+        pb-8 pt-32 text-white
+        sm:pb-10 sm:pt-36
+        lg:pb-12 lg:pt-40
       "
     >
       <GradientBackground />
 
+      {/* SAIL BOAT */}
       <motion.div
         aria-hidden="true"
         className="
-          absolute end-[7%] top-[19%]
-          w-[7vw] min-w-[3.5rem] max-w-[7rem]
+          pointer-events-none absolute
+          end-[7%] top-[20%]
+          w-[8vw] min-w-[3.5rem] max-w-[7rem]
         "
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -138,44 +137,51 @@ function AboutHero() {
         />
       </motion.div>
 
-      <div className="mb-7 flex items-center gap-3">
-        <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
+      {/* HERO CONTENT */}
+      <div className="relative z-10 flex flex-1 flex-col justify-center py-8">
+        <div className="mb-8 flex items-center gap-3">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6A1F]" />
 
-        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
-          SAIL Creative Solutions
-        </span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+            SAIL Creative Solutions
+          </span>
+        </div>
+
+        <h1
+          className={`
+            display relative z-10
+            max-w-[1100px] text-white
+            ${
+              isRTL
+                ? "text-[clamp(2.6rem,5.5vw,5.5rem)] leading-[1.4] tracking-normal"
+                : "text-[clamp(3.5rem,9vw,10rem)] leading-[1.02] tracking-[-0.045em]"
+            }
+          `}
+        >
+          {isRTL ? (
+            <motion.span
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.2,
+              }}
+              className="block"
+            >
+              {heroTitle}
+            </motion.span>
+          ) : (
+            <RevealText
+              lines={heroLines}
+              immediate
+              stagger={0.1}
+            />
+          )}
+        </h1>
       </div>
 
-      <h1
-        className={`
-          display relative z-10
-          max-w-[1100px] text-white
-          ${
-            isRTL
-              ? "text-[clamp(2.8rem,6.5vw,6rem)] leading-[1.4] tracking-normal"
-              : "text-[clamp(4rem,11vw,12rem)] leading-[0.98] tracking-[-0.045em]"
-          }
-        `}
-      >
-        {isRTL ? (
-          <motion.span
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="block"
-          >
-            {heroTitle}
-          </motion.span>
-        ) : (
-          <RevealText
-            lines={heroLines}
-            immediate
-            stagger={0.1}
-          />
-        )}
-      </h1>
-
-      <div className="relative z-10 mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-white/10 pt-6">
+      {/* HERO FOOTER */}
+      <div className="relative z-10 flex flex-wrap items-center justify-between gap-6 border-t border-white/10 pt-6">
         <p className="meta flex items-center gap-3 text-orange">
           <Arrow className="h-3 w-3" stroke={16} />
           {t("hero.location")}
@@ -260,6 +266,7 @@ const philosophyContent = {
 
 function PhilosophySection() {
   const { isRTL } = useLocale();
+
   const data = isRTL
     ? philosophyContent.ar
     : philosophyContent.en;
@@ -270,8 +277,7 @@ function PhilosophySection() {
       className="
         relative isolate overflow-hidden
         bg-[#101B29] px-[var(--pad)]
-        py-20 text-white
-        sm:py-28
+        py-20 text-white sm:py-28
       "
     >
       <GradientBackground />
@@ -316,14 +322,16 @@ function PhilosophySection() {
         </div>
 
         {/* PHILOSOPHY PILLARS */}
-
         <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 md:grid-cols-3 sm:mt-20">
           {data.pillars.map((pillar, index) => (
             <motion.article
               key={pillar.number}
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
               transition={{
                 duration: 0.7,
                 delay: index * 0.1,
@@ -333,8 +341,7 @@ function PhilosophySection() {
                 group flex min-h-[250px] flex-col
                 bg-[#132334] p-6
                 transition-colors duration-300
-                hover:bg-[#193344]
-                sm:p-8
+                hover:bg-[#193344] sm:p-8
               "
             >
               <div className="flex items-center justify-between">
@@ -375,7 +382,6 @@ function PhilosophySection() {
         </div>
 
         {/* BOTTOM STATEMENT */}
-
         <motion.div
           {...reveal}
           className="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-7"
@@ -465,13 +471,17 @@ function LineOfWork() {
         <motion.span
           aria-hidden="true"
           className="absolute start-1/2 top-0 h-full w-px origin-top bg-orange max-md:start-3"
-          style={{ scaleY: scrollYProgress }}
+          style={{
+            scaleY: scrollYProgress,
+          }}
         />
 
         <motion.div
           aria-hidden="true"
           className="absolute start-1/2 z-10 w-10 -translate-x-1/2 max-md:start-3 max-md:w-8"
-          style={{ top: boatTop }}
+          style={{
+            top: boatTop,
+          }}
         >
           <Image
             src="/brand/sail-boat.png"
@@ -597,6 +607,7 @@ const todayContent = {
 
 function TodaySection() {
   const { isRTL } = useLocale();
+
   const data = isRTL
     ? todayContent.ar
     : todayContent.en;
@@ -616,7 +627,6 @@ function TodaySection() {
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-16">
           {/* TITLE AND DESCRIPTION */}
-
           <motion.div
             {...reveal}
             className="lg:col-span-6"
@@ -647,7 +657,6 @@ function TodaySection() {
           </motion.div>
 
           {/* EXPERTISE LIST */}
-
           <motion.div
             {...reveal}
             className="lg:col-span-5 lg:col-start-8"
@@ -691,7 +700,6 @@ function TodaySection() {
         </div>
 
         {/* BOTTOM SIGNATURE */}
-
         <motion.div
           {...reveal}
           className="
@@ -741,8 +749,6 @@ export default function AboutStory() {
 
       {/* 06 — PARTNERS */}
       <PartnersField index="05" />
-
-      {/* GREEN APPROACH SECTION REMOVED */}
     </>
   );
 }
