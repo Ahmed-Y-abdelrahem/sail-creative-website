@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -36,6 +37,14 @@ function Chapter({ service, index }) {
 
   const dir = from[service.direction] || from.up;
   const sign = isRTL ? -1 : 1;
+
+  const serviceDetailsUrl = href(
+    `/services/${service.slug}`
+  );
+
+  const detailsLabel = isRTL
+    ? "اكتشف تفاصيل الخدمة"
+    : "Explore this service";
 
   const enter = {
     initial: {
@@ -85,9 +94,12 @@ function Chapter({ service, index }) {
         <motion.div
           {...enter}
           className={`min-w-0 lg:col-span-6 ${
-            index % 2 ? "lg:order-2 lg:col-start-7" : ""
+            index % 2
+              ? "lg:order-2 lg:col-start-7"
+              : ""
           }`}
         >
+          {/* Chapter number */}
           <p
             className="meta flex items-center gap-4"
             style={{ color: theme.accent }}
@@ -104,6 +116,7 @@ function Chapter({ service, index }) {
             <Arrow className="h-3 w-3" stroke={16} />
           </p>
 
+          {/* Service title */}
           <h2
             className={`display mt-6 ${
               isRTL
@@ -114,10 +127,38 @@ function Chapter({ service, index }) {
             {x(service.title)}
           </h2>
 
+          {/* Service description */}
           <p className="mt-8 max-w-xl text-[clamp(1.2rem,2vw,1.7rem)] leading-snug opacity-90">
             {x(service.statement)}
           </p>
 
+          {/* NEW: Link to individual service page */}
+          <div className="mt-8">
+            <TransitionLink
+              href={serviceDetailsUrl}
+              data-cursor="link"
+              aria-label={`${detailsLabel}: ${x(service.title)}`}
+              className="group inline-flex max-w-full items-center gap-4 rounded-full border border-current/25 px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:border-current hover:bg-current/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+            >
+              <span>{detailsLabel}</span>
+
+              <span
+                aria-hidden="true"
+                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+                style={{
+                  background: theme.accent,
+                  color: theme.bg,
+                }}
+              >
+                <Arrow
+                  className="h-3.5 w-3.5"
+                  stroke={16}
+                />
+              </span>
+            </TransitionLink>
+          </div>
+
+          {/* Capabilities */}
           <h3 className="meta mt-12 opacity-60">
             {t("services.capabilities")}
           </h3>
@@ -129,24 +170,27 @@ function Chapter({ service, index }) {
                 : ""
             }`}
           >
-            {service.capabilities.map((capability) => (
-              <li
-                key={capability.en}
-                className="flex gap-3 border-t border-current/20 py-2.5 text-[0.9688rem] leading-snug"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-[0.55em] h-1.5 w-1.5 shrink-0"
-                  style={{
-                    background: theme.accent,
-                  }}
-                />
+            {service.capabilities.map(
+              (capability, capabilityIndex) => (
+                <li
+                  key={`${service.slug}-${capabilityIndex}`}
+                  className="flex gap-3 border-t border-current/20 py-2.5 text-[0.9688rem] leading-snug"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.55em] h-1.5 w-1.5 shrink-0"
+                    style={{
+                      background: theme.accent,
+                    }}
+                  />
 
-                {x(capability)}
-              </li>
-            ))}
+                  {x(capability)}
+                </li>
+              )
+            )}
           </ul>
 
+          {/* Related projects */}
           {service.projects.length > 0 && (
             <>
               <h3 className="meta mt-12 opacity-60">
@@ -194,6 +238,7 @@ function Chapter({ service, index }) {
           </div>
         )}
 
+        {/* Fallback visual */}
         {!Visual && (
           <div className="lg:col-span-5 lg:col-start-8">
             <p
@@ -212,6 +257,7 @@ function Chapter({ service, index }) {
         )}
       </div>
 
+      {/* Existing contact button for chapters without visuals */}
       {!Visual && (
         <div className="relative mt-16">
           <Button href={href("/contact")}>
@@ -228,7 +274,7 @@ function Chapter({ service, index }) {
 ========================================== */
 
 function ChapterIndex({ services }) {
-  const { x } = useLocale();
+  const { x, isRTL } = useLocale();
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -242,7 +288,9 @@ function ChapterIndex({ services }) {
           if (entry.isIntersecting) {
             setActive(
               Number(
-                entry.target.getAttribute("data-chapter")
+                entry.target.getAttribute(
+                  "data-chapter"
+                )
               )
             );
           }
@@ -262,7 +310,9 @@ function ChapterIndex({ services }) {
 
   return (
     <nav
-      aria-label="Services"
+      aria-label={
+        isRTL ? "التنقل بين الخدمات" : "Services"
+      }
       className="fixed end-5 top-1/2 z-[60] hidden -translate-y-1/2 mix-blend-difference text-white xl:block"
     >
       <ul className="grid gap-3">
@@ -271,6 +321,11 @@ function ChapterIndex({ services }) {
             <a
               href={`#${service.slug}`}
               data-cursor="link"
+              aria-current={
+                active === index
+                  ? "location"
+                  : undefined
+              }
               className="group flex items-center justify-end gap-3"
             >
               <span
@@ -284,6 +339,7 @@ function ChapterIndex({ services }) {
               </span>
 
               <span
+                aria-hidden="true"
                 className={`block h-px transition-all duration-500 ${
                   active === index
                     ? "w-10 bg-white"
@@ -348,11 +404,6 @@ function ServicesHeroBackground() {
 
 /* ==========================================
    CAPABILITIES MARQUEE
-
-   FIX:
-   - LTR animation track in both languages
-   - Arabic labels when isRTL is true
-   - Independent from page direction
 ========================================== */
 
 const marqueeCapabilities = [
@@ -398,36 +449,41 @@ function CapabilitiesMarquee() {
         {[0, 1].map((copy) => (
           <div
             key={copy}
-            aria-hidden={copy === 1 ? "true" : undefined}
+            aria-hidden={
+              copy === 1 ? "true" : undefined
+            }
             className="flex shrink-0 items-center"
           >
-            {marqueeCapabilities.map((capability, index) => (
-              <span
-                key={`${copy}-${index}`}
-                dir={isRTL ? "rtl" : "ltr"}
-                className={`display mx-5 inline-flex shrink-0 items-center gap-4 whitespace-nowrap py-4 text-white/55 sm:py-5 ${
-                  isRTL
-                    ? "text-[clamp(1.3rem,2.5vw,2.2rem)] leading-[1.6]"
-                    : "text-[clamp(1.5rem,3vw,3rem)] leading-[1.15]"
-                }`}
-              >
-                {isRTL
-                  ? capability.ar
-                  : capability.en}
+            {marqueeCapabilities.map(
+              (capability, index) => (
+                <span
+                  key={`${copy}-${index}`}
+                  dir={isRTL ? "rtl" : "ltr"}
+                  className={`display mx-5 inline-flex shrink-0 items-center gap-4 whitespace-nowrap py-4 text-white/55 sm:py-5 ${
+                    isRTL
+                      ? "text-[clamp(1.3rem,2.5vw,2.2rem)] leading-[1.6]"
+                      : "text-[clamp(1.5rem,3vw,3rem)] leading-[1.15]"
+                  }`}
+                >
+                  {isRTL
+                    ? capability.ar
+                    : capability.en}
 
-                <Arrow
-                  className="h-[0.55em] w-[0.55em] shrink-0 text-[#FF6A1F]"
-                  stroke={12}
-                />
-              </span>
-            ))}
+                  <Arrow
+                    className="h-[0.55em] w-[0.55em] shrink-0 text-[#FF6A1F]"
+                    stroke={12}
+                  />
+                </span>
+              )
+            )}
           </div>
         ))}
       </div>
 
       <style jsx>{`
         .capabilities-marquee-track {
-          animation: capabilities-scroll 45s linear infinite;
+          animation: capabilities-scroll 45s linear
+            infinite;
           will-change: transform;
         }
 
@@ -470,7 +526,10 @@ function ServicesHero() {
 
       <div className="relative z-10 flex flex-1 flex-col justify-center py-12 sm:py-16 lg:py-14">
         <div className="mb-6 flex items-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]"
+          />
 
           <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
             SAIL Creative Solutions
