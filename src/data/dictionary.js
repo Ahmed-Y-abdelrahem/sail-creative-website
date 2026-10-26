@@ -1,4 +1,5 @@
-// UI strings. Company facts live in site.js, services.js and projects.js.
+
+ // UI strings. Company facts live in site.js, services.js and projects.js.
 export const dictionary = {
   en: {
     "a11y.skip": "Skip to content",
@@ -138,6 +139,7 @@ export const dictionary = {
     "meta.events": "SAIL Creative plans and runs corporate events, conferences, awards, openings and private celebrations — from concept to post-event follow-up.",
     "meta.contact": "Start a project with SAIL Creative. Tell us what you are building and we will sail it forward.",
   },
+
   ar: {
     "a11y.skip": "تخطَّ إلى المحتوى",
     "a11y.switchLang": "Switch to English",
@@ -176,13 +178,13 @@ export const dictionary = {
     "common.seeEvents": "رحلة الفعالية كاملة",
     "hero.kicker": "سيل للحلول الإبداعية",
     "hero.line1": "حكاية،",
-    "hero.line2": "لا شعاراً.",
-    "hero.sub": "سيل شركة سعودية للحلول الإبداعية. نبني العلامات والحملات والإنتاج المرئي والفعاليات، ونبحر منذ ٢٠٢٠.",
-    "hero.since": "نبحر منذ ٢٠٢٠",
+    "hero.line2": "لا شعارًا.",
+    "hero.sub": "سيل شركة سعودية للحلول الإبداعية. نبني العلامات والحملات والإنتاج المرئي والفعاليات، ونبحر منذ 2020.",
+    "hero.since": "نبحر منذ 2020",
     "hero.cta": "شاهد أعمالنا",
     "hero.location": "المملكة العربية السعودية",
     "intro.label": "من نحن",
-    "intro.text": "سيل شركة سعودية تقدم حلول تسويق وإعلان مبتكرة، يديرها فريق يؤمن بالإبداع والتميز. نبحر مع عملائنا إلى شاطئ الأمان من خلال المساعدة بحلول فريدة ومخصصة.",
+    "intro.text": "سيل شركة سعودية تقدم حلول تسويق وإعلان مبتكرة، يديرها فريق يؤمن بالإبداع والتميز. نبحر مع عملائنا إلى شاطئ الأمان بحلول فريدة ومخصصة.",
     "intro.since": "نبحر منذ",
     "work.title": "أعمال مختارة",
     "work.hint": "خمسة عوالم. مرّر لتتغير الأجواء.",
@@ -206,7 +208,7 @@ export const dictionary = {
     "marketing.sub": "استراتيجيات التسويق، وسائل التواصل الاجتماعي، الإبداع والتصميم، الحملات الرقمية.",
     "brand.kicker": "الهوية والعلامة",
     "brand.title": "معروفة. محبوبة. موثوقة.",
-    "brand.body": "بناء العلامة فنّ أن تصبح معروفاً ومحبوباً وموثوقاً. إنه حكاية، لا شعار.",
+    "brand.body": "بناء العلامة فنّ أن تصبح معروفة ومحبوبة وموثوقة. حكاية، لا شعارًا.",
     "brand.old": "الشعار القديم",
     "brand.new": "الشعار الجديد",
     "brand.caption": "تاج أزال — من صليب أحمر إلى علامة أسنان بزهرة لوتس.",
@@ -215,15 +217,15 @@ export const dictionary = {
     "media.title": "الرؤية. التنفيذ. اللمسة الأخيرة.",
     "media.sub": "تصوير فوتوغرافي، فيديو، قصة مصورة ولوحة إلهام، مونتاج، كتابة نصوص، بث، تغطية.",
     "events.kicker": "تصميم وإدارة الفعاليات",
-    "events.title": "من الفكرة حتى الفك.",
+    "events.title": "من الفكرة حتى آخر تفصيلة.",
     "events.sub": "نتعامل مع جميع تفاصيل الحدث لتتمكن من التركيز على ما هو مهم بالنسبة لك.",
     "events.specialised": "متخصصون في",
     "events.page.title": "الفعاليات، من البداية للنهاية.",
     "events.projects": "أعمال الفعاليات",
     "partners.kicker": "شركاء نجاحنا",
-    "partners.title": "نبحر معاً.",
+    "partners.title": "نبحر معًا.",
     "partners.sub": "العلامات التي تبحر معنا.",
-    "partners.count": "شعاراً على جدار شركاء نجاحنا",
+    "partners.count": "شعارًا على جدار شركاء نجاحنا",
     "partners.label": "شعارات الشركاء",
     "cta.title": "هل أنت مستعد لتقود الطريق؟",
     "cta.sub": "أبحر عكس الرياح.",
@@ -231,16 +233,16 @@ export const dictionary = {
     "cta.button": "لنتحدث",
     "footer.explore": "استكشف",
     "footer.social": "تابعنا",
-    "footer.rights": "نبحر منذ ٢٠٢٠.",
+    "footer.rights": "نبحر منذ 2020.",
     "footer.instagram": "إنستغرام",
     "footer.linkedin": "لينكدإن",
     "footer.whatsapp": "واتساب",
-    "about.title": "نبحر منذ ٢٠٢٠.",
+    "about.title": "نبحر منذ 2020.",
     "about.origin.label": "من أين جئنا",
     "about.origin.body": "سيل شركة سعودية. نؤمن بالإبداع والتميز، ونبحر مع عملائنا نحو شاطئ الأمان.",
     "about.philosophy.label": "كيف نفكر",
-    "about.philosophy.title": "بناء العلامة فنّ أن تصبح معروفاً ومحبوباً وموثوقاً.",
-    "about.philosophy.body": "إنه حكاية، لا شعار.",
+    "about.philosophy.title": "بناء العلامة فنّ أن تصبح معروفة ومحبوبة وموثوقة.",
+    "about.philosophy.body": "حكاية، لا شعارًا.",
     "about.line.label": "ما نحن عليه",
     "about.line.title": "خط واحد، من الفكرة إلى التنفيذ.",
     "about.line.body": "سيل ليست خدمة واحدة. إنها خط متصل يحمل الفكرة من الاستراتيجية إلى العلامة والإبداع والمحتوى والرقمي والحملة والإنتاج والتجربة والتنفيذ.",
@@ -257,7 +259,7 @@ export const dictionary = {
     "contact.msg": "كلمات قليلة عن المشروع",
     "contact.send": "أرسل عبر واتساب",
     "contact.direct": "أو تواصل معنا مباشرة",
-    "contact.greeting": "مرحباً سيل، أود التحدث عن مشروع.",
+    "contact.greeting": "مرحبًا سيل، أود التحدث عن مشروع.",
     "contact.copy": "انسخ الرسالة",
     "contact.copied": "تم النسخ",
     "contact.preview": "رسالتك",
@@ -269,8 +271,8 @@ export const dictionary = {
     "notfound.title": "خرجنا عن المسار.",
     "notfound.body": "هذه الصفحة ابتعدت عن الميناء. عُد إلى الرئيسية.",
     "notfound.button": "العودة للرئيسية",
-    "meta.home": "سيل كرييتف شركة سعودية للحلول الإبداعية تبني العلامات والحملات التسويقية والإنتاج المرئي والفعاليات والحلول الرقمية — نبحر منذ ٢٠٢٠.",
-    "meta.about": "سعودية المنشأ ونبحر منذ ٢٠٢٠: كيف تفكر سيل كرييتف، وماذا تقدم، والعلامات التي تبحر معها.",
+    "meta.home": "سيل كرييتف شركة سعودية للحلول الإبداعية تبني العلامات والحملات التسويقية والإنتاج المرئي والفعاليات والحلول الرقمية — نبحر منذ 2020.",
+    "meta.about": "سعودية المنشأ ونبحر منذ 2020: كيف تفكر سيل كرييتف، وماذا تقدم، والعلامات التي تبحر معها.",
     "meta.services": "الهوية والعلامة التجارية، التسويق، الإنتاج المرئي، إدارة الفعاليات، الحلول الرقمية، والاستشارات والتدريب من سيل كرييتف.",
     "meta.work": "أعمال مختارة من سيل كرييتف: هويات علامات وحملات تسويقية وإنتاج مرئي وفعاليات ومشاريع رقمية.",
     "meta.events": "تخطط سيل كرييتف وتدير فعاليات الشركات والمؤتمرات والجوائز والافتتاحات والمناسبات الخاصة — من الفكرة حتى المتابعة بعد الحدث.",
@@ -278,4 +280,5 @@ export const dictionary = {
   },
 };
 
-export const t = (locale, key) => dictionary[locale]?.[key] ?? dictionary.en[key] ?? key;
+export const t = (locale, key) =>
+  dictionary[locale]?.[key] ?? dictionary.en[key] ?? key;
