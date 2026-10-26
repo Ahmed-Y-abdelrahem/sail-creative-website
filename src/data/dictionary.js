@@ -37,6 +37,7 @@ export const dictionary = {
     "common.seeAllServices": "All services",
     "common.seeAllWork": "See all work",
     "common.seeEvents": "The full event journey",
+
     "hero.kicker": "SAIL Creative Solutions",
     "hero.line1": "A story,",
     "hero.line2": "not a logo.",
@@ -44,29 +45,35 @@ export const dictionary = {
     "hero.since": "Sailing since 2020",
     "hero.cta": "See the work",
     "hero.location": "Saudi Arabia",
+
     "intro.label": "Who we are",
     "intro.text": "SAIL is a Saudi company providing innovative marketing and advertising solutions, run by a team that believes in creativity, excellence and distinctiveness. We sail together with our clients to the safe shore — with unique, dedicated and original solutions.",
     "intro.since": "Sailing since",
+
     "work.title": "Selected work",
     "work.hint": "Five worlds. Scroll to change the weather.",
     "work.page.title": "Work",
     "work.page.sub": "Brands, campaigns, media and events — each one its own world.",
     "work.empty": "Nothing here yet.",
+
     "filter.all": "All",
     "filter.branding": "Branding",
     "filter.marketing": "Marketing",
     "filter.media": "Media",
     "filter.events": "Events",
     "filter.digital": "Digital",
+
     "services.title": "What we do",
     "services.sub": "Creative solutions. One line from idea to execution.",
     "services.page.title": "Creative capabilities. One connected vision.",
     "services.page.sub": "Scroll through the services — each one changes the weather.",
     "services.capabilities": "Capabilities",
     "services.related": "Related work",
+
     "marketing.kicker": "Marketing",
     "marketing.title": "One voice, every screen.",
     "marketing.sub": "Marketing strategies, social media, creative & design, digital campaigns.",
+
     "brand.kicker": "Branding",
     "brand.title": "Knowable. Likable. Trustable.",
     "brand.body": "Branding is the art of becoming knowable, likable and trustable. It’s a story, not a logo.",
@@ -74,30 +81,36 @@ export const dictionary = {
     "brand.new": "New logo",
     "brand.caption": "Taj Azal — from a red cross to a dental mark with a lotus.",
     "brand.journey": "The journey behind a logo",
+
     "media.kicker": "Media production",
     "media.title": "Vision. Execution. Final polish.",
     "media.sub": "Photography, videography, storyboard & moodboard, editing & montage, script writing, broadcasting, coverage.",
+
     "events.kicker": "Event management",
     "events.title": "Concept to clean-up.",
     "events.sub": "We handle every detail of the event process so you can focus on what’s important to you.",
     "events.specialised": "Specialised in",
     "events.page.title": "Events, end to end.",
     "events.projects": "Event work",
+
     "partners.kicker": "Our partners",
     "partners.title": "Sailing together.",
     "partners.sub": "The brands that sail with us.",
     "partners.count": "logos on our partner wall",
     "partners.label": "Partner logos",
+
     "cta.title": "Ready to lead the way?",
     "cta.sub": "Sail against the winds.",
     "cta.body": "Because the best stories are written in the face of a challenge.",
     "cta.button": "Let’s talk",
+
     "footer.explore": "Explore",
     "footer.social": "Follow",
     "footer.rights": "Sailing since 2020.",
     "footer.instagram": "Instagram",
     "footer.linkedin": "LinkedIn",
     "footer.whatsapp": "WhatsApp",
+
     "about.title": "Sailing since 2020.",
     "about.origin.label": "Where we come from",
     "about.origin.body": "SAIL Creative is a Saudi company. We believe in creativity, excellence and distinctiveness, and we sail with our clients toward the safe shore.",
@@ -112,6 +125,7 @@ export const dictionary = {
     "about.today.body": "One team, connected expertise — branding, marketing, media production, event management, digital solutions, software development, software testing, search optimization, and consulting & training.",
     "about.approach.title": "Sail against the winds.",
     "about.approach.body": "Because the best stories are written in the face of a challenge. A partner that never settles.",
+
     "contact.title": "Ready to lead the way?",
     "contact.sub": "Tell us what you are building. Your message opens in WhatsApp — nothing is stored on this site.",
     "contact.pick": "What do you need?",
@@ -129,9 +143,11 @@ export const dictionary = {
     "contact.fieldBrand": "Brand",
     "contact.fieldNeeds": "Needs",
     "contact.fieldMsg": "Project",
+
     "notfound.title": "Off course.",
     "notfound.body": "This page drifted away. Head back to the harbour.",
     "notfound.button": "Back home",
+
     "meta.home": "SAIL Creative is a Saudi creative company building brands, marketing campaigns, media production, events and digital solutions — sailing since 2020.",
     "meta.about": "Saudi-born and sailing since 2020: how SAIL Creative thinks, what it does, and the brands that sail with it.",
     "meta.services": "Branding, marketing, media production, event management, digital solutions, and consulting & training from SAIL Creative.",
@@ -176,6 +192,7 @@ export const dictionary = {
     "common.seeAllServices": "كل الخدمات",
     "common.seeAllWork": "شاهد كل الأعمال",
     "common.seeEvents": "رحلة الفعالية كاملة",
+
     "hero.kicker": "سيل للحلول الإبداعية",
     "hero.line1": "حكاية،",
     "hero.line2": "لا شعارًا.",
@@ -183,65 +200,77 @@ export const dictionary = {
     "hero.since": "نبحر منذ 2020",
     "hero.cta": "شاهد أعمالنا",
     "hero.location": "المملكة العربية السعودية",
+
     "intro.label": "من نحن",
     "intro.text": "سيل شركة سعودية تقدم حلول تسويق وإعلان مبتكرة، يديرها فريق يؤمن بالإبداع والتميز. نبحر مع عملائنا إلى شاطئ الأمان بحلول فريدة ومخصصة.",
     "intro.since": "نبحر منذ",
+
     "work.title": "أعمال مختارة",
     "work.hint": "خمسة عوالم. مرّر لتتغير الأجواء.",
     "work.page.title": "أعمالنا",
     "work.page.sub": "علامات وحملات وإنتاج وفعاليات — لكل منها عالمه الخاص.",
     "work.empty": "لا شيء هنا بعد.",
+
     "filter.all": "الكل",
     "filter.branding": "الهوية",
     "filter.marketing": "التسويق",
     "filter.media": "الإنتاج",
     "filter.events": "الفعاليات",
     "filter.digital": "الرقمي",
+
     "services.title": "ماذا نفعل",
     "services.sub": "حلول إبداعية متكاملة. من الفكرة إلى التنفيذ.",
     "services.page.title": "قدرات إبداعية. رؤية متكاملة.",
     "services.page.sub": "مرّر بين الخدمات — وكل خدمة تغيّر الأجواء.",
     "services.capabilities": "القدرات",
     "services.related": "أعمال ذات صلة",
+
     "marketing.kicker": "التسويق",
     "marketing.title": "صوت واحد، كل شاشة.",
     "marketing.sub": "استراتيجيات التسويق، وسائل التواصل الاجتماعي، الإبداع والتصميم، الحملات الرقمية.",
+
     "brand.kicker": "الهوية والعلامة",
     "brand.title": "معروفة. محبوبة. موثوقة.",
-    "brand.body": "بناء العلامة فنّ أن تصبح معروفة ومحبوبة وموثوقة. حكاية، لا شعارًا.",
+    "brand.body": "بناء العلامة فنّ أن تصبح معروفًا ومحبوبًا وموثوقًا. حكاية، لا شعارًا.",
     "brand.old": "الشعار القديم",
     "brand.new": "الشعار الجديد",
     "brand.caption": "تاج أزال — من صليب أحمر إلى علامة أسنان بزهرة لوتس.",
     "brand.journey": "الرحلة خلف الشعار",
+
     "media.kicker": "الإنتاج المرئي",
     "media.title": "الرؤية. التنفيذ. اللمسة الأخيرة.",
     "media.sub": "تصوير فوتوغرافي، فيديو، قصة مصورة ولوحة إلهام، مونتاج، كتابة نصوص، بث، تغطية.",
+
     "events.kicker": "تصميم وإدارة الفعاليات",
     "events.title": "من الفكرة حتى آخر تفصيلة.",
     "events.sub": "نتعامل مع جميع تفاصيل الحدث لتتمكن من التركيز على ما هو مهم بالنسبة لك.",
     "events.specialised": "متخصصون في",
     "events.page.title": "الفعاليات، من البداية للنهاية.",
     "events.projects": "أعمال الفعاليات",
+
     "partners.kicker": "شركاء نجاحنا",
     "partners.title": "نبحر معًا.",
     "partners.sub": "العلامات التي تبحر معنا.",
     "partners.count": "شعارًا على جدار شركاء نجاحنا",
     "partners.label": "شعارات الشركاء",
+
     "cta.title": "هل أنت مستعد لتقود الطريق؟",
     "cta.sub": "أبحر عكس الرياح.",
     "cta.body": "لأن أجمل القصص تُكتب في مواجهة التحدي.",
     "cta.button": "لنتحدث",
+
     "footer.explore": "استكشف",
     "footer.social": "تابعنا",
     "footer.rights": "نبحر منذ 2020.",
     "footer.instagram": "إنستغرام",
     "footer.linkedin": "لينكدإن",
     "footer.whatsapp": "واتساب",
+
     "about.title": "نبحر منذ 2020.",
     "about.origin.label": "من أين جئنا",
     "about.origin.body": "سيل شركة سعودية. نؤمن بالإبداع والتميز، ونبحر مع عملائنا نحو شاطئ الأمان.",
     "about.philosophy.label": "كيف نفكر",
-    "about.philosophy.title": "بناء العلامة فنّ أن تصبح معروفة ومحبوبة وموثوقة.",
+    "about.philosophy.title": "بناء العلامة فنّ أن تصبح معروفًا ومحبوبًا وموثوقًا.",
     "about.philosophy.body": "حكاية، لا شعارًا.",
     "about.line.label": "ما نحن عليه",
     "about.line.title": "خط واحد، من الفكرة إلى التنفيذ.",
@@ -251,6 +280,7 @@ export const dictionary = {
     "about.today.body": "فريق واحد وخبرات متكاملة — الهوية والعلامة التجارية، التسويق، الإنتاج المرئي، إدارة الفعاليات، الحلول الرقمية، تطوير البرمجيات، اختبار البرمجيات، تحسين الظهور في البحث، والاستشارات والتدريب.",
     "about.approach.title": "أبحر عكس الرياح.",
     "about.approach.body": "لأن أجمل القصص تُكتب في مواجهة التحدي. شريك لا يقبل بالقليل.",
+
     "contact.title": "هل أنت مستعد لتقود الطريق؟",
     "contact.sub": "أخبرنا ما الذي تبنيه. تُفتح رسالتك في واتساب — ولا يُخزَّن أي شيء على هذا الموقع.",
     "contact.pick": "ماذا تحتاج؟",
@@ -268,9 +298,11 @@ export const dictionary = {
     "contact.fieldBrand": "العلامة",
     "contact.fieldNeeds": "الاحتياجات",
     "contact.fieldMsg": "المشروع",
+
     "notfound.title": "خرجنا عن المسار.",
     "notfound.body": "هذه الصفحة ابتعدت عن الميناء. عُد إلى الرئيسية.",
     "notfound.button": "العودة للرئيسية",
+
     "meta.home": "سيل كرييتف شركة سعودية للحلول الإبداعية تبني العلامات والحملات التسويقية والإنتاج المرئي والفعاليات والحلول الرقمية — نبحر منذ 2020.",
     "meta.about": "سعودية المنشأ ونبحر منذ 2020: كيف تفكر سيل كرييتف، وماذا تقدم، والعلامات التي تبحر معها.",
     "meta.services": "الهوية والعلامة التجارية، التسويق، الإنتاج المرئي، إدارة الفعاليات، الحلول الرقمية، والاستشارات والتدريب من سيل كرييتف.",
