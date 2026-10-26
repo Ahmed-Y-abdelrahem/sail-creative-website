@@ -32,7 +32,6 @@ function CTAArrow() {
 
 /* ==========================================
    CSS BACKGROUND
-   No background images
 ========================================== */
 
 function FooterBackground() {
@@ -41,7 +40,6 @@ function FooterBackground() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
-      {/* Main navy gradient */}
       <div
         className="absolute inset-0"
         style={{
@@ -50,7 +48,6 @@ function FooterBackground() {
         }}
       />
 
-      {/* Teal glow - left */}
       <div
         className="absolute inset-0"
         style={{
@@ -59,7 +56,6 @@ function FooterBackground() {
         }}
       />
 
-      {/* Teal glow - right */}
       <div
         className="absolute inset-0"
         style={{
@@ -68,7 +64,6 @@ function FooterBackground() {
         }}
       />
 
-      {/* Orange accent */}
       <div
         className="absolute inset-0"
         style={{
@@ -77,7 +72,6 @@ function FooterBackground() {
         }}
       />
 
-      {/* Subtle CSS grid */}
       <div
         className="absolute inset-0 opacity-[0.13]"
         style={{
@@ -100,6 +94,15 @@ export default function Footer({ locale }) {
   const L = (key) => t(locale, key);
   const p = (path) => localePath(locale, path);
   const year = numerals(new Date().getFullYear(), locale);
+  const isArabic = locale === "ar";
+
+  const footerTopics = isArabic
+    ? ["التسويق", "التكنولوجيا", "النمو"]
+    : ["Marketing", "Technology", "Growth"];
+
+  const caseStudiesLabel = isArabic
+    ? "دراسات الحالة"
+    : "Case Studies";
 
   return (
     <footer
@@ -111,13 +114,7 @@ export default function Footer({ locale }) {
         text-paper
       "
     >
-      {/* =====================================
-          NEW BACKGROUND
-      ===================================== */}
-
       <FooterBackground />
-
-     
 
       {/* =====================================
           CTA SECTION
@@ -127,8 +124,6 @@ export default function Footer({ locale }) {
         aria-labelledby="footer-cta-title"
         className="relative z-10 overflow-hidden"
       >
-        {/* Decorative CSS circle */}
-
         <div
           aria-hidden="true"
           className="
@@ -160,7 +155,6 @@ export default function Footer({ locale }) {
         />
 
         <Container className="relative py-14 sm:py-16 lg:py-20">
-
           {/* TOP LABEL */}
 
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
@@ -169,7 +163,7 @@ export default function Footer({ locale }) {
 
               <span
                 className="
-                  text-[10px]
+                  text-xs
                   font-semibold
                   uppercase
                   tracking-[0.16em]
@@ -183,7 +177,7 @@ export default function Footer({ locale }) {
             <span
               className="
                 hidden
-                text-[10px]
+                text-xs
                 uppercase
                 tracking-[0.12em]
                 text-white/35
@@ -197,9 +191,6 @@ export default function Footer({ locale }) {
           {/* MAIN CONTENT */}
 
           <div className="grid gap-9 lg:grid-cols-12 lg:items-center lg:gap-12">
-
-            {/* TITLE */}
-
             <div className="lg:col-span-8">
               <h2
                 id="footer-cta-title"
@@ -219,7 +210,6 @@ export default function Footer({ locale }) {
             {/* DESCRIPTION + BUTTON */}
 
             <div className="flex flex-col items-start gap-7 lg:col-span-4">
-
               <p
                 className="
                   max-w-sm
@@ -280,8 +270,8 @@ export default function Footer({ locale }) {
               pt-5
             "
           >
-            <p className="text-[11px] text-white/45">
-              {locale === "ar"
+            <p className="text-xs text-white/45">
+              {isArabic
                 ? "نحوّل الأفكار إلى تجارب رقمية تصنع الفرق."
                 : "Turning ideas into digital experiences that matter."}
             </p>
@@ -292,21 +282,26 @@ export default function Footer({ locale }) {
                 flex-wrap
                 items-center
                 gap-2
-                text-[10px]
+                text-xs
                 uppercase
                 tracking-[0.1em]
                 text-white/40
               "
             >
-              <span>Marketing</span>
-
-              <span className="h-1 w-1 rounded-full bg-[#FF6A1F]" />
-
-              <span>Technology</span>
-
-              <span className="h-1 w-1 rounded-full bg-[#FF6A1F]" />
-
-              <span>Growth</span>
+              {footerTopics.map((topic, index) => (
+                <span
+                  key={topic}
+                  className="inline-flex items-center gap-2"
+                >
+                  {index > 0 && (
+                    <span
+                      aria-hidden="true"
+                      className="h-1 w-1 rounded-full bg-[#FF6A1F]"
+                    />
+                  )}
+                  <span>{topic}</span>
+                </span>
+              ))}
             </div>
           </div>
         </Container>
@@ -326,12 +321,7 @@ export default function Footer({ locale }) {
           border-white/10
         "
       >
-
-        {/* =====================================
-            SAIL WORDMARK
-            Decorative image only
-            Not used as background texture
-        ===================================== */}
+        {/* DECORATIVE SAIL WORDMARK */}
 
         <div
           aria-hidden="true"
@@ -381,7 +371,6 @@ export default function Footer({ locale }) {
             lg:py-12
           "
         >
-
           {/* BRAND */}
 
           <div className="lg:col-span-4">
@@ -393,13 +382,13 @@ export default function Footer({ locale }) {
               className="mb-4 h-11 w-auto opacity-90"
             />
 
-            <p className="meta text-[10px] opacity-55">
+            <p className="meta text-xs opacity-55">
               {L("hero.location")}
             </p>
 
             <a
               href={site.website}
-              className="link-line mt-2 inline-block text-sm"
+              className="link-line mt-2 inline-flex min-h-[44px] items-center text-sm"
               dir="ltr"
             >
               {site.websiteLabel}
@@ -409,20 +398,23 @@ export default function Footer({ locale }) {
           {/* NAVIGATION */}
 
           <nav
-            aria-label="Footer"
+            aria-label={isArabic ? "روابط الفوتر" : "Footer"}
             className="lg:col-span-4"
           >
-            <p className="meta mb-4 text-[10px] opacity-45">
+            <p className="meta mb-4 text-xs opacity-45">
               {L("footer.explore")}
             </p>
 
-            <ul className="grid gap-2.5">
+            <ul className="grid gap-1">
               {nav.map((item) => (
                 <li key={item.key}>
                   <TransitionLink
                     href={p(item.href)}
                     className="
                       link-line
+                      inline-flex
+                      min-h-[44px]
+                      items-center
                       text-sm
                       text-white/80
                       transition-colors
@@ -433,17 +425,37 @@ export default function Footer({ locale }) {
                   </TransitionLink>
                 </li>
               ))}
+
+              {/* CASE STUDIES */}
+
+              <li>
+                <TransitionLink
+                  href={p("/work")}
+                  className="
+                    link-line
+                    inline-flex
+                    min-h-[44px]
+                    items-center
+                    text-sm
+                    text-white/80
+                    transition-colors
+                    hover:text-[#FF6A1F]
+                  "
+                >
+                  {caseStudiesLabel}
+                </TransitionLink>
+              </li>
             </ul>
           </nav>
 
           {/* SOCIAL MEDIA */}
 
           <div className="lg:col-span-4">
-            <p className="meta mb-4 text-[10px] opacity-45">
+            <p className="meta mb-4 text-xs opacity-45">
               {L("footer.social")}
             </p>
 
-            <ul className="grid gap-2.5">
+            <ul className="grid gap-1">
               {[
                 ["instagram", site.social.instagram],
                 ["linkedin", site.social.linkedin],
@@ -456,6 +468,9 @@ export default function Footer({ locale }) {
                     rel="noopener noreferrer"
                     className="
                       link-line
+                      inline-flex
+                      min-h-[44px]
+                      items-center
                       text-sm
                       text-white/80
                       transition-colors
@@ -486,7 +501,7 @@ export default function Footer({ locale }) {
             py-5
           "
         >
-          <p className="meta text-[10px] opacity-55">
+          <p className="meta text-xs opacity-55">
             © {year} SAIL Creative. {L("footer.rights")}
           </p>
 
