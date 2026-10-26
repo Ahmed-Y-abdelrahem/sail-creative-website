@@ -59,8 +59,7 @@ export function IntroProvider({ children }) {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
               >
-                <Image src="/brand/sail-wordmark.png" alt="" width={927} height={296} priority className="h-auto w-[min(58vw,26rem)]" />
-              </motion.div>
+            <Image src="/brand/sail-wordmark.png?v=2" alt="" width={927} height={296} priority unoptimized className="h-auto w-[min(58vw,26rem)]" />              </motion.div>
             </div>
             <div className="mt-8 h-px w-[min(58vw,26rem)] overflow-hidden bg-white/15">
               <motion.div
