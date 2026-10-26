@@ -1,6 +1,7 @@
+
 /**
  * SAIL directional arrow.
- * Clean up-right arrow by default.
+ * Clean up-right arrow with smooth edges.
  */
 export default function Arrow({
   className = "",
@@ -13,7 +14,9 @@ export default function Arrow({
       viewBox="0 0 24 24"
       className={className}
       style={{
-        transform: rotate ? `rotate(${rotate}deg)` : undefined,
+        transform: rotate
+          ? `rotate(${rotate}deg)`
+          : undefined,
       }}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +31,8 @@ export default function Arrow({
         d="M5 19L19 5M9 5H19V15"
         stroke="currentColor"
         strokeWidth={stroke / 4}
-        strokeLinecap="square"
-        strokeLinejoin="miter"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
