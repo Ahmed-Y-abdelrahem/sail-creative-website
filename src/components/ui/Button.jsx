@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useRef } from "react";
@@ -73,15 +74,15 @@ export function Magnetic({
   );
 }
 
+/**
+ * Shared button styles.
+ * Minimum touch height: 44px.
+ */
 const base =
-  "group relative inline-flex items-center justify-center gap-4 overflow-hidden rounded-full px-7 py-4 font-medium leading-none";
+  "group relative inline-flex min-h-[44px] items-center justify-center gap-4 overflow-hidden rounded-full px-7 py-4 font-medium leading-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange";
 
 /**
  * Clean animated arrow.
- *
- * Important:
- * We don't move the arrow outside a clipped container anymore.
- * It only nudges slightly up/right on hover.
  */
 function ButtonArrow({ hoverText }) {
   return (
@@ -116,7 +117,7 @@ function ButtonArrow({ hoverText }) {
 }
 
 /**
- * Primary / light / ghost pill button
+ * Primary / light / ghost pill button.
  */
 export function Button({
   href,
@@ -147,7 +148,6 @@ export function Button({
 
   const inner = (
     <>
-      {/* Hover background */}
       <span
         aria-hidden="true"
         className={`
@@ -164,7 +164,6 @@ export function Button({
         `}
       />
 
-      {/* Button text */}
       <span
         className={`
           relative z-10
@@ -177,7 +176,6 @@ export function Button({
         {children}
       </span>
 
-      {/* Arrow */}
       <ButtonArrow hoverText={hoverText} />
     </>
   );
@@ -227,6 +225,7 @@ export function Button({
 
 /**
  * Text link with circular arrow.
+ * Minimum touch height: 44px.
  */
 export function ArrowLink({
   href,
@@ -235,8 +234,19 @@ export function ArrowLink({
   external,
   direction = "right",
 }) {
-  const cls =
-    `group inline-flex items-center gap-3 ${className}`;
+  const cls = `
+    group
+    inline-flex
+    min-h-[44px]
+    items-center
+    gap-3
+    rounded-sm
+    focus-visible:outline
+    focus-visible:outline-2
+    focus-visible:outline-offset-4
+    focus-visible:outline-orange
+    ${className}
+  `;
 
   const rot =
     direction === "right"
@@ -252,6 +262,7 @@ export function ArrowLink({
       </span>
 
       <span
+        aria-hidden="true"
         className="
           relative
           inline-flex
@@ -266,7 +277,9 @@ export function ArrowLink({
           duration-500
           ease-[var(--ease)]
           group-hover:translate-x-1
+          group-focus-visible:translate-x-1
           rtl:group-hover:-translate-x-1
+          rtl:group-focus-visible:-translate-x-1
         "
       >
         <Arrow
@@ -303,6 +316,7 @@ export function ArrowLink({
 
 /**
  * Simple animated text link.
+ * Minimum touch height: 44px.
  */
 export function TextLink({
   href,
@@ -310,7 +324,17 @@ export function TextLink({
   className = "",
   external,
 }) {
-  const cls = `link-line ${className}`;
+  const cls = `
+    link-line
+    inline-flex
+    min-h-[44px]
+    items-center
+    focus-visible:outline
+    focus-visible:outline-2
+    focus-visible:outline-offset-4
+    focus-visible:outline-orange
+    ${className}
+  `;
 
   if (external) {
     return (
