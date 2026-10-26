@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -13,7 +14,6 @@ import { M } from "@/data/media";
 import { ease } from "@/lib/motion";
 import { pad2 } from "@/lib/utils";
 
-// One visual teaser per destination — real portfolio work.
 const teasers = {
   home: {
     img: M("tawlead/board"),
@@ -35,6 +35,11 @@ const teasers = {
     alt: "Fayya identity board",
   },
 
+  caseStudies: {
+    img: M("fayya/board"),
+    alt: "Fayya case study",
+  },
+
   events: {
     img: M("radicon/event-1"),
     alt: "Radicon event",
@@ -47,6 +52,8 @@ const teasers = {
 };
 
 function Teaser({ teaser, id, sizes }) {
+  if (!teaser) return null;
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -82,17 +89,45 @@ export default function MenuOverlay({
   open,
   onClose,
 }) {
-  const { t, href } = useLocale();
-
+  const { t, href, isRTL } = useLocale();
   const pathname = usePathname();
 
   const [active, setActive] = useState("home");
 
-  /**
-   * Safety fallback:
-   * if navigation changes for any reason,
-   * make sure the menu is closed.
-   */
+  // Add Case Studies after Work.
+  const baseNav = nav.filter(
+    (item) =>
+      item.key !== "caseStudies" &&
+      item.href !== "/case-studies"
+  );
+
+  const workIndex = baseNav.findIndex(
+    (item) =>
+      item.key === "work" ||
+      item.href === "/work"
+  );
+
+  const caseStudiesItem = {
+    key: "caseStudies",
+    href: "/case-studies",
+  };
+
+  const navItems = [...baseNav];
+
+  if (workIndex >= 0) {
+    navItems.splice(workIndex + 1, 0, caseStudiesItem);
+  } else {
+    navItems.push(caseStudiesItem);
+  }
+
+  const getNavLabel = (item) => {
+    if (item.key === "caseStudies") {
+      return isRTL ? "دراسات الحالة" : "Case Studies";
+    }
+
+    return t(`nav.${item.key}`);
+  };
+
   useEffect(() => {
     if (open) {
       onClose();
@@ -101,10 +136,6 @@ export default function MenuOverlay({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  /**
-   * Lock page scrolling while menu is open.
-   * Also allow ESC to close the menu.
-   */
   useEffect(() => {
     if (!open) return;
 
@@ -119,14 +150,10 @@ export default function MenuOverlay({
       }
     };
 
-    window.addEventListener(
-      "keydown",
-      handleEscape
-    );
+    window.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.body.style.overflow =
-        previousOverflow;
+      document.body.style.overflow = previousOverflow;
 
       window.removeEventListener(
         "keydown",
@@ -135,18 +162,12 @@ export default function MenuOverlay({
     };
   }, [open, onClose]);
 
-  /**
-   * Called immediately when a menu item is selected.
-   *
-   * This fixes the mobile issue:
-   * the overlay closes as soon as the user chooses a page.
-   */
   const handleNavigation = (itemKey) => {
     setActive(itemKey);
     onClose();
   };
 
-  const teaser = teasers[active];
+  const teaser = teasers[active] || teasers.home;
 
   return (
     <AnimatePresence>
@@ -166,45 +187,36 @@ export default function MenuOverlay({
             pt-28
           "
           initial={{
-            clipPath:
-              "inset(0 0 100% 0)",
+            clipPath: "inset(0 0 100% 0)",
           }}
           animate={{
-            clipPath:
-              "inset(0 0 0% 0)",
+            clipPath: "inset(0 0 0% 0)",
           }}
           exit={{
-            clipPath:
-              "inset(0 0 100% 0)",
+            clipPath: "inset(0 0 100% 0)",
           }}
           transition={{
             duration: 0.8,
             ease: [0.76, 0, 0.24, 1],
           }}
         >
-          {/* Navigation */}
+          {/* NAVIGATION */}
+
           <div className="relative flex flex-1 items-start justify-between gap-6">
             <ul className="relative z-10 flex flex-col gap-1">
-              {nav.map((item, i) => (
+              {navItems.map((item, i) => (
                 <li
                   key={item.key}
                   className="overflow-hidden"
                 >
                   <motion.div
-                    initial={{
-                      y: "110%",
-                    }}
-                    animate={{
-                      y: 0,
-                    }}
-                    exit={{
-                      y: "110%",
-                    }}
+                    initial={{ y: "110%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "110%" }}
                     transition={{
                       duration: 0.9,
                       ease,
-                      delay:
-                        0.25 + i * 0.06,
+                      delay: 0.25 + i * 0.06,
                     }}
                   >
                     <TransitionLink
@@ -216,33 +228,29 @@ export default function MenuOverlay({
                         setActive(item.key)
                       }
                       onClick={() =>
-                        handleNavigation(
-                          item.key
-                        )
+                        handleNavigation(item.key)
                       }
                       className="
                         group
-                        flex items-baseline
+                        flex min-h-[44px]
+                        items-center
                         gap-4
                         py-1
                       "
                     >
-                      <span className="meta w-6 tabular-nums text-orange">
+                      <span className="meta w-6 shrink-0 tabular-nums text-xs text-orange">
                         {pad2(i + 1)}
                       </span>
 
                       <span
                         className="
                           display fs-xl
-                          transition-colors
-                          duration-300
+                          transition-colors duration-300
                           group-hover:text-orange
                           group-focus-visible:text-orange
                         "
                       >
-                        {t(
-                          `nav.${item.key}`
-                        )}
+                        {getNavLabel(item)}
                       </span>
                     </TransitionLink>
                   </motion.div>
@@ -250,17 +258,14 @@ export default function MenuOverlay({
               ))}
             </ul>
 
-            {/* Desktop / tablet teaser */}
+            {/* DESKTOP / TABLET TEASER */}
+
             <div
               className="
                 pointer-events-none
-                absolute
-                end-0
-                top-0
-                hidden
-                aspect-[4/5]
-                w-[38vw]
-                max-w-[20rem]
+                absolute end-0 top-0
+                hidden aspect-[4/5]
+                w-[38vw] max-w-[20rem]
                 overflow-hidden
                 sm:block
               "
@@ -273,12 +278,12 @@ export default function MenuOverlay({
             </div>
           </div>
 
-          {/* Mobile teaser */}
+          {/* MOBILE TEASER */}
+
           <div
             className="
               pointer-events-none
-              relative
-              mt-8
+              relative mt-8
               aspect-[16/9]
               w-full
               overflow-hidden
@@ -292,7 +297,8 @@ export default function MenuOverlay({
             />
           </div>
 
-          {/* Footer */}
+          {/* FOOTER */}
+
           <motion.div
             className="
               mt-6
@@ -304,26 +310,21 @@ export default function MenuOverlay({
               border-white/15
               pt-6
             "
-            initial={{
-              opacity: 0,
-            }}
+            initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
-              transition: {
-                delay: 0.7,
-              },
+              transition: { delay: 0.7 },
             }}
-            exit={{
-              opacity: 0,
-            }}
+            exit={{ opacity: 0 }}
           >
-            {/* Social links */}
-            <div className="flex gap-6">
+            {/* SOCIAL LINKS */}
+
+            <div className="flex flex-wrap gap-3">
               <a
                 href={site.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-line meta"
+                className="link-line meta inline-flex min-h-[44px] items-center px-1 text-xs"
               >
                 {t("footer.instagram")}
               </a>
@@ -332,7 +333,7 @@ export default function MenuOverlay({
                 href={site.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-line meta"
+                className="link-line meta inline-flex min-h-[44px] items-center px-1 text-xs"
               >
                 {t("footer.linkedin")}
               </a>
@@ -341,16 +342,17 @@ export default function MenuOverlay({
                 href={site.social.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-line meta"
+                className="link-line meta inline-flex min-h-[44px] items-center px-1 text-xs"
               >
                 {t("footer.whatsapp")}
               </a>
             </div>
 
-            {/* Language / Website */}
-            <div className="flex items-center gap-6">
+            {/* LANGUAGE / WEBSITE */}
+
+            <div className="flex flex-wrap items-center gap-4">
               <span
-                className="meta opacity-60"
+                className="meta text-xs opacity-60"
                 dir="ltr"
               >
                 {site.websiteLabel}

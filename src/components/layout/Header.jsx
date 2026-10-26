@@ -21,7 +21,6 @@ import { switchLocalePath } from "@/lib/i18n";
 
 export default function Header() {
   const { t, href, isRTL } = useLocale();
-
   const pathname = usePathname() || "/";
 
   const [open, setOpen] = useState(false);
@@ -35,7 +34,6 @@ export default function Header() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = scrollY.getPrevious() ?? 0;
-
     setHidden(latest > prev && latest > 240);
   });
 
@@ -46,13 +44,10 @@ export default function Header() {
       return bare === "/";
     }
 
-    return (
-      bare === path ||
-      bare.startsWith(`${path}/`)
-    );
+    return bare === path || bare.startsWith(`${path}/`);
   };
 
-  // Add Case Studies after Work without changing site.js
+  // Add Case Studies after Work.
   const baseNav = nav.filter(
     (item) =>
       item.key !== "home" &&
@@ -74,20 +69,14 @@ export default function Header() {
   const navItems = [...baseNav];
 
   if (workIndex >= 0) {
-    navItems.splice(
-      workIndex + 1,
-      0,
-      caseStudiesItem
-    );
+    navItems.splice(workIndex + 1, 0, caseStudiesItem);
   } else {
     navItems.push(caseStudiesItem);
   }
 
   const getNavLabel = (item) => {
     if (item.key === "caseStudies") {
-      return isRTL
-        ? "دراسات الحالة"
-        : "Case Studies";
+      return isRTL ? "دراسات الحالة" : "Case Studies";
     }
 
     return t(`nav.${item.key}`);
@@ -95,9 +84,15 @@ export default function Header() {
 
   return (
     <>
-      {/* Main header */}
+      {/* MAIN HEADER */}
+
       <motion.header
-        className="fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-[var(--pad)] py-5 text-white mix-blend-difference"
+        className="
+          fixed inset-x-0 top-0 z-[80]
+          flex items-center justify-between
+          px-[var(--pad)] py-5
+          text-white mix-blend-difference
+        "
         animate={{
           y: hidden && !open ? "-110%" : "0%",
         }}
@@ -106,11 +101,16 @@ export default function Header() {
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        {/* Logo */}
+        {/* LOGO */}
+
         <TransitionLink
           href={href("/")}
           aria-label={t("a11y.home")}
-          className="relative z-[81] block"
+          className="
+            relative z-[81]
+            inline-flex min-h-[44px]
+            items-center
+          "
           data-cursor="link"
         >
           <Image
@@ -123,7 +123,8 @@ export default function Header() {
           />
         </TransitionLink>
 
-        {/* Desktop navigation */}
+        {/* DESKTOP NAVIGATION */}
+
         <nav
           aria-label="Primary"
           className="hidden items-center gap-6 lg:flex xl:gap-9"
@@ -133,70 +134,108 @@ export default function Header() {
               key={item.key}
               href={href(item.href)}
               aria-current={
-                isActive(item.href)
-                  ? "page"
-                  : undefined
+                isActive(item.href) ? "page" : undefined
               }
-              className="group relative whitespace-nowrap py-2 text-[0.875rem] font-medium xl:text-[0.9375rem]"
+              className="
+                group relative
+                inline-flex min-h-[44px]
+                items-center
+                whitespace-nowrap
+                text-[0.875rem] font-medium
+                xl:text-[0.9375rem]
+              "
             >
               {getNavLabel(item)}
 
               <span
-                aria-hidden
-                className={`absolute inset-x-0 bottom-0 h-px origin-left bg-current transition-transform duration-500 ease-[var(--ease)] rtl:origin-right ${
-                  isActive(item.href)
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100"
-                }`}
+                aria-hidden="true"
+                className={`
+                  absolute inset-x-0 bottom-0
+                  h-px origin-left bg-current
+                  transition-transform duration-500
+                  ease-[var(--ease)]
+                  rtl:origin-right
+                  ${
+                    isActive(item.href)
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }
+                `}
               />
             </TransitionLink>
           ))}
         </nav>
 
-        {/* Language and mobile menu */}
+        {/* LANGUAGE + MOBILE MENU */}
+
         <div className="relative z-[81] flex items-center gap-6">
           <LangSwitch className="hidden lg:inline" />
 
           <button
             type="button"
-            className="flex items-center gap-3 lg:hidden"
+            className="
+              inline-flex min-h-[44px]
+              min-w-[44px]
+              items-center justify-center
+              gap-3 rounded-md
+              px-1
+              lg:hidden
+              focus-visible:outline
+              focus-visible:outline-2
+              focus-visible:outline-offset-4
+              focus-visible:outline-orange
+            "
+            aria-label={
+              open ? t("nav.close") : t("nav.menu")
+            }
             aria-expanded={open}
             aria-controls="site-menu"
             onClick={() => setOpen((value) => !value)}
           >
-            <span className="meta">
-              {open
-                ? t("nav.close")
-                : t("nav.menu")}
+            <span className="meta text-xs">
+              {open ? t("nav.close") : t("nav.menu")}
             </span>
 
             <span
-              className="relative block h-3 w-6"
-              aria-hidden
+              className="relative block h-3 w-6 shrink-0"
+              aria-hidden="true"
             >
               <span
-                className={`absolute inset-x-0 h-px bg-current transition-all duration-500 ${
-                  open
-                    ? "top-1/2 rotate-45"
-                    : "top-0"
-                }`}
+                className={`
+                  absolute inset-x-0 h-px bg-current
+                  transition-all duration-500
+                  ${
+                    open
+                      ? "top-1/2 rotate-45"
+                      : "top-0"
+                  }
+                `}
               />
 
               <span
-                className={`absolute inset-x-0 h-px bg-current transition-all duration-500 ${
-                  open
-                    ? "top-1/2 -rotate-45"
-                    : "bottom-0"
-                }`}
+                className={`
+                  absolute inset-x-0 h-px bg-current
+                  transition-all duration-500
+                  ${
+                    open
+                      ? "top-1/2 -rotate-45"
+                      : "bottom-0"
+                  }
+                `}
               />
             </span>
           </button>
         </div>
       </motion.header>
 
-      {/* Contact CTA */}
+      {/* CONTACT CTA */}
+
       <motion.div
-        className="fixed end-[var(--pad)] top-[4.5rem] z-[79] hidden lg:block"
+        className="
+          fixed end-[var(--pad)]
+          top-[4.5rem] z-[79]
+          hidden lg:block
+        "
         animate={{
           y: hidden ? "-300%" : "0%",
           opacity: hidden ? 0 : 1,
@@ -211,12 +250,23 @@ export default function Header() {
             <TransitionLink
               href={href("/contact")}
               data-cursor="link"
-              className="group inline-flex items-center gap-2 rounded-full bg-orange px-5 py-3 text-sm font-semibold text-night"
+              className="
+                group inline-flex min-h-[44px]
+                items-center gap-2
+                rounded-full bg-orange
+                px-5 py-3
+                text-sm font-semibold text-night
+              "
             >
               {t("nav.talk")}
 
               <Arrow
-                className="h-3 w-3 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="
+                  h-3 w-3
+                  transition-transform duration-500
+                  group-hover:translate-x-0.5
+                  group-hover:-translate-y-0.5
+                "
                 stroke={16}
               />
             </TransitionLink>
@@ -224,11 +274,9 @@ export default function Header() {
         )}
       </motion.div>
 
-      {/* Mobile navigation */}
-      <MenuOverlay
-        open={open}
-        onClose={close}
-      />
+      {/* MOBILE MENU */}
+
+      <MenuOverlay open={open} onClose={close} />
     </>
   );
 }
