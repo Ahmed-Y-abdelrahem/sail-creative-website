@@ -51,7 +51,7 @@ function FilterBar({
           aria-pressed={active === category}
           onClick={() => onChange(category)}
           data-cursor="link"
-          className={`relative inline-flex shrink-0 items-baseline gap-2 transition-opacity duration-300 ${
+          className={`relative inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-sm transition-opacity duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A1F] ${
             dock
               ? "meta px-3 py-2"
               : isRTL
