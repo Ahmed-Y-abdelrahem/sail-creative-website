@@ -52,6 +52,14 @@ export default function ServiceIndex({ services = [] }) {
 
   const current = hover !== null ? services[hover] : null;
 
+  const strategyLabel = isRTL
+    ? "الاستراتيجية · الإبداع · التقنية · النمو"
+    : "Strategy · Creative · Technology · Growth";
+
+  const creativeLabel = isRTL
+    ? "الإبداع · التسويق الرقمي · البرمجيات"
+    : "Creative · Digital · Software";
+
   return (
     <section
       className="
@@ -130,7 +138,7 @@ export default function ServiceIndex({ services = [] }) {
                 flex
                 items-center
                 gap-3
-                text-[0.68rem]
+                text-xs
                 font-medium
                 uppercase
                 tracking-[0.12em]
@@ -138,6 +146,7 @@ export default function ServiceIndex({ services = [] }) {
               "
             >
               <span
+                aria-hidden="true"
                 className="
                   h-1.5
                   w-1.5
@@ -147,9 +156,7 @@ export default function ServiceIndex({ services = [] }) {
                 "
               />
 
-              <span>
-                Strategy · Creative · Technology · Growth
-              </span>
+              <span>{strategyLabel}</span>
             </div>
           </div>
         </div>
@@ -253,7 +260,7 @@ export default function ServiceIndex({ services = [] }) {
                         w-6
                         shrink-0
                         tabular-nums
-                        text-[0.68rem]
+                        text-xs
                         text-ink/45
                       "
                     >
@@ -310,6 +317,7 @@ export default function ServiceIndex({ services = [] }) {
                   {/* ARROW */}
 
                   <span
+                    aria-hidden="true"
                     className="
                       relative
                       z-10
@@ -359,9 +367,9 @@ export default function ServiceIndex({ services = [] }) {
                   <p
                     className="
                       max-w-[19rem]
-                      text-[0.72rem]
+                      text-xs
                       leading-[1.8]
-                      text-ink/50
+                      text-ink/60
                     "
                   >
                     {s.capabilities
@@ -499,14 +507,14 @@ export default function ServiceIndex({ services = [] }) {
         <span
           className="
             hidden
-            text-[0.65rem]
+            text-xs
             uppercase
             tracking-[0.16em]
             text-ink/35
             sm:block
           "
         >
-          Creative · Digital · Software
+          {creativeLabel}
         </span>
       </div>
     </section>

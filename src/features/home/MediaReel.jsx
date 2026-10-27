@@ -11,10 +11,6 @@ import { mediaPhases } from "@/data/site";
 import { M } from "@/data/media";
 import { pad2 } from "@/lib/utils";
 
-/* ==========================================
-   MEDIA IMAGES
-========================================== */
-
 const rowA = [
   "le-gout/top",
   "shavery/top",
@@ -31,10 +27,6 @@ const rowB = [
   "88-port/bottom",
 ].map(M);
 
-/* ==========================================
-   TIMECODE
-========================================== */
-
 function Timecode() {
   const ref = useRef(null);
 
@@ -46,12 +38,15 @@ function Timecode() {
     let start = 0;
     let running = false;
 
-    const fmt = (n) => String(n).padStart(2, "0");
+    const fmt = (n) =>
+      String(n).padStart(2, "0");
 
     const tick = (now) => {
       if (!start) start = now;
 
-      const f = Math.floor(((now - start) / 1000) * 24);
+      const f = Math.floor(
+        ((now - start) / 1000) * 24
+      );
 
       el.textContent =
         `${fmt(Math.floor(f / 86400) % 100)}:` +
@@ -64,15 +59,17 @@ function Timecode() {
       }
     };
 
-    const io = new IntersectionObserver(([entry]) => {
-      running = entry.isIntersecting;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        running = entry.isIntersecting;
 
-      if (running) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        cancelAnimationFrame(raf);
+        if (running) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          cancelAnimationFrame(raf);
+        }
       }
-    });
+    );
 
     io.observe(el);
 
@@ -93,40 +90,20 @@ function Timecode() {
   );
 }
 
-/* ==========================================
-   MEDIA REEL
-========================================== */
-
 export default function MediaReel() {
   const { t, x, href } = useLocale();
 
   return (
     <section
-      className="
-        relative
-        overflow-hidden
-        bg-[#070b10]
-        py-16
-        text-paper
-        sm:py-20
-        lg:py-24
-      "
+      className="relative overflow-hidden bg-[#070b10] py-16 text-paper sm:py-20 lg:py-24"
       aria-labelledby="media-title"
     >
-      {/* SUBTLE BACKGROUND */}
       <div
         aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          bg-[radial-gradient(ellipse_at_85%_15%,rgba(255,106,31,0.055),transparent_55%)]
-        "
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_85%_15%,rgba(255,106,31,0.055),transparent_55%)]"
       />
 
       <div className="relative px-[var(--pad)]">
-
-        {/* SECTION LABEL */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <SectionLabel index="06">
             {t("media.kicker")}
@@ -135,61 +112,35 @@ export default function MediaReel() {
           <Timecode />
         </div>
 
-        {/* TITLE */}
         <h2
           id="media-title"
-          className="
-            display
-            mt-7
-            max-w-[1050px]
-            text-[clamp(2.3rem,5vw,5.5rem)]
-            leading-[1.02]
-            tracking-[-0.035em]
-          "
+          className="display mt-7 max-w-[1050px] text-[clamp(2.3rem,5vw,5.5rem)] leading-[1.02] tracking-[-0.035em]"
         >
           <RevealText
             lines={t("media.title")
               .split(". ")
               .map((s, i, a) =>
-                i < a.length - 1 ? `${s}.` : s
+                i < a.length - 1
+                  ? `${s}.`
+                  : s
               )}
             stagger={0.08}
           />
         </h2>
 
-        {/* DESCRIPTION */}
-        <p
-          className="
-            mt-5
-            max-w-xl
-            text-sm
-            leading-[1.9]
-            text-white/65
-            sm:text-base
-          "
-        >
+        <p className="mt-5 max-w-xl text-sm leading-[1.9] text-white/65 sm:text-base">
           {t("media.sub")}
         </p>
       </div>
 
-      {/* =====================================
-          FILM STRIPS
-          FIX RTL / ARABIC ANIMATION
-      ===================================== */}
-
       <div
         dir="ltr"
-        className="
-          relative
-          mt-10
-          grid
-          gap-3
-          overflow-hidden
-          sm:mt-12
-        "
+        className="relative mt-10 grid gap-3 overflow-hidden sm:mt-12"
       >
-        {/* FIRST ROW */}
-        <div dir="ltr" className="w-full overflow-hidden">
+        <div
+          dir="ltr"
+          className="w-full overflow-hidden"
+        >
           <FilmStrip
             images={rowA}
             duration={95}
@@ -197,8 +148,10 @@ export default function MediaReel() {
           />
         </div>
 
-        {/* SECOND ROW */}
-        <div dir="ltr" className="w-full overflow-hidden">
+        <div
+          dir="ltr"
+          className="w-full overflow-hidden"
+        >
           <FilmStrip
             images={rowB}
             reverse
@@ -208,37 +161,12 @@ export default function MediaReel() {
         </div>
       </div>
 
-      {/* =====================================
-          PRODUCTION PHASES
-      ===================================== */}
-
-      <div
-        className="
-          relative
-          mt-12
-          grid
-          gap-8
-          px-[var(--pad)]
-          md:grid-cols-3
-          lg:mt-14
-        "
-      >
+      <div className="relative mt-12 grid gap-8 px-[var(--pad)] md:grid-cols-3 lg:mt-14">
         {mediaPhases.map((ph, i) => (
           <div
             key={ph.id}
-            className="
-              border-t
-              border-white/15
-              pt-5
-              md:border-s
-              md:border-t-0
-              md:ps-6
-              md:pt-0
-              md:first:border-s-0
-              md:first:ps-0
-            "
+            className="border-t border-white/15 pt-5 md:border-s md:border-t-0 md:ps-6 md:pt-0 md:first:border-s-0 md:first:ps-0"
           >
-            {/* PHASE NUMBER */}
             <p className="meta flex items-center justify-between gap-4 text-white/50">
               <span className="tabular-nums">
                 {pad2(i + 1)}
@@ -247,20 +175,10 @@ export default function MediaReel() {
               <span>{x(ph.tag)}</span>
             </p>
 
-            {/* PHASE TITLE */}
-            <h3
-              className="
-                display
-                display-wide
-                mt-3
-                text-[clamp(1.4rem,2vw,2rem)]
-                leading-[1.15]
-              "
-            >
+            <h3 className="display display-wide mt-3 text-[clamp(1.4rem,2vw,2rem)] leading-[1.15]">
               {x(ph.title)}
             </h3>
 
-            {/* PHASE ITEMS */}
             <ul className="mt-4 grid gap-2 text-[13px] leading-relaxed text-white/65 sm:text-sm">
               {ph.items.map((item) => (
                 <li
@@ -280,14 +198,15 @@ export default function MediaReel() {
         ))}
       </div>
 
-      {/* =====================================
-          VIEW ALL WORK
-      ===================================== */}
-
       <div className="relative mt-10 px-[var(--pad)] lg:mt-12">
-        <ArrowLink href={href("/work?category=media")}>
-          {t("common.seeAllWork")}
-        </ArrowLink>
+        <span className="inline-flex min-h-[44px] items-center">
+          <ArrowLink
+            href={href("/work?category=media")}
+            className="inline-flex min-h-[44px] items-center"
+          >
+            {t("common.seeAllWork")}
+          </ArrowLink>
+        </span>
       </div>
     </section>
   );

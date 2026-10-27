@@ -15,8 +15,8 @@ const t = (en, ar) => ({ en, ar });
 export const projects = [
   {
     slug: "tawlead",
-    name: t("Tawlead", "تَوليد"),
-    client: t("Tawlead", "تَوليد"),
+    name: t("Tawlead", "Tawlead"),
+    client: t("Tawlead", "Tawlead"),
     categories: ["branding", "digital"],
     layout: "board",
     featured: true,
@@ -109,8 +109,8 @@ export const projects = [
   },
   {
     slug: "manafesh",
-    name: t("Manafesh", "منافش"),
-    client: t("Manafesh", "منافش"),
+    name: t("Manafesh", "Manafesh"),
+    client: t("Manafesh", "Manafesh"),
     categories: ["branding"],
     layout: "board",
     featured: true,
@@ -133,8 +133,8 @@ export const projects = [
   },
   {
     slug: "tricycle",
-    name: t("Tricycle", "ترايسكل"),
-    client: t("Tricycle", "ترايسكل"),
+    name: t("Tricycle", "Tricycle"),
+    client: t("Tricycle", "Tricycle"),
     categories: ["marketing", "media"],
     layout: "strips",
     featured: true,
@@ -411,8 +411,8 @@ export const projects = [
   },
   {
     slug: "carte-restaurant",
-    name: t("Carte Restaurant", "Carte Restaurant"),
-    client: t("Carte Restaurant", "Carte Restaurant"),
+    name: t("Cart Restaurant", "Cart Restaurant"),
+    client: t("Cart Restaurant", "Cart Restaurant"),
     categories: ["marketing", "media"],
     layout: "strips",
     featured: false,
