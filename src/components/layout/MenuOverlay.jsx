@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -13,38 +13,33 @@ import { nav, site } from "@/data/site";
 import { M } from "@/data/media";
 import { ease } from "@/lib/motion";
 import { pad2 } from "@/lib/utils";
+import { switchLocalePath } from "@/lib/i18n";
 
 const teasers = {
   home: {
     img: M("tawlead/board"),
     alt: "Tawlead identity board",
   },
-
   about: {
     img: M("frag/manafesh-logo"),
     alt: "Manafesh logo",
   },
-
   services: {
     img: M("frag/shavery-logo"),
     alt: "Shavery & Co. logo",
   },
-
   work: {
     img: M("fayya/board"),
     alt: "Fayya identity board",
   },
-
   caseStudies: {
     img: M("fayya/board"),
     alt: "Fayya case study",
   },
-
   events: {
     img: M("radicon/event-1"),
     alt: "Radicon event",
   },
-
   contact: {
     img: M("tricycle/col2"),
     alt: "Tricycle social posts",
@@ -59,15 +54,9 @@ function Teaser({ teaser, id, sizes }) {
       <motion.div
         key={id}
         className="absolute inset-0"
-        initial={{
-          clipPath: "inset(100% 0 0 0)",
-        }}
-        animate={{
-          clipPath: "inset(0% 0 0 0)",
-        }}
-        exit={{
-          clipPath: "inset(0 0 100% 0)",
-        }}
+        initial={{ clipPath: "inset(100% 0 0 0)" }}
+        animate={{ clipPath: "inset(0% 0 0 0)" }}
+        exit={{ clipPath: "inset(0 0 100% 0)" }}
         transition={{
           duration: 0.6,
           ease: [0.76, 0, 0.24, 1],
@@ -85,16 +74,17 @@ function Teaser({ teaser, id, sizes }) {
   );
 }
 
-export default function MenuOverlay({
-  open,
-  onClose,
-}) {
+export default function MenuOverlay({ open, onClose }) {
   const { t, href, isRTL } = useLocale();
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
+
+  const menuRef = useRef(null);
+  const firstLinkRef = useRef(null);
+  const wasOpenRef = useRef(false);
 
   const [active, setActive] = useState("home");
 
-  // Add Case Studies after Work.
+  // Keep Case Studies after Work, without duplicates.
   const baseNav = nav.filter(
     (item) =>
       item.key !== "caseStudies" &&
@@ -103,8 +93,7 @@ export default function MenuOverlay({
 
   const workIndex = baseNav.findIndex(
     (item) =>
-      item.key === "work" ||
-      item.href === "/work"
+      item.key === "work" || item.href === "/work"
   );
 
   const caseStudiesItem = {
@@ -128,6 +117,24 @@ export default function MenuOverlay({
     return t(`nav.${item.key}`);
   };
 
+  const barePath = switchLocalePath(pathname, "en");
+
+  const currentItem =
+    [...navItems]
+      .filter((item) => {
+        if (item.href === "/") {
+          return barePath === "/";
+        }
+
+        return (
+          barePath === item.href ||
+          barePath.startsWith(`${item.href}/`)
+        );
+      })
+      .sort((a, b) => b.href.length - a.href.length)[0] ||
+    navItems[0];
+
+  // Close menu after navigating to a different page.
   useEffect(() => {
     if (open) {
       onClose();
@@ -136,29 +143,87 @@ export default function MenuOverlay({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // Lock scrolling and manage keyboard focus.
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      if (wasOpenRef.current) {
+        wasOpenRef.current = false;
 
-    const previousOverflow =
-      document.body.style.overflow;
+        const menuButton = document.querySelector(
+          'button[aria-controls="site-menu"]'
+        );
 
+        menuButton?.focus({ preventScroll: true });
+      }
+
+      return;
+    }
+
+    wasOpenRef.current = true;
+
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const handleEscape = (event) => {
+    const focusTimer = window.setTimeout(() => {
+      firstLinkRef.current?.focus({ preventScroll: true });
+    }, 100);
+
+    const handleKeyDown = (event) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const menu = menuRef.current;
+      if (!menu) return;
+
+      const focusable = Array.from(
+        menu.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(
+        (element) =>
+          element.getClientRects().length > 0 &&
+          !element.closest('[aria-hidden="true"]')
+      );
+
+      if (focusable.length === 0) {
+        event.preventDefault();
+        menu.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const current = document.activeElement;
+
+      if (
+        !menu.contains(current) ||
+        current === menu
+      ) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+        return;
+      }
+
+      if (event.shiftKey && current === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && current === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
-    window.addEventListener("keydown", handleEscape);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      window.clearTimeout(focusTimer);
       document.body.style.overflow = previousOverflow;
-
-      window.removeEventListener(
-        "keydown",
-        handleEscape
-      );
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [open, onClose]);
 
@@ -173,101 +238,104 @@ export default function MenuOverlay({
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={menuRef}
           id="site-menu"
           role="dialog"
           aria-modal="true"
           aria-label={t("nav.menu")}
+          tabIndex={-1}
           className="
             tex-night grain
             fixed inset-0 z-[75]
             flex flex-col
             overflow-y-auto
             px-[var(--pad)]
-            pb-8
-            pt-28
+            pb-8 pt-28
           "
-          initial={{
-            clipPath: "inset(0 0 100% 0)",
-          }}
-          animate={{
-            clipPath: "inset(0 0 0% 0)",
-          }}
-          exit={{
-            clipPath: "inset(0 0 100% 0)",
-          }}
+          initial={{ clipPath: "inset(0 0 100% 0)" }}
+          animate={{ clipPath: "inset(0 0 0% 0)" }}
+          exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{
             duration: 0.8,
             ease: [0.76, 0, 0.24, 1],
+          }}
+          onAnimationStart={() => {
+            setActive(currentItem?.key || "home");
           }}
         >
           {/* NAVIGATION */}
 
           <div className="relative flex flex-1 items-start justify-between gap-6">
             <ul className="relative z-10 flex flex-col gap-1">
-              {navItems.map((item, i) => (
-                <li
-                  key={item.key}
-                  className="overflow-hidden"
-                >
-                  <motion.div
-                    initial={{ y: "110%" }}
-                    animate={{ y: 0 }}
-                    exit={{ y: "110%" }}
-                    transition={{
-                      duration: 0.9,
-                      ease,
-                      delay: 0.25 + i * 0.06,
-                    }}
-                  >
-                    <TransitionLink
-                      href={href(item.href)}
-                      onMouseEnter={() =>
-                        setActive(item.key)
-                      }
-                      onFocus={() =>
-                        setActive(item.key)
-                      }
-                      onClick={() =>
-                        handleNavigation(item.key)
-                      }
-                      className="
-                        group
-                        flex min-h-[44px]
-                        items-center
-                        gap-4
-                        py-1
-                      "
-                    >
-                      <span className="meta w-6 shrink-0 tabular-nums text-xs text-orange">
-                        {pad2(i + 1)}
-                      </span>
+              {navItems.map((item, i) => {
+                const isCurrent =
+                  currentItem?.key === item.key;
 
-                      <span
+                return (
+                  <li
+                    key={item.key}
+                    className="overflow-hidden"
+                  >
+                    <motion.div
+                      initial={{ y: "110%" }}
+                      animate={{ y: 0 }}
+                      exit={{ y: "110%" }}
+                      transition={{
+                        duration: 0.9,
+                        ease,
+                        delay: 0.25 + i * 0.06,
+                      }}
+                    >
+                      <TransitionLink
+                        href={href(item.href)}
+                        aria-current={
+                          isCurrent ? "page" : undefined
+                        }
+                        onMouseEnter={() =>
+                          setActive(item.key)
+                        }
+                        onFocus={() =>
+                          setActive(item.key)
+                        }
+                        onClick={() =>
+                          handleNavigation(item.key)
+                        }
                         className="
-                          display fs-xl
-                          transition-colors duration-300
-                          group-hover:text-orange
-                          group-focus-visible:text-orange
+                          group flex min-h-[44px]
+                          items-center gap-4 py-1
                         "
                       >
-                        {getNavLabel(item)}
-                      </span>
-                    </TransitionLink>
-                  </motion.div>
-                </li>
-              ))}
+                        <span className="meta w-6 shrink-0 tabular-nums text-xs text-orange">
+                          {pad2(i + 1)}
+                        </span>
+
+                        <span
+                          className="
+                            display fs-xl
+                            transition-colors duration-300
+                            group-hover:text-orange
+                            group-focus-visible:text-orange
+                          "
+                        >
+                          {getNavLabel(item)}
+                        </span>
+                      </TransitionLink>
+                    </motion.div>
+                  </li>
+                );
+              })}
             </ul>
 
             {/* DESKTOP / TABLET TEASER */}
 
             <div
+              aria-hidden="true"
               className="
                 pointer-events-none
                 absolute end-0 top-0
                 hidden aspect-[4/5]
                 w-[38vw] max-w-[20rem]
-                overflow-hidden
-                sm:block
+                overflow-hidden sm:block
               "
             >
               <Teaser
@@ -281,13 +349,13 @@ export default function MenuOverlay({
           {/* MOBILE TEASER */}
 
           <div
+            aria-hidden="true"
             className="
               pointer-events-none
               relative mt-8
               aspect-[16/9]
               w-full
-              overflow-hidden
-              sm:hidden
+              overflow-hidden sm:hidden
             "
           >
             <Teaser
@@ -301,14 +369,9 @@ export default function MenuOverlay({
 
           <motion.div
             className="
-              mt-6
-              flex flex-wrap
-              items-end
-              justify-between
-              gap-6
-              border-t
-              border-white/15
-              pt-6
+              mt-6 flex flex-wrap
+              items-end justify-between gap-6
+              border-t border-white/15 pt-6
             "
             initial={{ opacity: 0 }}
             animate={{
