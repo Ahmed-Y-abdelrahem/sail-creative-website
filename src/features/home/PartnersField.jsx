@@ -4,7 +4,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 import Marquee from "@/components/ui/Marquee";
-import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import ClientLogo from "@/components/shared/ClientLogo";
 import { SectionLabel } from "@/components/ui/Section";
 import { useLocale } from "@/components/shared/LocaleProvider";
@@ -63,13 +62,16 @@ export default function PartnersField({
   index = "08",
   compact = false,
 }) {
-  const { t, x } = useLocale();
+  const { t, x, num } = useLocale();
   const reducedMotion = useReducedMotion();
 
   const visibleRows = partnerRows.slice(
     0,
     compact ? 2 : 3
   );
+
+  // Render the actual number immediately for SEO.
+  const partnerCount = partners.length;
 
   return (
     <section
@@ -86,6 +88,7 @@ export default function PartnersField({
       "
     >
       {/* BACKGROUND */}
+
       <div
         aria-hidden="true"
         className="
@@ -98,6 +101,7 @@ export default function PartnersField({
       />
 
       {/* HEADER */}
+
       <div className="relative mx-auto max-w-[1440px] px-[var(--pad)]">
         <motion.div
           initial="hidden"
@@ -140,6 +144,7 @@ export default function PartnersField({
           </motion.div>
 
           {/* CLIENT COUNT */}
+
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -160,17 +165,28 @@ export default function PartnersField({
               sm:px-6
             "
           >
-            <span className="display text-[clamp(2rem,3vw,3rem)] leading-none text-[#FF7A35]">
-              <AnimatedCounter value={partners.length} />
+            <span
+              className="
+                display
+                text-[clamp(2rem,3vw,3rem)]
+                leading-none
+                text-[#FF7A35]
+              "
+            >
+              {num(partnerCount)}
             </span>
 
-            <span className="h-9 w-px bg-white/15" />
+            <span
+              aria-hidden="true"
+              className="h-9 w-px bg-white/15"
+            />
 
             <div>
               <p className="text-xs font-medium text-white/80">
                 {t("partners.count")}
               </p>
-              <p className="mt-1 text-[10px] text-white/40">
+
+              <p className="mt-1 text-xs text-white/40">
                 {x({
                   en: "Our network",
                   ar: "شبكة شركائنا",
@@ -184,6 +200,7 @@ export default function PartnersField({
       </div>
 
       {/* PARTNER LOGOS — LTR ISOLATED */}
+
       <div
         dir="ltr"
         role="group"
@@ -199,6 +216,7 @@ export default function PartnersField({
         "
       >
         {/* LEFT FADE */}
+
         <div
           aria-hidden="true"
           className="
@@ -216,6 +234,7 @@ export default function PartnersField({
         />
 
         {/* RIGHT FADE */}
+
         <div
           aria-hidden="true"
           className="
@@ -260,6 +279,7 @@ export default function PartnersField({
       </div>
 
       {/* FOOTER */}
+
       {!compact && (
         <motion.div
           initial="hidden"
@@ -293,7 +313,7 @@ export default function PartnersField({
           <div className="flex items-center gap-2">
             <span className="h-px w-7 bg-[#FF6A1F]/60" />
 
-            <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-white/40">
+            <span className="text-xs font-medium uppercase tracking-[0.15em] text-white/40">
               SAIL Creative Solutions
             </span>
           </div>
