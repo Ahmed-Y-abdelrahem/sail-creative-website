@@ -6,11 +6,24 @@ export default function ClientLogo({
   size = 112,
   className = "",
 }) {
-  const logoNumber = String(partner.id).padStart(3, "0");
+  if (!partner?.src) {
+    return null;
+  }
 
-  const altText = partner.name
-    ? `${partner.name} logo`
-    : `SAIL Creative partner logo ${logoNumber}`;
+  const partnerName =
+    typeof partner.name === "string"
+      ? partner.name.trim()
+      : "";
+
+  const logoNumber = String(
+    partner.id ?? ""
+  ).padStart(3, "0");
+
+  // Use the verified brand name when available.
+  // Avoid inventing a brand name for unidentified logos.
+  const altText = partnerName
+    ? `${partnerName} logo`
+    : `Unidentified SAIL Creative partner logo ${logoNumber}`;
 
   return (
     <div
