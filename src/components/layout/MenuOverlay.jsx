@@ -2,7 +2,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -46,21 +50,38 @@ const teasers = {
   },
 };
 
-function Teaser({ teaser, id, sizes }) {
+function Teaser({ teaser, id, sizes, reduceMotion }) {
   if (!teaser) return null;
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence
+      mode={reduceMotion ? "sync" : "wait"}
+      initial={false}
+    >
       <motion.div
         key={id}
         className="absolute inset-0"
-        initial={{ clipPath: "inset(100% 0 0 0)" }}
-        animate={{ clipPath: "inset(0% 0 0 0)" }}
-        exit={{ clipPath: "inset(0 0 100% 0)" }}
-        transition={{
-          duration: 0.6,
-          ease: [0.76, 0, 0.24, 1],
+        initial={
+          reduceMotion
+            ? false
+            : { clipPath: "inset(100% 0 0 0)" }
+        }
+        animate={{
+          clipPath: "inset(0% 0 0 0)",
         }}
+        exit={
+          reduceMotion
+            ? { opacity: 0 }
+            : { clipPath: "inset(0 0 100% 0)" }
+        }
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : {
+                duration: 0.6,
+                ease: [0.76, 0, 0.24, 1],
+              }
+        }
       >
         <Image
           src={teaser.img.src}
@@ -77,10 +98,12 @@ function Teaser({ teaser, id, sizes }) {
 export default function MenuOverlay({ open, onClose }) {
   const { t, href, isRTL } = useLocale();
   const pathname = usePathname() || "/";
+  const reduceMotion = useReducedMotion();
 
   const menuRef = useRef(null);
-  const firstLinkRef = useRef(null);
-  const wasOpenRef = useRef(false);
+  const previousPathRef = useRef(pathname);
+  const restoreFocusRef = useRef(false);
+  const closeReasonRef = useRef("dismiss");
 
   const [active, setActive] = useState("home");
 
@@ -93,7 +116,8 @@ export default function MenuOverlay({ open, onClose }) {
 
   const workIndex = baseNav.findIndex(
     (item) =>
-      item.key === "work" || item.href === "/work"
+      item.key === "work" ||
+      item.href === "/work"
   );
 
   const caseStudiesItem = {
@@ -104,20 +128,29 @@ export default function MenuOverlay({ open, onClose }) {
   const navItems = [...baseNav];
 
   if (workIndex >= 0) {
-    navItems.splice(workIndex + 1, 0, caseStudiesItem);
+    navItems.splice(
+      workIndex + 1,
+      0,
+      caseStudiesItem
+    );
   } else {
     navItems.push(caseStudiesItem);
   }
 
   const getNavLabel = (item) => {
     if (item.key === "caseStudies") {
-      return isRTL ? "دراسات الحالة" : "Case Studies";
+      return isRTL
+        ? "دراسات الحالة"
+        : "Case Studies";
     }
 
     return t(`nav.${item.key}`);
   };
 
-  const barePath = switchLocalePath(pathname, "en");
+  const barePath = switchLocalePath(
+    pathname,
+    "en"
+  );
 
   const currentItem =
     [...navItems]
@@ -131,46 +164,69 @@ export default function MenuOverlay({ open, onClose }) {
           barePath.startsWith(`${item.href}/`)
         );
       })
-      .sort((a, b) => b.href.length - a.href.length)[0] ||
-    navItems[0];
+      .sort(
+        (a, b) =>
+          b.href.length - a.href.length
+      )[0] || navItems[0];
 
-  // Close menu after navigating to a different page.
+  // Keep the menu in sync with route changes.
   useEffect(() => {
-    if (open) {
+    if (
+      previousPathRef.current !== pathname
+    ) {
+      previousPathRef.current = pathname;
+      closeReasonRef.current = "navigation";
       onClose();
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, onClose]);
 
   // Lock scrolling and manage keyboard focus.
   useEffect(() => {
     if (!open) {
-      if (wasOpenRef.current) {
-        wasOpenRef.current = false;
+      if (restoreFocusRef.current) {
+        restoreFocusRef.current = false;
 
-        const menuButton = document.querySelector(
-          'button[aria-controls="site-menu"]'
-        );
+        if (
+          closeReasonRef.current !==
+          "navigation"
+        ) {
+          const menuButton =
+            document.querySelector(
+              'button[aria-controls="site-menu"]'
+            );
 
-        menuButton?.focus({ preventScroll: true });
+          menuButton?.focus({
+            preventScroll: true,
+          });
+        }
       }
 
       return;
     }
 
-    wasOpenRef.current = true;
+    restoreFocusRef.current = true;
+    closeReasonRef.current = "dismiss";
 
-    const previousOverflow = document.body.style.overflow;
+    const previousOverflow =
+      document.body.style.overflow;
+
     document.body.style.overflow = "hidden";
 
     const focusTimer = window.setTimeout(() => {
-      firstLinkRef.current?.focus({ preventScroll: true });
-    }, 100);
+      const firstLink =
+        menuRef.current?.querySelector(
+          'a[href]'
+        );
+
+      firstLink?.focus({
+        preventScroll: true,
+      });
+    }, reduceMotion ? 0 : 150);
 
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
+        closeReasonRef.current = "dismiss";
         onClose();
         return;
       }
@@ -187,7 +243,9 @@ export default function MenuOverlay({ open, onClose }) {
       ).filter(
         (element) =>
           element.getClientRects().length > 0 &&
-          !element.closest('[aria-hidden="true"]')
+          !element.closest(
+            '[aria-hidden="true"]'
+          )
       );
 
       if (focusable.length === 0) {
@@ -197,45 +255,69 @@ export default function MenuOverlay({ open, onClose }) {
       }
 
       const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      const current = document.activeElement;
+      const last =
+        focusable[focusable.length - 1];
+
+      const current =
+        document.activeElement;
 
       if (
         !menu.contains(current) ||
         current === menu
       ) {
         event.preventDefault();
-        (event.shiftKey ? last : first).focus();
+
+        (
+          event.shiftKey ? last : first
+        ).focus();
+
         return;
       }
 
-      if (event.shiftKey && current === first) {
+      if (
+        event.shiftKey &&
+        current === first
+      ) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && current === last) {
+      } else if (
+        !event.shiftKey &&
+        current === last
+      ) {
         event.preventDefault();
         first.focus();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
 
     return () => {
       window.clearTimeout(focusTimer);
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
+
+      document.body.style.overflow =
+        previousOverflow;
+
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
     };
-  }, [open, onClose]);
+  }, [open, onClose, reduceMotion]);
 
   const handleNavigation = (itemKey) => {
     setActive(itemKey);
+    closeReasonRef.current = "navigation";
     onClose();
   };
 
-  const teaser = teasers[active] || teasers.home;
+  const teaser =
+    teasers[active] || teasers.home;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {open && (
         <motion.div
           ref={menuRef}
@@ -252,15 +334,37 @@ export default function MenuOverlay({ open, onClose }) {
             px-[var(--pad)]
             pb-8 pt-28
           "
-          initial={{ clipPath: "inset(0 0 100% 0)" }}
-          animate={{ clipPath: "inset(0 0 0% 0)" }}
-          exit={{ clipPath: "inset(0 0 100% 0)" }}
-          transition={{
-            duration: 0.8,
-            ease: [0.76, 0, 0.24, 1],
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  clipPath:
+                    "inset(0 0 100% 0)",
+                }
+          }
+          animate={{
+            clipPath: "inset(0 0 0% 0)",
           }}
+          exit={{
+            clipPath: reduceMotion
+              ? "inset(0 0 0% 0)"
+              : "inset(0 0 100% 0)",
+            opacity: reduceMotion ? 0 : 1,
+          }}
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : {
+                  duration: 0.8,
+                  ease: [
+                    0.76, 0, 0.24, 1,
+                  ],
+                }
+          }
           onAnimationStart={() => {
-            setActive(currentItem?.key || "home");
+            setActive(
+              currentItem?.key || "home"
+            );
           }}
         >
           {/* NAVIGATION */}
@@ -269,27 +373,48 @@ export default function MenuOverlay({ open, onClose }) {
             <ul className="relative z-10 flex flex-col gap-1">
               {navItems.map((item, i) => {
                 const isCurrent =
-                  currentItem?.key === item.key;
+                  currentItem?.key ===
+                  item.key;
 
                 return (
                   <li
                     key={item.key}
-                    className="overflow-hidden"
+                    className={
+                      reduceMotion
+                        ? ""
+                        : "overflow-hidden"
+                    }
                   >
                     <motion.div
-                      initial={{ y: "110%" }}
+                      initial={
+                        reduceMotion
+                          ? false
+                          : { y: "110%" }
+                      }
                       animate={{ y: 0 }}
-                      exit={{ y: "110%" }}
-                      transition={{
-                        duration: 0.9,
-                        ease,
-                        delay: 0.25 + i * 0.06,
-                      }}
+                      exit={
+                        reduceMotion
+                          ? { opacity: 0 }
+                          : { y: "110%" }
+                      }
+                      transition={
+                        reduceMotion
+                          ? { duration: 0 }
+                          : {
+                              duration: 0.9,
+                              ease,
+                              delay:
+                                0.25 +
+                                i * 0.06,
+                            }
+                      }
                     >
                       <TransitionLink
                         href={href(item.href)}
                         aria-current={
-                          isCurrent ? "page" : undefined
+                          isCurrent
+                            ? "page"
+                            : undefined
                         }
                         onMouseEnter={() =>
                           setActive(item.key)
@@ -298,11 +423,18 @@ export default function MenuOverlay({ open, onClose }) {
                           setActive(item.key)
                         }
                         onClick={() =>
-                          handleNavigation(item.key)
+                          handleNavigation(
+                            item.key
+                          )
                         }
                         className="
                           group flex min-h-[44px]
                           items-center gap-4 py-1
+                          rounded-sm
+                          focus-visible:outline
+                          focus-visible:outline-2
+                          focus-visible:outline-offset-2
+                          focus-visible:outline-orange
                         "
                       >
                         <span className="meta w-6 shrink-0 tabular-nums text-xs text-orange">
@@ -313,6 +445,7 @@ export default function MenuOverlay({ open, onClose }) {
                           className="
                             display fs-xl
                             transition-colors duration-300
+                            motion-reduce:transition-none
                             group-hover:text-orange
                             group-focus-visible:text-orange
                           "
@@ -342,6 +475,7 @@ export default function MenuOverlay({ open, onClose }) {
                 teaser={teaser}
                 id={active}
                 sizes="320px"
+                reduceMotion={reduceMotion}
               />
             </div>
           </div>
@@ -362,6 +496,7 @@ export default function MenuOverlay({ open, onClose }) {
               teaser={teaser}
               id={active}
               sizes="100vw"
+              reduceMotion={reduceMotion}
             />
           </div>
 
@@ -373,10 +508,21 @@ export default function MenuOverlay({ open, onClose }) {
               items-end justify-between gap-6
               border-t border-white/15 pt-6
             "
-            initial={{ opacity: 0 }}
+            initial={
+              reduceMotion
+                ? false
+                : { opacity: 0 }
+            }
             animate={{
               opacity: 1,
-              transition: { delay: 0.7 },
+              transition: {
+                delay: reduceMotion
+                  ? 0
+                  : 0.7,
+                duration: reduceMotion
+                  ? 0
+                  : 0.3,
+              },
             }}
             exit={{ opacity: 0 }}
           >
@@ -387,7 +533,7 @@ export default function MenuOverlay({ open, onClose }) {
                 href={site.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-line meta inline-flex min-h-[44px] items-center px-1 text-xs"
+                className="link-line meta inline-flex min-h-[44px] items-center rounded-sm px-1 text-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange"
               >
                 {t("footer.instagram")}
               </a>
@@ -396,7 +542,7 @@ export default function MenuOverlay({ open, onClose }) {
                 href={site.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-line meta inline-flex min-h-[44px] items-center px-1 text-xs"
+                className="link-line meta inline-flex min-h-[44px] items-center rounded-sm px-1 text-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange"
               >
                 {t("footer.linkedin")}
               </a>
@@ -405,7 +551,7 @@ export default function MenuOverlay({ open, onClose }) {
                 href={site.social.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-line meta inline-flex min-h-[44px] items-center px-1 text-xs"
+                className="link-line meta inline-flex min-h-[44px] items-center rounded-sm px-1 text-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange"
               >
                 {t("footer.whatsapp")}
               </a>
