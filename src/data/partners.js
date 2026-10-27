@@ -1,5 +1,15 @@
-// The partner wall from the SAIL profile ("Our Partners"). Tiles live in /public/partners.
-// Names are only set where the logo is legible in the source; the rest fall back to a generic label.
+
+/**
+ * SAIL partner wall.
+ * Logo files are stored in /public/partners.
+ *
+ * Notes:
+ * - 017.webp is excluded from display because it
+ *   repeats the Bawan brand shown in 020.webp.
+ * - 018.webp is retained as Bawan Wood Industries.
+ * - The restaurant logo reads "Cart Restaurant".
+ */
+
 const names = {
   1: "Shavery & Co.",
   2: "Enigma",
@@ -16,7 +26,6 @@ const names = {
   14: "Gerflor",
   15: "Green Light",
   16: "Arnon",
-  17: "Bawan",
   18: "Bawan Wood Industries",
   19: "UTEC",
   20: "Bawan",
@@ -80,11 +89,27 @@ const names = {
   98: "Aszu",
 };
 
-export const partners = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  src: `/partners/${String(i + 1).padStart(3, "0")}.webp`,
-  name: names[i + 1] || null,
-}));
+// Keep original file numbering and IDs.
+const excludedPartnerIds = new Set([17]);
 
-// Three rails, interleaved so neighbouring logos never share a row with a cluster of similar marks.
-export const partnerRows = [0, 1, 2].map((r) => partners.filter((_, i) => i % 3 === r));
+export const partners = Array.from(
+  { length: 100 },
+  (_, i) => ({
+    id: i + 1,
+    src: `/partners/${String(i + 1).padStart(
+      3,
+      "0"
+    )}.webp`,
+    name: names[i + 1] || null,
+  })
+).filter(
+  (partner) => !excludedPartnerIds.has(partner.id)
+);
+
+// Three interleaved rows for the animated partner wall.
+export const partnerRows = [0, 1, 2].map(
+  (row) =>
+    partners.filter(
+      (_, index) => index % 3 === row
+    )
+);
