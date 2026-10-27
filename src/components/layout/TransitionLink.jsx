@@ -1,16 +1,43 @@
+
 "use client";
+
 import Link from "next/link";
 import { useTransitionNav } from "./PageTransition";
 
-const isModified = (e) => e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0;
+const isModified = (event) =>
+  event.metaKey ||
+  event.ctrlKey ||
+  event.shiftKey ||
+  event.altKey ||
+  event.button !== 0;
 
-export default function TransitionLink({ href, children, onClick, ...rest }) {
+export default function TransitionLink({
+  href,
+  children,
+  onClick,
+  target,
+  download,
+  ...rest
+}) {
   const { navigate } = useTransitionNav();
-  const internal = href.startsWith("/") && !href.startsWith("//");
+
+  const isStringHref = typeof href === "string";
+
+  const internal =
+    isStringHref &&
+    href.startsWith("/") &&
+    !href.startsWith("//");
 
   if (!internal) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} {...rest}>
+      <a
+        href={href}
+        target={target || "_blank"}
+        rel="noopener noreferrer"
+        download={download}
+        onClick={onClick}
+        {...rest}
+      >
         {children}
       </a>
     );
@@ -19,11 +46,22 @@ export default function TransitionLink({ href, children, onClick, ...rest }) {
   return (
     <Link
       href={href}
+      target={target}
+      download={download}
       {...rest}
-      onClick={(e) => {
-        onClick?.(e);
-        if (isModified(e) || e.defaultPrevented) return;
-        e.preventDefault();
+      onClick={(event) => {
+        onClick?.(event);
+
+        if (
+          event.defaultPrevented ||
+          isModified(event) ||
+          (target && target !== "_self") ||
+          download != null
+        ) {
+          return;
+        }
+
+        event.preventDefault();
         navigate(href);
       }}
     >
