@@ -1,17 +1,13 @@
 
 import Image from "next/image";
 import TransitionLink from "./TransitionLink";
-import Marquee from "@/components/ui/Marquee";
-import Arrow from "@/components/ui/Arrow";
 import BackToTop from "@/components/shared/BackToTop";
 import { Container } from "@/components/ui/Section";
 import { nav, site } from "@/data/site";
 import { t } from "@/data/dictionary";
 import { localePath, numerals } from "@/lib/i18n";
 
-/* ==========================================
-   CTA ARROW
-========================================== */
+/* CTA ARROW */
 
 function CTAArrow() {
   return (
@@ -30,9 +26,7 @@ function CTAArrow() {
   );
 }
 
-/* ==========================================
-   CSS BACKGROUND
-========================================== */
+/* FOOTER BACKGROUND */
 
 function FooterBackground() {
   return (
@@ -86,9 +80,7 @@ function FooterBackground() {
   );
 }
 
-/* ==========================================
-   FOOTER
-========================================== */
+/* FOOTER */
 
 export default function Footer({ locale }) {
   const L = (key) => t(locale, key);
@@ -104,21 +96,53 @@ export default function Footer({ locale }) {
     ? "دراسات الحالة"
     : "Case Studies";
 
+  const caseStudiesItem = {
+    key: "caseStudies",
+    href: "/case-studies",
+  };
+
+  // Avoid duplicate Case Studies links.
+  const baseNav = nav.filter(
+    (item) =>
+      item.key !== "caseStudies" &&
+      item.href !== "/case-studies"
+  );
+
+  const footerNav = [...baseNav];
+
+  const workIndex = footerNav.findIndex(
+    (item) =>
+      item.key === "work" || item.href === "/work"
+  );
+
+  if (workIndex >= 0) {
+    footerNav.splice(
+      workIndex + 1,
+      0,
+      caseStudiesItem
+    );
+  } else {
+    footerNav.push(caseStudiesItem);
+  }
+
+  const getNavLabel = (item) => {
+    if (item.key === "caseStudies") {
+      return caseStudiesLabel;
+    }
+
+    return L(`nav.${item.key}`);
+  };
+
   return (
     <footer
       className="
-        relative
-        isolate
-        overflow-hidden
-        bg-[#101B29]
-        text-paper
+        relative isolate overflow-hidden
+        bg-[#101B29] text-paper
       "
     >
       <FooterBackground />
 
-      {/* =====================================
-          CTA SECTION
-      ===================================== */}
+      {/* CTA SECTION */}
 
       <section
         aria-labelledby="footer-cta-title"
@@ -127,14 +151,10 @@ export default function Footer({ locale }) {
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            -end-40
-            -top-40
-            h-[360px]
-            w-[360px]
-            rounded-full
-            border
+            pointer-events-none absolute
+            -end-40 -top-40
+            h-[360px] w-[360px]
+            rounded-full border
             border-[#FF6A1F]/10
           "
         />
@@ -142,14 +162,10 @@ export default function Footer({ locale }) {
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            -end-24
-            -top-24
-            h-[240px]
-            w-[240px]
-            rounded-full
-            border
+            pointer-events-none absolute
+            -end-24 -top-24
+            h-[240px] w-[240px]
+            rounded-full border
             border-white/[0.05]
           "
         />
@@ -163,11 +179,8 @@ export default function Footer({ locale }) {
 
               <span
                 className="
-                  text-xs
-                  font-semibold
-                  uppercase
-                  tracking-[0.16em]
-                  text-white/55
+                  text-xs font-semibold uppercase
+                  tracking-[0.16em] text-white/55
                 "
               >
                 SAIL Creative Solutions
@@ -176,12 +189,9 @@ export default function Footer({ locale }) {
 
             <span
               className="
-                hidden
-                text-xs
-                uppercase
+                hidden text-xs uppercase
                 tracking-[0.12em]
-                text-white/35
-                sm:block
+                text-white/35 sm:block
               "
             >
               {L("cta.sub")}
@@ -195,8 +205,7 @@ export default function Footer({ locale }) {
               <h2
                 id="footer-cta-title"
                 className="
-                  display
-                  max-w-[15ch]
+                  display max-w-[15ch]
                   text-[clamp(2.7rem,5.2vw,5.6rem)]
                   leading-[0.98]
                   tracking-[-0.045em]
@@ -212,8 +221,7 @@ export default function Footer({ locale }) {
             <div className="flex flex-col items-start gap-7 lg:col-span-4">
               <p
                 className="
-                  max-w-sm
-                  text-sm
+                  max-w-sm text-sm
                   leading-[1.9]
                   text-white/65
                   sm:text-base
@@ -227,21 +235,13 @@ export default function Footer({ locale }) {
                 data-cursor="open"
                 data-cursor-label={L("nav.talk")}
                 className="
-                  group
-                  inline-flex
-                  min-h-[48px]
-                  items-center
-                  justify-center
-                  gap-5
-                  rounded-full
-                  bg-[#FF6A1F]
-                  px-7
-                  py-3.5
-                  text-[13px]
-                  font-semibold
+                  group inline-flex min-h-[48px]
+                  items-center justify-center gap-5
+                  rounded-full bg-[#FF6A1F]
+                  px-7 py-3.5
+                  text-[13px] font-semibold
                   text-[#101B29]
-                  transition-all
-                  duration-300
+                  transition-all duration-300
                   hover:bg-[#FF874A]
                   hover:shadow-[0_10px_30px_rgba(255,106,31,0.2)]
                 "
@@ -259,15 +259,9 @@ export default function Footer({ locale }) {
 
           <div
             className="
-              mt-12
-              flex
-              flex-wrap
-              items-center
-              justify-between
-              gap-4
-              border-t
-              border-white/10
-              pt-5
+              mt-12 flex flex-wrap
+              items-center justify-between
+              gap-4 border-t border-white/10 pt-5
             "
           >
             <p className="text-xs text-white/45">
@@ -278,14 +272,9 @@ export default function Footer({ locale }) {
 
             <div
               className="
-                flex
-                flex-wrap
-                items-center
-                gap-2
-                text-xs
-                uppercase
-                tracking-[0.1em]
-                text-white/40
+                flex flex-wrap items-center
+                gap-2 text-xs uppercase
+                tracking-[0.1em] text-white/40
               "
             >
               {footerTopics.map((topic, index) => (
@@ -299,6 +288,7 @@ export default function Footer({ locale }) {
                       className="h-1 w-1 rounded-full bg-[#FF6A1F]"
                     />
                   )}
+
                   <span>{topic}</span>
                 </span>
               ))}
@@ -307,18 +297,13 @@ export default function Footer({ locale }) {
         </Container>
       </section>
 
-      {/* =====================================
-          FOOTER DETAILS
-      ===================================== */}
+      {/* FOOTER DETAILS */}
 
       <div
         className="
-          relative
-          z-10
-          isolate
+          relative z-10 isolate
           overflow-hidden
-          border-t
-          border-white/10
+          border-t border-white/10
         "
       >
         {/* DECORATIVE SAIL WORDMARK */}
@@ -327,12 +312,8 @@ export default function Footer({ locale }) {
           aria-hidden="true"
           className="
             pointer-events-none
-            absolute
-            inset-0
-            z-0
-            flex
-            items-center
-            justify-center
+            absolute inset-0 z-0
+            flex items-center justify-center
             overflow-hidden
           "
         >
@@ -343,15 +324,10 @@ export default function Footer({ locale }) {
             height={296}
             sizes="(min-width:1024px) 85vw, 90vw"
             className="
-              block
-              h-full
-              max-h-[260px]
-              w-[88%]
-              max-w-[1100px]
-              select-none
-              object-contain
-              object-center
-              opacity-[0.075]
+              block h-full max-h-[260px]
+              w-[88%] max-w-[1100px]
+              select-none object-contain
+              object-center opacity-[0.075]
             "
           />
         </div>
@@ -360,15 +336,9 @@ export default function Footer({ locale }) {
 
         <Container
           className="
-            relative
-            z-10
-            grid
-            gap-8
-            py-10
+            relative z-10 grid gap-8 py-10
             sm:grid-cols-2
-            lg:grid-cols-12
-            lg:gap-10
-            lg:py-12
+            lg:grid-cols-12 lg:gap-10 lg:py-12
           "
         >
           {/* BRAND */}
@@ -388,7 +358,10 @@ export default function Footer({ locale }) {
 
             <a
               href={site.website}
-              className="link-line mt-2 inline-flex min-h-[44px] items-center text-sm"
+              className="
+                link-line mt-2 inline-flex
+                min-h-[44px] items-center text-sm
+              "
               dir="ltr"
             >
               {site.websiteLabel}
@@ -398,7 +371,9 @@ export default function Footer({ locale }) {
           {/* NAVIGATION */}
 
           <nav
-            aria-label={isArabic ? "روابط الفوتر" : "Footer"}
+            aria-label={
+              isArabic ? "روابط الفوتر" : "Footer"
+            }
             className="lg:col-span-4"
           >
             <p className="meta mb-4 text-xs opacity-45">
@@ -406,45 +381,22 @@ export default function Footer({ locale }) {
             </p>
 
             <ul className="grid gap-1">
-              {nav.map((item) => (
+              {footerNav.map((item) => (
                 <li key={item.key}>
                   <TransitionLink
                     href={p(item.href)}
                     className="
-                      link-line
-                      inline-flex
-                      min-h-[44px]
-                      items-center
-                      text-sm
-                      text-white/80
+                      link-line inline-flex
+                      min-h-[44px] items-center
+                      text-sm text-white/80
                       transition-colors
                       hover:text-[#FF6A1F]
                     "
                   >
-                    {L(`nav.${item.key}`)}
+                    {getNavLabel(item)}
                   </TransitionLink>
                 </li>
               ))}
-
-              {/* CASE STUDIES */}
-
-              <li>
-                <TransitionLink
-                  href={p("/work")}
-                  className="
-                    link-line
-                    inline-flex
-                    min-h-[44px]
-                    items-center
-                    text-sm
-                    text-white/80
-                    transition-colors
-                    hover:text-[#FF6A1F]
-                  "
-                >
-                  {caseStudiesLabel}
-                </TransitionLink>
-              </li>
             </ul>
           </nav>
 
@@ -467,12 +419,9 @@ export default function Footer({ locale }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-                      link-line
-                      inline-flex
-                      min-h-[44px]
-                      items-center
-                      text-sm
-                      text-white/80
+                      link-line inline-flex
+                      min-h-[44px] items-center
+                      text-sm text-white/80
                       transition-colors
                       hover:text-[#FF6A1F]
                     "
@@ -489,20 +438,14 @@ export default function Footer({ locale }) {
 
         <Container
           className="
-            relative
-            z-10
-            flex
-            flex-wrap
-            items-center
-            justify-between
-            gap-4
-            border-t
-            border-white/10
-            py-5
+            relative z-10 flex flex-wrap
+            items-center justify-between
+            gap-4 border-t border-white/10 py-5
           "
         >
           <p className="meta text-xs opacity-55">
-            © {year} SAIL Creative. {L("footer.rights")}
+            © {year} SAIL Creative.{" "}
+            {L("footer.rights")}
           </p>
 
           <BackToTop label={L("common.top")} />
