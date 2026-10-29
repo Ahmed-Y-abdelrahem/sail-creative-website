@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
   motion,
   useMotionValueEvent,
+  useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -16,12 +17,8 @@ import { useLocale } from "@/components/shared/LocaleProvider";
 import { useDesktop } from "@/hooks/useMediaQuery";
 import { pad2, clamp } from "@/lib/utils";
 
-/**
- * Project media:
- * - Meaningful alt text for the main project image.
- * - Descriptive alt text for individual image strips.
- * - Existing layouts and animations remain unchanged.
- */
+/* PROJECT MEDIA */
+
 function WorldMedia({ project, sizes, eager }) {
   const { x, isRTL } = useLocale();
 
@@ -29,9 +26,10 @@ function WorldMedia({ project, sizes, eager }) {
   const projectName = x(project.name);
 
   if (project.layout === "strips") {
-    const strips = project.media.find(
-      (media) => media.type === "strips"
-    )?.imgs || [];
+    const strips =
+      project.media.find(
+        (media) => media.type === "strips"
+      )?.imgs || [];
 
     return (
       <div className="absolute inset-0 grid grid-cols-4 gap-[0.6vw]">
@@ -79,6 +77,8 @@ function WorldMedia({ project, sizes, eager }) {
   );
 }
 
+/* PROJECT WORLD */
+
 function World({
   project,
   i,
@@ -87,6 +87,7 @@ function World({
   desktop,
   active,
   near,
+  reducedMotion,
 }) {
   const { x, href, t } = useLocale();
 
@@ -95,7 +96,6 @@ function World({
     (p) => p * n - i
   );
 
-  // Each project reveals over the previous project.
   const reveal = useTransform(local, (l) =>
     i === 0
       ? 0
@@ -112,7 +112,7 @@ function World({
   );
 
   const windowClip = useTransform(open, (o) => {
-    if (!desktop) {
+    if (!desktop || reducedMotion) {
       return "inset(0% 0% 0% 0%)";
     }
 
@@ -127,13 +127,15 @@ function World({
   const imgScale = useTransform(
     open,
     [0, 1],
-    [1.25, 1]
+    reducedMotion ? [1, 1] : [1.25, 1]
   );
 
   const nameY = useTransform(
     local,
     [-0.3, 0.5, 1],
-    ["14%", "0%", "-6%"]
+    reducedMotion
+      ? ["0%", "0%", "0%"]
+      : ["14%", "0%", "-6%"]
   );
 
   const scrimOpacity = useTransform(
@@ -151,9 +153,11 @@ function World({
         color: project.brand.fg,
       }}
       aria-hidden={!active}
+      inert={!active}
     >
       <div className="absolute inset-0 grid grid-rows-[auto_1fr_auto] max-lg:grid-rows-[auto_auto_1fr]">
-        {/* Project number and category */}
+        {/* PROJECT NUMBER AND CATEGORY */}
+
         <div className="relative z-20 flex items-start justify-between px-[var(--pad)] pt-24 sm:pt-28">
           <p
             dir="ltr"
@@ -167,7 +171,8 @@ function World({
           </p>
         </div>
 
-        {/* Project media window */}
+        {/* PROJECT MEDIA */}
+
         <div className="absolute inset-0 z-10 max-lg:relative max-lg:mx-[var(--pad)] max-lg:mt-6 max-lg:h-[36svh]">
           <TransitionLink
             href={href(`/work/${project.slug}`)}
@@ -186,7 +191,10 @@ function World({
               <motion.div
                 className="absolute inset-0"
                 style={{
-                  scale: desktop ? imgScale : 1,
+                  scale:
+                    desktop && !reducedMotion
+                      ? imgScale
+                      : 1,
                 }}
               >
                 <WorldMedia
@@ -209,13 +217,23 @@ function World({
           </TransitionLink>
         </div>
 
-        {/* Project title and scope */}
+        {/* PROJECT TITLE AND SCOPE */}
+
         <div className="pointer-events-none relative z-20 flex items-end px-[var(--pad)] pb-20 max-lg:items-start max-lg:pb-6 max-lg:pt-6 lg:row-start-3">
           <motion.div
             style={{ y: nameY }}
-            className="w-full"
+            className="w-full min-w-0"
           >
-            <h3 className="display leading-[0.82] text-[clamp(4rem,13.2vw,17rem)]">
+            <h3
+              className="
+                display
+                max-w-full
+                break-words
+                leading-[0.9]
+                text-[clamp(2.5rem,10vw,17rem)]
+                sm:text-[clamp(4rem,13.2vw,17rem)]
+              "
+            >
               {x(project.name)}
             </h3>
 
@@ -237,10 +255,12 @@ function World({
                 className="inline-flex min-h-[44px] items-center"
               >
                 <ArrowLink
-                  href={href(
-                    `/work/${project.slug}`
-                  )}
-                  className="meta inline-flex min-h-[44px] items-center"
+                  href={href(`/work/${project.slug}`)}
+                  className="
+                    meta inline-flex
+                    min-h-[44px]
+                    items-center
+                  "
                 >
                   {t("common.viewCase")}
                 </ArrowLink>
@@ -253,9 +273,12 @@ function World({
   );
 }
 
+/* SELECTED WORK SECTION */
+
 export default function SelectedWork({ projects }) {
   const { t } = useLocale();
   const desktop = useDesktop();
+  const reducedMotion = useReducedMotion();
 
   const n = projects.length;
   const sectionRef = useRef(null);
@@ -271,6 +294,8 @@ export default function SelectedWork({ projects }) {
     scrollYProgress,
     "change",
     (progress) => {
+      if (n === 0) return;
+
       setActive(
         clamp(
           Math.floor(progress * n + 0.001),
@@ -280,6 +305,10 @@ export default function SelectedWork({ projects }) {
       );
     }
   );
+
+  if (n === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -303,10 +332,12 @@ export default function SelectedWork({ projects }) {
             near={
               Math.abs(active - index) <= 1
             }
+            reducedMotion={reducedMotion}
           />
         ))}
 
-        {/* Section progress indicator */}
+        {/* SECTION PROGRESS INDICATOR */}
+
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex items-center justify-between gap-6 px-[var(--pad)] pb-5 mix-blend-difference text-white">
           <p className="meta">
             02 — {t("work.title")}
