@@ -7,6 +7,11 @@ import { nav, site } from "@/data/site";
 import { t } from "@/data/dictionary";
 import { localePath, numerals } from "@/lib/i18n";
 
+/* CONTACT DETAILS */
+
+const CONTACT_EMAIL = "info@sail-ksa.com";
+const CONTACT_PHONE = "+966557631575";
+
 /* CTA ARROW */
 
 function CTAArrow() {
@@ -92,42 +97,55 @@ export default function Footer({ locale }) {
     ? ["التسويق", "التكنولوجيا", "النمو"]
     : ["Marketing", "Technology", "Growth"];
 
-  const caseStudiesLabel = isArabic
-    ? "دراسات الحالة"
-    : "Case Studies";
+  const extraNavItems = [
+    {
+      key: "caseStudies",
+      href: "/case-studies",
+    },
+    {
+      key: "careers",
+      href: "/careers",
+    },
+  ];
 
-  const caseStudiesItem = {
-    key: "caseStudies",
-    href: "/case-studies",
-  };
-
-  // Avoid duplicate Case Studies links.
+  // Avoid duplicate navigation entries.
   const baseNav = nav.filter(
     (item) =>
       item.key !== "caseStudies" &&
-      item.href !== "/case-studies"
+      item.key !== "careers" &&
+      item.href !== "/case-studies" &&
+      item.href !== "/careers"
   );
 
   const footerNav = [...baseNav];
 
   const workIndex = footerNav.findIndex(
     (item) =>
-      item.key === "work" || item.href === "/work"
+      item.key === "work" ||
+      item.href === "/work"
   );
 
   if (workIndex >= 0) {
     footerNav.splice(
       workIndex + 1,
       0,
-      caseStudiesItem
+      ...extraNavItems
     );
   } else {
-    footerNav.push(caseStudiesItem);
+    footerNav.push(...extraNavItems);
   }
 
   const getNavLabel = (item) => {
     if (item.key === "caseStudies") {
-      return caseStudiesLabel;
+      return isArabic
+        ? "دراسات الحالة"
+        : "Case Studies";
+    }
+
+    if (item.key === "careers") {
+      return isArabic
+        ? "الوظائف والتدريب"
+        : "Careers & Internships";
     }
 
     return L(`nav.${item.key}`);
@@ -244,6 +262,10 @@ export default function Footer({ locale }) {
                   transition-all duration-300
                   hover:bg-[#FF874A]
                   hover:shadow-[0_10px_30px_rgba(255,106,31,0.2)]
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:outline-offset-4
+                  focus-visible:outline-white
                 "
               >
                 {L("cta.button")}
@@ -341,7 +363,7 @@ export default function Footer({ locale }) {
             lg:grid-cols-12 lg:gap-10 lg:py-12
           "
         >
-          {/* BRAND */}
+          {/* BRAND + CONTACT DETAILS */}
 
           <div className="lg:col-span-4">
             <Image
@@ -366,6 +388,64 @@ export default function Footer({ locale }) {
             >
               {site.websiteLabel}
             </a>
+
+            {/* EMAIL AND PHONE */}
+
+            <div className="mt-6">
+              <p className="meta mb-3 text-xs opacity-55">
+                {isArabic
+                  ? "تواصل معنا"
+                  : "Contact us"}
+              </p>
+
+              <div className="flex flex-col items-start gap-1">
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  dir="ltr"
+                  className="
+                    link-line inline-flex min-h-[44px]
+                    max-w-full items-center
+                    break-all text-sm text-white/80
+                    transition-colors
+                    hover:text-[#FF6A1F]
+                    focus-visible:outline
+                    focus-visible:outline-2
+                    focus-visible:outline-offset-2
+                    focus-visible:outline-[#FF6A1F]
+                  "
+                  aria-label={
+                    isArabic
+                      ? `البريد الإلكتروني: ${CONTACT_EMAIL}`
+                      : `Email: ${CONTACT_EMAIL}`
+                  }
+                >
+                  {CONTACT_EMAIL}
+                </a>
+
+                <a
+                  href={`tel:${CONTACT_PHONE}`}
+                  dir="ltr"
+                  className="
+                    link-line inline-flex min-h-[44px]
+                    items-center text-sm
+                    text-white/80
+                    transition-colors
+                    hover:text-[#FF6A1F]
+                    focus-visible:outline
+                    focus-visible:outline-2
+                    focus-visible:outline-offset-2
+                    focus-visible:outline-[#FF6A1F]
+                  "
+                  aria-label={
+                    isArabic
+                      ? `رقم التواصل: ${CONTACT_PHONE}`
+                      : `Phone: ${CONTACT_PHONE}`
+                  }
+                >
+                  {CONTACT_PHONE}
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* NAVIGATION */}
@@ -391,6 +471,10 @@ export default function Footer({ locale }) {
                       text-sm text-white/80
                       transition-colors
                       hover:text-[#FF6A1F]
+                      focus-visible:outline
+                      focus-visible:outline-2
+                      focus-visible:outline-offset-2
+                      focus-visible:outline-[#FF6A1F]
                     "
                   >
                     {getNavLabel(item)}
@@ -424,6 +508,10 @@ export default function Footer({ locale }) {
                       text-sm text-white/80
                       transition-colors
                       hover:text-[#FF6A1F]
+                      focus-visible:outline
+                      focus-visible:outline-2
+                      focus-visible:outline-offset-2
+                      focus-visible:outline-[#FF6A1F]
                     "
                   >
                     {L(`footer.${key}`)}
