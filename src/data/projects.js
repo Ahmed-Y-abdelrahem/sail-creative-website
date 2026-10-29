@@ -1,3 +1,4 @@
+
 import { M } from "./media";
 
 /**
@@ -157,7 +158,7 @@ export const projects = [
   },
   {
     slug: "taj-azal",
-    name: t("Taj Azal", "تاج أزال"),
+    name: t("Taj Azal", "Taj Azal"),
     client: t("Taj Azal Medical Group", "مجموعة تاج أزال الطبية"),
     categories: ["branding"],
     layout: "board",
@@ -237,7 +238,7 @@ export const projects = [
   },
   {
     slug: "sumou",
-    name: t("Sumou AlHayat", "سمو الحياة"),
+    name: t("Sumou AlHayat", "Sumou AlHayat"),
     client: t("Sumou AlHayat Family Counseling Center", "مركز سمو الحياة للإرشاد الأسري"),
     categories: ["branding", "marketing", "digital"],
     layout: "board",
@@ -264,7 +265,7 @@ export const projects = [
   },
   {
     slug: "beut-almisk",
-    name: t("Beut AlMisk", "بيوت المسك"),
+    name: t("Beut AlMisk", "Beut AlMisk"),
     client: t("Beut AlMisk Real Estate Development", "بيوت المسك للتطوير العقاري"),
     categories: ["branding", "marketing", "digital"],
     layout: "board",
@@ -288,7 +289,7 @@ export const projects = [
   },
   {
     slug: "afya",
-    name: t("AFYA", "عافية"),
+    name: t("AFYA", "AFYA"),
     client: t("AFYA", "عافية"),
     categories: ["branding"],
     layout: "board",
@@ -312,7 +313,7 @@ export const projects = [
   },
   {
     slug: "namar-door",
-    name: t("Namar Door", "نمار"),
+    name: t("Namar Door", "Namar Door"),
     client: t("Namar Door", "نمار"),
     categories: ["marketing"],
     layout: "strips",
@@ -336,7 +337,7 @@ export const projects = [
   },
   {
     slug: "armadio",
-    name: t("Armadio", "ارماديو"),
+    name: t("Armadio", "Armadio"),
     client: t("Armadio", "ارماديو"),
     categories: ["marketing"],
     layout: "board",
@@ -384,7 +385,7 @@ export const projects = [
   },
   {
     slug: "gulf-cattle",
-    name: t("Gulf Cattle", "المواشي الخليجية"),
+    name: t("Gulf Cattle", "Gulf Cattle"),
     client: t("Gulf Cattle", "المواشي الخليجية"),
     categories: ["marketing", "media"],
     layout: "strips",
@@ -439,7 +440,7 @@ export const projects = [
   },
   {
     slug: "baab-app",
-    name: t("Baab App", "باب"),
+    name: t("Baab App", "Baab App"),
     client: t("Baab App", "باب"),
     categories: ["marketing"],
     layout: "strips",
@@ -554,7 +555,7 @@ export const projects = [
   },
   {
     slug: "ramadan-duas",
-    name: t("Ramadan Duas", "أدعية رمضانية"),
+    name: t("Ramadan Duas", "Ramadan Duas"),
     client: t("SAIL Creative", "سيل"),
     categories: ["marketing"],
     layout: "pano",
@@ -594,7 +595,7 @@ export const projects = [
   },
   {
     slug: "88-port",
-    name: t("88 Port", "٨٨ بورت"),
+    name: t("88 Port", "88 Port"),
     client: t("88 Port Burger", "٨٨ بورت برجر"),
     categories: ["media"],
     layout: "film",
@@ -612,7 +613,7 @@ export const projects = [
   },
   {
     slug: "alkhaleej",
-    name: t("Alkhaleej", "الخليج"),
+    name: t("Alkhaleej", "Alkhaleej"),
     client: t("Alkhaleej Training and Education", "الخليج للتدريب والتعليم"),
     categories: ["media"],
     layout: "film",
