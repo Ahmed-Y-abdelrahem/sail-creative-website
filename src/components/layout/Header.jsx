@@ -84,12 +84,15 @@ export default function Header() {
     );
   };
 
-  // Add Case Studies immediately after Work.
+  // Add Case Studies and Careers & Internships
+  // without duplicating existing navigation entries.
   const baseNav = nav.filter(
     (item) =>
       item.key !== "home" &&
       item.key !== "caseStudies" &&
-      item.href !== "/case-studies"
+      item.key !== "careers" &&
+      item.href !== "/case-studies" &&
+      item.href !== "/careers"
   );
 
   const workIndex = baseNav.findIndex(
@@ -98,10 +101,16 @@ export default function Header() {
       item.href === "/work"
   );
 
-  const caseStudiesItem = {
-    key: "caseStudies",
-    href: "/case-studies",
-  };
+  const extraNavItems = [
+    {
+      key: "caseStudies",
+      href: "/case-studies",
+    },
+    {
+      key: "careers",
+      href: "/careers",
+    },
+  ];
 
   const navItems = [...baseNav];
 
@@ -109,10 +118,10 @@ export default function Header() {
     navItems.splice(
       workIndex + 1,
       0,
-      caseStudiesItem
+      ...extraNavItems
     );
   } else {
-    navItems.push(caseStudiesItem);
+    navItems.push(...extraNavItems);
   }
 
   const getNavLabel = (item) => {
@@ -120,6 +129,12 @@ export default function Header() {
       return isRTL
         ? "دراسات الحالة"
         : "Case Studies";
+    }
+
+    if (item.key === "careers") {
+      return isRTL
+        ? "الوظائف والتدريب"
+        : "Careers & Internships";
     }
 
     return t(`nav.${item.key}`);
@@ -202,7 +217,7 @@ export default function Header() {
               ? "التنقل الرئيسي"
               : "Primary navigation"
           }
-          className="hidden items-center gap-6 lg:flex xl:gap-9"
+          className="hidden items-center gap-4 lg:flex xl:gap-7 2xl:gap-9"
         >
           {navItems.map((item) => (
             <TransitionLink
@@ -219,7 +234,7 @@ export default function Header() {
                 items-center
                 whitespace-nowrap
                 rounded-sm
-                text-[0.875rem] font-medium
+                text-[0.8125rem] font-medium
                 xl:text-[0.9375rem]
                 focus-visible:outline
                 focus-visible:outline-2

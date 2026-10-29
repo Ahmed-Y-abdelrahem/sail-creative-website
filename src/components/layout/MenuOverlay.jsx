@@ -40,6 +40,10 @@ const teasers = {
     img: M("fayya/board"),
     alt: "Fayya case study",
   },
+  careers: {
+    img: M("tawlead/board"),
+    alt: "SAIL Creative work",
+  },
   events: {
     img: M("radicon/event-1"),
     alt: "Radicon event",
@@ -107,11 +111,14 @@ export default function MenuOverlay({ open, onClose }) {
 
   const [active, setActive] = useState("home");
 
-  // Keep Case Studies after Work, without duplicates.
+  // Add Case Studies and Careers & Internships
+  // after Work, without duplicates.
   const baseNav = nav.filter(
     (item) =>
       item.key !== "caseStudies" &&
-      item.href !== "/case-studies"
+      item.key !== "careers" &&
+      item.href !== "/case-studies" &&
+      item.href !== "/careers"
   );
 
   const workIndex = baseNav.findIndex(
@@ -120,10 +127,16 @@ export default function MenuOverlay({ open, onClose }) {
       item.href === "/work"
   );
 
-  const caseStudiesItem = {
-    key: "caseStudies",
-    href: "/case-studies",
-  };
+  const extraNavItems = [
+    {
+      key: "caseStudies",
+      href: "/case-studies",
+    },
+    {
+      key: "careers",
+      href: "/careers",
+    },
+  ];
 
   const navItems = [...baseNav];
 
@@ -131,10 +144,10 @@ export default function MenuOverlay({ open, onClose }) {
     navItems.splice(
       workIndex + 1,
       0,
-      caseStudiesItem
+      ...extraNavItems
     );
   } else {
-    navItems.push(caseStudiesItem);
+    navItems.push(...extraNavItems);
   }
 
   const getNavLabel = (item) => {
@@ -142,6 +155,12 @@ export default function MenuOverlay({ open, onClose }) {
       return isRTL
         ? "دراسات الحالة"
         : "Case Studies";
+    }
+
+    if (item.key === "careers") {
+      return isRTL
+        ? "الوظائف والتدريب"
+        : "Careers & Internships";
     }
 
     return t(`nav.${item.key}`);
