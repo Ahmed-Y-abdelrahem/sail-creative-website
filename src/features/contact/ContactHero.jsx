@@ -4,10 +4,10 @@
 import { useState } from "react";
 import RevealText from "@/components/ui/RevealText";
 import { useLocale } from "@/components/shared/LocaleProvider";
-import { site } from "@/data/site";
 
 /* ==========================================
    SAIL OFFICE LOCATION
+   Existing coordinates and Maps link preserved.
 ========================================== */
 
 const OFFICE = {
@@ -80,7 +80,7 @@ function LocationMap({ isRTL }) {
                 : "Sail Creative Solutions"}
             </p>
 
-            <p className="mt-1 text-xs text-white/50">
+            <p className="mt-1 text-xs text-white/60">
               {isRTL
                 ? "مقر الشركة - المملكة العربية السعودية"
                 : "Company Office - Saudi Arabia"}
@@ -92,7 +92,12 @@ function LocationMap({ isRTL }) {
           href={OFFICE.googleMaps}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-[#FF6A1F]/30 px-4 py-2 text-xs font-semibold text-[#FF874A] transition-all duration-300 hover:border-[#FF6A1F] hover:bg-[#FF6A1F] hover:text-[#101C2A]"
+          aria-label={
+            isRTL
+              ? "افتح موقع سيل على خرائط جوجل"
+              : "Open SAIL office on Google Maps"
+          }
+          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#FF6A1F]/30 px-4 py-2 text-xs font-semibold text-[#FF874A] transition-all duration-300 hover:border-[#FF6A1F] hover:bg-[#FF6A1F] hover:text-[#101C2A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A1F]"
         >
           {isRTL ? "افتح الموقع" : "View Location"}
           <ArrowIcon />
@@ -105,11 +110,11 @@ function LocationMap({ isRTL }) {
         {!loaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
-              <span className="h-7 w-7 animate-spin rounded-full border-2 border-white/15 border-t-[#FF6A1F]" />
+              <span className="h-7 w-7 animate-spin rounded-full border-2 border-white/15 border-t-[#FF6A1F] motion-reduce:animate-none" />
 
-              <p className="text-xs text-white/50">
+              <p className="text-xs text-white/60">
                 {isRTL
-                  ? "جاري تحميل موقع الشركة..."
+                  ? "جارٍ تحميل موقع الشركة..."
                   : "Loading office location..."}
               </p>
             </div>
@@ -142,7 +147,7 @@ function LocationMap({ isRTL }) {
 
           <p className="text-xs text-white/65">
             {isRTL
-              ? "موقع مكتب SAIL Creative Solutions"
+              ? "موقع مكتب سيل للحلول الإبداعية"
               : "SAIL Creative Solutions Office"}
           </p>
         </div>
@@ -151,10 +156,10 @@ function LocationMap({ isRTL }) {
           href={OFFICE.googleMaps}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 text-xs font-semibold text-white transition-colors hover:text-[#FF6A1F]"
+          className="group inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-white transition-colors hover:text-[#FF6A1F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A1F]"
         >
           {isRTL
-            ? "الاتجاهات عبر خرائط Google"
+            ? "الاتجاهات عبر خرائط جوجل"
             : "Get Directions on Google Maps"}
 
           <span className="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
@@ -173,20 +178,12 @@ function LocationMap({ isRTL }) {
 export default function ContactHero({ children }) {
   const { t, isRTL } = useLocale();
 
-  const links = [
-    ["footer.instagram", site.social.instagram],
-    ["footer.linkedin", site.social.linkedin],
-    ["footer.whatsapp", site.social.whatsapp],
-  ];
-
   return (
     <section
       dir={isRTL ? "rtl" : "ltr"}
       className="relative isolate overflow-hidden bg-[#101C2A] px-[var(--pad)] pb-12 pt-28 text-white sm:pb-16 sm:pt-32 lg:pt-36"
     >
-      {/* ==================================
-          CSS BACKGROUND - NO IMAGES
-      ================================== */}
+      {/* CSS BACKGROUND - NO IMAGES */}
 
       <div
         aria-hidden="true"
@@ -240,27 +237,23 @@ export default function ContactHero({ children }) {
       />
 
       <div className="relative mx-auto max-w-[1440px]">
-        {/* ==================================
-            TOP LABEL
-        ================================== */}
+        {/* TOP LABEL */}
 
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
 
-            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50">
+            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">
               SAIL Creative Solutions
             </span>
           </div>
 
-          <span className="text-[10px] uppercase tracking-[0.14em] text-white/35">
+          <span className="text-xs uppercase tracking-[0.14em] text-white/60">
             {isRTL ? "تواصل معنا" : "Get in touch"}
           </span>
         </div>
 
-        {/* ==================================
-            TITLE AND DESCRIPTION
-        ================================== */}
+        {/* TITLE AND DESCRIPTION */}
 
         <div className="grid gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="min-w-0 lg:col-span-8">
@@ -296,10 +289,15 @@ export default function ContactHero({ children }) {
             </p>
 
             <div className="mt-5 flex items-center gap-3">
-              <span className="h-px w-8 bg-[#FF6A1F]" />
+              <span
+                aria-hidden="true"
+                className="h-px w-8 bg-[#FF6A1F]"
+              />
 
-              <span className="text-[10px] uppercase tracking-[0.12em] text-white/40">
-                Marketing · Technology · Growth
+              <span className="text-xs uppercase tracking-[0.12em] text-white/60">
+                {isRTL
+                  ? "التسويق · التقنية · النمو"
+                  : "Marketing · Technology · Growth"}
               </span>
             </div>
           </div>
@@ -309,17 +307,13 @@ export default function ContactHero({ children }) {
 
         <div className="mt-10 h-px w-full bg-white/10 sm:mt-12" />
 
-        {/* ==================================
-            EXISTING CONTACT FORM
-        ================================== */}
+        {/* EXISTING CONTACT FORM */}
 
         <div className="mt-10 sm:mt-12">
           {children}
         </div>
 
-        {/* ==================================
-            LOCATION SECTION
-        ================================== */}
+        {/* LOCATION SECTION */}
 
         <div className="mt-14 border-t border-white/10 pt-10 sm:mt-16 sm:pt-12">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-5">
@@ -327,7 +321,7 @@ export default function ContactHero({ children }) {
               <div className="mb-3 flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/50">
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                   {isRTL ? "موقعنا" : "Find us"}
                 </span>
               </div>
@@ -349,7 +343,7 @@ export default function ContactHero({ children }) {
               </h2>
             </div>
 
-            <p className="max-w-sm text-xs leading-[1.8] text-white/50 sm:text-sm">
+            <p className="max-w-sm text-xs leading-[1.8] text-white/60 sm:text-sm">
               {isRTL
                 ? "نسعد بتواصلك معنا ومناقشة أفكارك ومشروعاتك القادمة."
                 : "We would love to connect and discuss your next project."}
@@ -358,8 +352,6 @@ export default function ContactHero({ children }) {
 
           <LocationMap isRTL={isRTL} />
         </div>
-
-
       </div>
     </section>
   );
