@@ -2,21 +2,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { useLocale } from "@/components/shared/LocaleProvider";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
 
-/* =========================================
-   ANIMATIONS
-========================================= */
-
 const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 16,
-  },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
@@ -26,10 +19,6 @@ const fadeUp = {
     },
   },
 };
-
-/* =========================================
-   ICONS
-========================================= */
 
 function CheckIcon() {
   return (
@@ -83,10 +72,6 @@ function CopyIcon() {
   );
 }
 
-/* =========================================
-   INPUT FIELD
-========================================= */
-
 function FormField({
   id,
   label,
@@ -97,31 +82,21 @@ function FormField({
   autoComplete,
 }) {
   const inputClass = `
-    w-full
-    rounded-xl
-    border
-    border-white/[0.12]
-    bg-white/[0.035]
-    px-4
-    py-3.5
-    text-sm
-    leading-relaxed
-    text-white
-    outline-none
-    transition-all
-    duration-300
-    placeholder:text-white/25
+    w-full rounded-xl border border-white/[0.12]
+    bg-white/[0.035] px-4 py-3.5
+    text-sm leading-relaxed text-white outline-none
+    transition-all duration-300
+    placeholder:text-white/40
     focus:border-[#FF6A1F]/70
     focus:bg-white/[0.055]
-    focus:ring-2
-    focus:ring-[#FF6A1F]/10
+    focus:ring-2 focus:ring-[#FF6A1F]/10
   `;
 
   return (
     <div>
       <label
         htmlFor={id}
-        className="mb-2.5 block text-[12px] font-medium text-white/70"
+        className="mb-2.5 block text-xs font-medium text-white/75"
       >
         {label}
       </label>
@@ -150,10 +125,6 @@ function FormField({
   );
 }
 
-/* =========================================
-   SERVICE OPTION
-========================================= */
-
 function ServiceOption({ service, selected, onToggle }) {
   const { x } = useLocale();
 
@@ -164,20 +135,12 @@ function ServiceOption({ service, selected, onToggle }) {
       onClick={onToggle}
       data-cursor="link"
       className={`
-        group
-        flex
-        min-h-[62px]
-        w-full
-        items-center
-        justify-between
-        gap-3
-        rounded-xl
-        border
-        px-4
-        py-3
-        text-start
-        transition-all
-        duration-300
+        group flex min-h-[62px] w-full items-center
+        justify-between gap-3 rounded-xl border
+        px-4 py-3 text-start transition-all duration-300
+        focus-visible:outline focus-visible:outline-2
+        focus-visible:outline-offset-2
+        focus-visible:outline-[#FF6A1F]
         ${
           selected
             ? "border-[#FF6A1F] bg-[#FF6A1F]/10"
@@ -187,23 +150,17 @@ function ServiceOption({ service, selected, onToggle }) {
     >
       <span
         className={`text-[13px] font-medium leading-snug transition-colors ${
-          selected ? "text-white" : "text-white/70"
+          selected ? "text-white" : "text-white/75"
         }`}
       >
         {x(service.title)}
       </span>
 
       <span
+        aria-hidden="true"
         className={`
-          flex
-          h-6
-          w-6
-          shrink-0
-          items-center
-          justify-center
-          rounded-md
-          border
-          transition-all
+          flex h-6 w-6 shrink-0 items-center
+          justify-center rounded-md border transition-all
           ${
             selected
               ? "border-[#FF6A1F] bg-[#FF6A1F] text-[#111D2B]"
@@ -217,18 +174,24 @@ function ServiceOption({ service, selected, onToggle }) {
   );
 }
 
-/* =========================================
-   MAIN COMPONENT
-========================================= */
-
 export default function BriefBuilder() {
   const { t, x, isRTL } = useLocale();
+  const reduceMotion = useReducedMotion();
 
   const [needs, setNeeds] = useState([]);
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [msg, setMsg] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState("idle");
+
+  const animationProps = reduceMotion
+    ? {}
+    : {
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: { once: true, amount: 0.2 },
+        variants: fadeUp,
+      };
 
   const toggle = (slug) => {
     setNeeds((current) =>
@@ -237,10 +200,6 @@ export default function BriefBuilder() {
         : [...current, slug]
     );
   };
-
-  /* =========================================
-     MESSAGE GENERATOR
-  ========================================= */
 
   const text = useMemo(() => {
     const lines = [t("contact.greeting")];
@@ -276,10 +235,6 @@ export default function BriefBuilder() {
     return lines.join("\n");
   }, [needs, name, brand, msg, t, x]);
 
-  /* =========================================
-     WHATSAPP LINK
-  ========================================= */
-
   const whatsappUrl = useMemo(() => {
     const base = site.social.whatsapp;
     const separator = base.includes("?") ? "&" : "?";
@@ -287,20 +242,12 @@ export default function BriefBuilder() {
     return `${base}${separator}text=${encodeURIComponent(text)}`;
   }, [text]);
 
-  /* =========================================
-     COPY MESSAGE
-  ========================================= */
-
   const copyMessage = async () => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopied(true);
-
-      window.setTimeout(() => {
-        setCopied(false);
-      }, 2200);
+      setCopyStatus("success");
     } catch {
-      setCopied(false);
+      setCopyStatus("error");
     }
   };
 
@@ -311,16 +258,16 @@ export default function BriefBuilder() {
       {/* HEADER */}
 
       <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeUp}
+        {...animationProps}
         className="mb-8"
       >
         <div className="mb-3 flex items-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]"
+          />
 
-          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF8B53]">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#FF8B53]">
             {x({
               en: "Project Brief",
               ar: "تفاصيل مشروعك",
@@ -335,7 +282,7 @@ export default function BriefBuilder() {
           })}
         </h2>
 
-        <p className="mt-3 max-w-xl text-sm leading-[1.8] text-white/50">
+        <p className="mt-3 max-w-xl text-sm leading-[1.8] text-white/65">
           {x({
             en: "Choose the services you need, share a few details and start the conversation.",
             ar: "اختار الخدمات اللي محتاجها، واكتب تفاصيل بسيطة، وابدأ التواصل مع فريقنا.",
@@ -346,24 +293,28 @@ export default function BriefBuilder() {
       {/* MAIN GRID */}
 
       <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
-        {/* LEFT: FORM */}
+        {/* FORM */}
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeUp}
+          {...animationProps}
           className="rounded-2xl border border-white/[0.10] bg-white/[0.035] p-5 sm:p-7"
         >
           {/* SERVICES */}
 
           <fieldset>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <legend className="text-sm font-semibold text-white">
-                {t("contact.pick")}
-              </legend>
+            <legend className="text-sm font-semibold text-white">
+              {t("contact.pick")}
+            </legend>
 
-              <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[11px] text-white/55">
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs leading-relaxed text-white/60">
+                {x({
+                  en: "You can select more than one service.",
+                  ar: "تقدر تختار أكتر من خدمة.",
+                })}
+              </p>
+
+              <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-white/70">
                 {selectedCount}{" "}
                 {x({
                   en: "selected",
@@ -371,13 +322,6 @@ export default function BriefBuilder() {
                 })}
               </span>
             </div>
-
-            <p className="mt-2 text-xs leading-relaxed text-white/45">
-              {x({
-                en: "You can select more than one service.",
-                ar: "تقدر تختار أكتر من خدمة.",
-              })}
-            </p>
 
             <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
               {services.map((service) => (
@@ -405,7 +349,7 @@ export default function BriefBuilder() {
               })}
             </h3>
 
-            <p className="mt-2 text-xs text-white/45">
+            <p className="mt-2 text-xs text-white/60">
               {x({
                 en: "Just the essentials to get started.",
                 ar: "بيانات بسيطة علشان نبدأ.",
@@ -454,13 +398,10 @@ export default function BriefBuilder() {
           </div>
         </motion.div>
 
-        {/* RIGHT: LIVE PREVIEW */}
+        {/* LIVE PREVIEW */}
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeUp}
+          {...animationProps}
           className="lg:sticky lg:top-24"
         >
           <div className="overflow-hidden rounded-2xl border border-white/[0.12] bg-[#172837]">
@@ -468,15 +409,21 @@ export default function BriefBuilder() {
 
             <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4 sm:px-6">
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#FF6A1F]" />
+                <span
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full bg-[#FF6A1F]"
+                />
 
                 <span className="text-xs font-semibold text-white/85">
                   {t("contact.preview")}
                 </span>
               </div>
 
-              <span className="text-[10px] uppercase tracking-[0.12em] text-white/35">
-                Live Preview
+              <span className="text-xs uppercase tracking-[0.12em] text-white/60">
+                {x({
+                  en: "Live Preview",
+                  ar: "معاينة مباشرة",
+                })}
               </span>
             </div>
 
@@ -484,7 +431,10 @@ export default function BriefBuilder() {
 
             <div className="p-5 sm:p-6">
               <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF6A1F]/15 text-sm font-bold text-[#FF8B53]">
+                <div
+                  aria-hidden="true"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FF6A1F]/15 text-sm font-bold text-[#FF8B53]"
+                >
                   S
                 </div>
 
@@ -493,7 +443,7 @@ export default function BriefBuilder() {
                     SAIL Creative
                   </p>
 
-                  <p className="mt-0.5 text-[11px] text-white/40">
+                  <p className="mt-0.5 text-xs text-white/60">
                     {x({
                       en: "New project inquiry",
                       ar: "استفسار عن مشروع جديد",
@@ -505,14 +455,13 @@ export default function BriefBuilder() {
               <div className="rounded-xl border border-white/[0.08] bg-white/[0.045] p-4">
                 <pre
                   dir={isRTL ? "rtl" : "ltr"}
-                  aria-live="polite"
-                  className="min-h-[130px] whitespace-pre-wrap break-words font-[inherit] text-[13px] leading-[1.9] text-white/75"
+                  className="min-h-[130px] whitespace-pre-wrap break-words font-[inherit] text-[13px] leading-[1.9] text-white/80"
                 >
                   {text}
                 </pre>
               </div>
 
-              <p className="mt-4 text-[11px] leading-relaxed text-white/40">
+              <p className="mt-4 text-xs leading-relaxed text-white/60">
                 {x({
                   en: "Your message updates automatically as you complete the brief.",
                   ar: "الرسالة بتتحدث تلقائيًا مع كل معلومة بتضيفها.",
@@ -526,7 +475,7 @@ export default function BriefBuilder() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="link"
-                className="group mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-[#FF6A1F] px-5 py-4 text-sm font-semibold text-[#111D2B] transition-all duration-300 hover:bg-[#FF874A] hover:shadow-[0_10px_30px_rgba(255,106,31,0.15)]"
+                className="group mt-7 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl bg-[#FF6A1F] px-5 py-4 text-sm font-semibold text-[#111D2B] transition-all duration-300 hover:bg-[#FF874A] hover:shadow-[0_10px_30px_rgba(255,106,31,0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {t("contact.send")}
 
@@ -541,23 +490,46 @@ export default function BriefBuilder() {
                 type="button"
                 onClick={copyMessage}
                 data-cursor="link"
-                className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.12] px-5 py-3.5 text-xs font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.05] hover:text-white"
+                className="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-white/[0.12] px-5 py-3.5 text-xs font-medium text-white/80 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.05] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A1F]"
               >
-                {copied ? <CheckIcon /> : <CopyIcon />}
+                {copyStatus === "success" ? (
+                  <CheckIcon />
+                ) : (
+                  <CopyIcon />
+                )}
 
-                {copied
+                {copyStatus === "success"
                   ? t("contact.copied")
                   : t("contact.copy")}
               </button>
+
+              <p
+                role="status"
+                aria-live="polite"
+                className={`mt-3 text-center text-xs ${
+                  copyStatus === "error"
+                    ? "text-[#FFB28C]"
+                    : "text-white/70"
+                }`}
+              >
+                {copyStatus === "error"
+                  ? x({
+                      en: "Copy failed. Please select and copy the message manually.",
+                      ar: "تعذّر نسخ الرسالة. من فضلك حدّد النص وانسخه يدويًا.",
+                    })
+                  : copyStatus === "success"
+                    ? t("contact.copied")
+                    : ""}
+              </p>
             </div>
           </div>
 
           {/* PRIVACY NOTE */}
 
-          <p className="mt-4 px-2 text-center text-[11px] leading-relaxed text-white/35">
+          <p className="mt-4 px-2 text-center text-xs leading-relaxed text-white/60">
             {x({
-              en: "No account required. Your brief opens directly in WhatsApp.",
-              ar: "مش محتاج تعمل حساب. تفاصيل مشروعك بتتفتح مباشرة في واتساب.",
+              en: "No account required on this website. Your brief opens in WhatsApp, where you can review and send it.",
+              ar: "مش محتاج تعمل حساب على الموقع. تفاصيل مشروعك هتتفتح في واتساب علشان تراجعها وتبعتها.",
             })}
           </p>
         </motion.div>
