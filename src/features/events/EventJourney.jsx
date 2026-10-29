@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -21,41 +22,63 @@ import { M } from "@/data/media";
 import { pad2 } from "@/lib/utils";
 
 // One real event image per stage of the journey.
+// Image descriptions are localized for accessibility.
 const stageImages = [
   {
     img: M("luini-bakery/event"),
     slug: "luini-bakery",
-    alt: "Luini Bakery opening",
+    alt: {
+      en: "Luini Bakery opening event",
+      ar: "فعالية افتتاح مخبز لويني",
+    },
   },
   {
     img: M("radicon/event-1"),
     slug: "radicon",
-    alt: "Radicon Switch On event",
+    alt: {
+      en: "Radicon Switch On event",
+      ar: "فعالية سويتش أون لشركة راديكون",
+    },
   },
   {
     img: M("fayya/event-1"),
     slug: "fayya",
-    alt: "Fayya event styling",
+    alt: {
+      en: "Fayya event styling",
+      ar: "تنسيق فعالية فايا",
+    },
   },
   {
     img: M("gulf-consult/board"),
     slug: "gulf-consult",
-    alt: "Gulf Consult stand",
+    alt: {
+      en: "Gulf Consult exhibition stand",
+      ar: "جناح معرض شركة الخليج للاستشارات",
+    },
   },
   {
     img: M("radicon/event-2"),
     slug: "radicon",
-    alt: "Radicon installation",
+    alt: {
+      en: "Radicon Saudi flag installation",
+      ar: "تجهيز فعالية العلم السعودي لشركة راديكون",
+    },
   },
   {
     img: M("fayya/event-3"),
     slug: "fayya",
-    alt: "Fayya green event",
+    alt: {
+      en: "Fayya green-themed event",
+      ar: "فعالية فايا بتنسيق أخضر",
+    },
   },
   {
     img: M("ucicoat/board"),
     slug: "ucicoat",
-    alt: "UCICOAT stand",
+    alt: {
+      en: "UCICOAT exhibition stand",
+      ar: "جناح معرض شركة يوسيكوت",
+    },
   },
 ];
 
@@ -138,7 +161,7 @@ function Stage({
         >
           <ImageReveal
             img={imageData.img}
-            alt={imageData.alt}
+            alt={x(imageData.alt)}
             sizes="100vw"
           />
         </TransitionLink>
@@ -157,6 +180,7 @@ export default function EventJourney({
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
 
+  const reduceMotion = useReducedMotion();
   const range = useMotionValue(0);
 
   const { scrollYProgress } = useScroll({
@@ -168,7 +192,7 @@ export default function EventJourney({
 
   const xMove = useTransform(
     [scrollYProgress, range],
-    ([p, r]) => p * r * sign
+    ([p, r]) => reduceMotion ? 0 : p * r * sign
   );
 
   const fill = useTransform(
@@ -321,7 +345,7 @@ export default function EventJourney({
                 >
                   <Image
                     src={stageImages[i].img.src}
-                    alt={stageImages[i].alt}
+                    alt={x(stageImages[i].alt)}
                     width={stageImages[i].img.w}
                     height={stageImages[i].img.h}
                     sizes="40vw"
