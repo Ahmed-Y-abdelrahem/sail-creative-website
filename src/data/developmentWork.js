@@ -24,6 +24,7 @@ export const work = [
     outcomeAr:
       "حضور ويب احترافي يدعم تطوير الأعمال والتقدم للمناقصات — مباشر ويعمل فعليًا.",
     tags: ["Web Development", "Corporate Website", "Contracting"],
+    tagsAr: ["تطوير المواقع", "موقع مؤسسي", "المقاولات"],
     image: "/images/work/aptc.png",
     liveUrl: "https://aptc-tan.vercel.app/",
   },
@@ -51,6 +52,7 @@ export const work = [
     outcomeAr:
       "منصة مؤسسية مباشرة تدعم حضور الشركة في السوق السعودي.",
     tags: ["Web Development", "Corporate Website", "Saudi Market"],
+    tagsAr: ["تطوير المواقع", "موقع مؤسسي", "السوق السعودي"],
     image: "/images/work/almeer.png",
     liveUrl: "https://www.almeer-saudi.com/",
   },
@@ -78,6 +80,7 @@ export const work = [
     outcomeAr:
       "منصة مباشرة فاخرة تمثل العلامة بالمستوى الذي تستحقه منتجاتها.",
     tags: ["Web Development", "Luxury Retail", "Saudi Market"],
+    tagsAr: ["تطوير المواقع", "تجارة المنتجات الفاخرة", "السوق السعودي"],
     image: "/images/work/ounce-gold.png",
     liveUrl: "https://ounce.com.sa/",
   },
@@ -105,6 +108,7 @@ export const work = [
     outcomeAr:
       "متجر سريع ومتجاوب بتجربة شراء كاملة — مباشر ويعمل فعليًا.",
     tags: ["Front-End", "E-commerce", "React"],
+    tagsAr: ["تطوير الواجهات", "التجارة الإلكترونية", "React"],
     image: "/images/work/freshcart.png",
     liveUrl: "https://freshcart-eta-one.vercel.app/",
   },
@@ -132,6 +136,7 @@ export const work = [
     outcomeAr:
       "موقع مؤسسي مباشر يوصل القدرات المتخصصة بوضوح ومصداقية.",
     tags: ["Web Development", "Ground Engineering", "B2B"],
+    tagsAr: ["تطوير المواقع", "الهندسة الأرضية", "B2B"],
     image: "/images/work/azal-projects.png",
     liveUrl: "https://www.azalprojects.com/",
   },
@@ -159,6 +164,7 @@ export const work = [
     outcomeAr:
       "منصة ترفيهية مباشرة بتجربة استكشاف سلسة وجذابة.",
     tags: ["Web Development", "Entertainment", "UI"],
+    tagsAr: ["تطوير المواقع", "الترفيه", "واجهات المستخدم"],
     image: "/images/work/develco.png",
     liveUrl: "https://ahmed-mohamed-yousry.github.io/develekko/",
   },
@@ -186,6 +192,7 @@ export const work = [
     outcomeAr:
       "موقع مباشر يدعم تطوير أعمال الشركة.",
     tags: ["Web Development", "Corporate Website", "Construction"],
+    tagsAr: ["تطوير المواقع", "موقع مؤسسي", "الإنشاءات"],
     image: "/images/work/eco-contracting.png",
     liveUrl: "https://ecolmtd.com/",
   },
@@ -213,6 +220,7 @@ export const work = [
     outcomeAr:
       "منصة ألعاب مباشرة تخدم اللاعبين بتجربة كاملة.",
     tags: ["Web Development", "Gaming", "Platform"],
+    tagsAr: ["تطوير المواقع", "الألعاب", "منصة رقمية"],
     image: "/images/work/game-over.png",
     liveUrl: "https://game-over-woad.vercel.app/",
   },
@@ -240,6 +248,7 @@ export const work = [
     outcomeAr:
       "منصة مؤسسية مباشرة تعرض المصداقية التقنية للشركة عبر السعودية والبحرين.",
     tags: ["Web Development", "Civil Engineering", "Saudi Market"],
+    tagsAr: ["تطوير المواقع", "الهندسة المدنية", "السوق السعودي"],
     image: "/images/work/high-dam.png",
     liveUrl: "https://www.high-dam.co/",
   },

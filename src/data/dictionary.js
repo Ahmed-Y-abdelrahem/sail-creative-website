@@ -1,5 +1,5 @@
 
- // UI strings. Company facts live in site.js, services.js and projects.js.
+// UI strings. Company facts live in site.js, services.js and projects.js.
 export const dictionary = {
   en: {
     "a11y.skip": "Skip to content",
@@ -127,7 +127,7 @@ export const dictionary = {
     "about.approach.body": "Because the best stories are written in the face of a challenge. A partner that never settles.",
 
     "contact.title": "Ready to lead the way?",
-    "contact.sub": "Tell us what you are building. Your message opens in WhatsApp — nothing is stored on this site.",
+    "contact.sub": "Tell us about your project, and the SAIL team will get back to you soon.",
     "contact.pick": "What do you need?",
     "contact.name": "Your name",
     "contact.brand": "Brand or company",
@@ -282,7 +282,7 @@ export const dictionary = {
     "about.approach.body": "لأن أجمل القصص تُكتب في مواجهة التحدي. شريك لا يقبل بالقليل.",
 
     "contact.title": "هل أنت مستعد لتقود الطريق؟",
-    "contact.sub": "أخبرنا ما الذي تبنيه. تُفتح رسالتك في واتساب — ولا يُخزَّن أي شيء على هذا الموقع.",
+    "contact.sub": "أخبرنا عن مشروعك، وسيتواصل معك فريق سيل في أقرب وقت.",
     "contact.pick": "ماذا تحتاج؟",
     "contact.name": "اسمك",
     "contact.brand": "العلامة أو الشركة",

@@ -15,6 +15,10 @@ const OFFICE = {
   lat: 26.3728139,
   lng: 50.1203853,
   googleMaps: "https://maps.app.goo.gl/QiAmLrAUBEVztD9j7",
+  addressAr:
+    "4987 شارع الساحل، حي هجر، الدور الثالث، الظهران 34253، المملكة العربية السعودية",
+  addressEn:
+    "4987 Al Sahel, Hajar, 3rd Floor, Dhahran 34253, Saudi Arabia",
 };
 
 const MAP_EMBED = `https://maps.google.com/maps?q=${OFFICE.lat},${OFFICE.lng}&z=17&output=embed`;
@@ -68,7 +72,7 @@ function LocationMap({ isRTL }) {
       {/* MAP HEADER */}
 
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 px-5 py-4 sm:px-6">
-        <div className="flex items-center gap-3">
+        <div className="flex items-start gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#FF6A1F]/30 bg-[#FF6A1F]/10 text-[#FF6A1F]">
             <PinIcon />
           </span>
@@ -80,10 +84,8 @@ function LocationMap({ isRTL }) {
                 : "Sail Creative Solutions"}
             </p>
 
-            <p className="mt-1 text-xs text-white/60">
-              {isRTL
-                ? "مقر الشركة - المملكة العربية السعودية"
-                : "Company Office - Saudi Arabia"}
+            <p className="mt-1 max-w-md text-xs leading-[1.8] text-white/60">
+              {isRTL ? OFFICE.addressAr : OFFICE.addressEn}
             </p>
           </div>
         </div>

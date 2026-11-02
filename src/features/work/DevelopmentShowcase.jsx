@@ -68,11 +68,10 @@ export default function DevelopmentShowcase({
                 ? false
                 : { opacity: 0, y: 45 }
             }
-            whileInView={
-              reduceMotion
-                ? { opacity: 1, y: 0 }
-                : { opacity: 1, y: 0 }
-            }
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
             viewport={{
               once: true,
               margin: "-60px",
@@ -82,8 +81,7 @@ export default function DevelopmentShowcase({
                 ? { duration: 0 }
                 : {
                     duration: 0.7,
-                    delay:
-                      Math.min(index % 3, 2) * 0.1,
+                    delay: Math.min(index % 3, 2) * 0.1,
                   }
             }
             className="group min-w-0 overflow-hidden border border-white/15 bg-[#101B29]/55"
@@ -149,14 +147,19 @@ export default function DevelopmentShowcase({
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {project.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="border border-white/15 px-3 py-1.5 text-xs text-white/65"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  {(isRTL
+                    ? project.tagsAr || project.tags
+                    : project.tags
+                  )
+                    .slice(0, 3)
+                    .map((tag) => (
+                      <span
+                        key={tag}
+                        className="border border-white/15 px-3 py-1.5 text-xs text-white/65"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                 </div>
 
                 <div className="mt-7 flex min-h-[44px] items-center justify-between border-t border-white/15 pt-5">

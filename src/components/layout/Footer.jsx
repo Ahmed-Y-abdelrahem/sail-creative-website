@@ -9,7 +9,7 @@ import { localePath, numerals } from "@/lib/i18n";
 
 /* CONTACT DETAILS */
 
-const CONTACT_EMAIL = "info@sail-ksa.com";
+const CONTACT_EMAIL = "Hello@sail-ksa.com";
 const CONTACT_PHONE = "+966557631575";
 
 /* CTA ARROW */
