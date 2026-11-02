@@ -80,6 +80,10 @@ function FormField({
   onChange,
   multiline = false,
   autoComplete,
+  type = "text",
+  required = false,
+  maxLength = 200,
+  disabled = false,
 }) {
   const inputClass = `
     w-full rounded-xl border border-white/[0.12]
@@ -90,6 +94,7 @@ function FormField({
     focus:border-[#FF6A1F]/70
     focus:bg-white/[0.055]
     focus:ring-2 focus:ring-[#FF6A1F]/10
+    disabled:cursor-not-allowed disabled:opacity-60
   `;
 
   return (
@@ -99,33 +104,47 @@ function FormField({
         className="mb-2.5 block text-xs font-medium text-white/75"
       >
         {label}
+        {required && (
+          <span className="ms-1 text-[#FF8B53]" aria-hidden="true">
+            *
+          </span>
+        )}
       </label>
 
       {multiline ? (
         <textarea
           id={id}
+          name={id}
           rows={4}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
+          required={required}
+          maxLength={maxLength}
+          disabled={disabled}
           className={`${inputClass} min-h-[120px] resize-y`}
         />
       ) : (
         <input
           id={id}
-          type="text"
+          name={id}
+          type={type}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete}
+          required={required}
+          maxLength={maxLength}
+          disabled={disabled}
           className={inputClass}
+          dir={type === "email" || type === "tel" ? "ltr" : undefined}
         />
       )}
     </div>
   );
 }
 
-function ServiceOption({ service, selected, onToggle }) {
+function ServiceOption({ service, selected, onToggle, disabled }) {
   const { x } = useLocale();
 
   return (
@@ -133,6 +152,7 @@ function ServiceOption({ service, selected, onToggle }) {
       type="button"
       aria-pressed={selected}
       onClick={onToggle}
+      disabled={disabled}
       data-cursor="link"
       className={`
         group flex min-h-[62px] w-full items-center
@@ -141,6 +161,7 @@ function ServiceOption({ service, selected, onToggle }) {
         focus-visible:outline focus-visible:outline-2
         focus-visible:outline-offset-2
         focus-visible:outline-[#FF6A1F]
+        disabled:cursor-not-allowed disabled:opacity-60
         ${
           selected
             ? "border-[#FF6A1F] bg-[#FF6A1F]/10"
@@ -181,8 +202,15 @@ export default function BriefBuilder() {
   const [needs, setNeeds] = useState([]);
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [copyStatus, setCopyStatus] = useState("idle");
+  const [submitStatus, setSubmitStatus] = useState("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [website, setWebsite] = useState("");
+
+  const isSubmitting = submitStatus === "loading";
 
   const animationProps = reduceMotion
     ? {}
@@ -201,39 +229,49 @@ export default function BriefBuilder() {
     );
   };
 
+  const selectedServices = useMemo(
+    () =>
+      services
+        .filter((service) => needs.includes(service.slug))
+        .map((service) => x(service.title)),
+    [needs, x]
+  );
+
   const text = useMemo(() => {
     const lines = [t("contact.greeting")];
 
     if (name.trim()) {
-      lines.push(
-        `${t("contact.fieldName")}: ${name.trim()}`
-      );
+      lines.push(`${t("contact.fieldName")}: ${name.trim()}`);
     }
 
     if (brand.trim()) {
+      lines.push(`${t("contact.fieldBrand")}: ${brand.trim()}`);
+    }
+
+    if (phone.trim()) {
       lines.push(
-        `${t("contact.fieldBrand")}: ${brand.trim()}`
+        `${x({ en: "Phone", ar: "رقم الهاتف" })}: ${phone.trim()}`
       );
     }
 
-    if (needs.length) {
-      const selectedServices = services
-        .filter((service) => needs.includes(service.slug))
-        .map((service) => x(service.title));
+    if (email.trim()) {
+      lines.push(
+        `${x({ en: "Email", ar: "البريد الإلكتروني" })}: ${email.trim()}`
+      );
+    }
 
+    if (selectedServices.length) {
       lines.push(
         `${t("contact.fieldNeeds")}: ${selectedServices.join(" / ")}`
       );
     }
 
     if (msg.trim()) {
-      lines.push(
-        `${t("contact.fieldMsg")}: ${msg.trim()}`
-      );
+      lines.push(`${t("contact.fieldMsg")}: ${msg.trim()}`);
     }
 
     return lines.join("\n");
-  }, [needs, name, brand, msg, t, x]);
+  }, [name, brand, phone, email, selectedServices, msg, t, x]);
 
   const whatsappUrl = useMemo(() => {
     const base = site.social.whatsapp;
@@ -251,16 +289,75 @@ export default function BriefBuilder() {
     }
   };
 
+  const submitBrief = async (event) => {
+    event.preventDefault();
+
+    if (isSubmitting || submitStatus === "success") {
+      return;
+    }
+
+    setSubmitStatus("loading");
+    setSubmitMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+          company: brand.trim(),
+          service: selectedServices.join(" / "),
+          budget: "",
+          timeline: "",
+          details: msg.trim(),
+          locale: isRTL ? "ar" : "en",
+          website,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || result.success !== true) {
+        throw new Error(
+          result.message ||
+            x({
+              en: "Unable to send your request. Please try again.",
+              ar: "تعذر إرسال طلبك. حاول مرة تانية.",
+            })
+        );
+      }
+
+      setSubmitStatus("success");
+      setSubmitMessage(
+        x({
+          en: "Your request was received successfully. Our team will contact you soon.",
+          ar: "تم استلام طلبك بنجاح! فريقنا هيتواصل معاك قريبًا.",
+        })
+      );
+    } catch (error) {
+      setSubmitStatus("error");
+      setSubmitMessage(
+        error instanceof Error
+          ? error.message
+          : x({
+              en: "Something went wrong. Please try again.",
+              ar: "حصلت مشكلة أثناء الإرسال. حاول مرة تانية.",
+            })
+      );
+    }
+  };
+
   const selectedCount = needs.length;
 
   return (
     <div className="relative">
       {/* HEADER */}
 
-      <motion.div
-        {...animationProps}
-        className="mb-8"
-      >
+      <motion.div {...animationProps} className="mb-8">
         <div className="mb-3 flex items-center gap-3">
           <span
             aria-hidden="true"
@@ -295,13 +392,15 @@ export default function BriefBuilder() {
       <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
         {/* FORM */}
 
-        <motion.div
+        <motion.form
           {...animationProps}
+          id="sail-contact-form"
+          onSubmit={submitBrief}
           className="rounded-2xl border border-white/[0.10] bg-white/[0.035] p-5 sm:p-7"
         >
           {/* SERVICES */}
 
-          <fieldset>
+          <fieldset disabled={isSubmitting || submitStatus === "success"}>
             <legend className="text-sm font-semibold text-white">
               {t("contact.pick")}
             </legend>
@@ -330,12 +429,11 @@ export default function BriefBuilder() {
                   service={service}
                   selected={needs.includes(service.slug)}
                   onToggle={() => toggle(service.slug)}
+                  disabled={isSubmitting || submitStatus === "success"}
                 />
               ))}
             </div>
           </fieldset>
-
-          {/* DIVIDER */}
 
           <div className="my-8 h-px bg-white/10" />
 
@@ -368,6 +466,9 @@ export default function BriefBuilder() {
               value={name}
               onChange={setName}
               autoComplete="name"
+              required
+              maxLength={150}
+              disabled={isSubmitting || submitStatus === "success"}
             />
 
             <FormField
@@ -380,6 +481,43 @@ export default function BriefBuilder() {
               value={brand}
               onChange={setBrand}
               autoComplete="organization"
+              maxLength={200}
+              disabled={isSubmitting || submitStatus === "success"}
+            />
+
+            <FormField
+              id="brief-phone"
+              label={x({
+                en: "Phone number",
+                ar: "رقم الهاتف",
+              })}
+              placeholder={x({
+                en: "+966 5X XXX XXXX",
+                ar: "+966 5X XXX XXXX",
+              })}
+              value={phone}
+              onChange={setPhone}
+              autoComplete="tel"
+              type="tel"
+              required
+              maxLength={50}
+              disabled={isSubmitting || submitStatus === "success"}
+            />
+
+            <FormField
+              id="brief-email"
+              label={x({
+                en: "Email address",
+                ar: "البريد الإلكتروني",
+              })}
+              placeholder="name@company.com"
+              value={email}
+              onChange={setEmail}
+              autoComplete="email"
+              type="email"
+              required
+              maxLength={200}
+              disabled={isSubmitting || submitStatus === "success"}
             />
           </div>
 
@@ -394,9 +532,30 @@ export default function BriefBuilder() {
               value={msg}
               onChange={setMsg}
               multiline
+              required
+              maxLength={5000}
+              disabled={isSubmitting || submitStatus === "success"}
             />
           </div>
-        </motion.div>
+
+          {/* SPAM PROTECTION */}
+
+          <div
+            className="absolute -left-[9999px] h-px w-px overflow-hidden"
+            aria-hidden="true"
+          >
+            <label htmlFor="brief-website">Website</label>
+            <input
+              id="brief-website"
+              type="text"
+              name="website"
+              value={website}
+              onChange={(event) => setWebsite(event.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+        </motion.form>
 
         {/* LIVE PREVIEW */}
 
@@ -468,20 +627,69 @@ export default function BriefBuilder() {
                 })}
               </p>
 
-              {/* SEND BUTTON */}
+              {/* DIRECT SUBMISSION */}
+
+              <button
+                type="submit"
+                form="sail-contact-form"
+                disabled={isSubmitting || submitStatus === "success"}
+                data-cursor="link"
+                className="group mt-7 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl bg-[#FF6A1F] px-5 py-4 text-sm font-semibold text-[#111D2B] transition-all duration-300 hover:bg-[#FF874A] hover:shadow-[0_10px_30px_rgba(255,106,31,0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-65"
+              >
+                {isSubmitting
+                  ? x({
+                      en: "Sending your request...",
+                      ar: "جاري إرسال طلبك...",
+                    })
+                  : submitStatus === "success"
+                    ? x({
+                        en: "Request sent successfully",
+                        ar: "تم إرسال طلبك بنجاح",
+                      })
+                    : x({
+                        en: "Submit Project Inquiry",
+                        ar: "إرسال طلب المشروع",
+                      })}
+
+                {submitStatus === "success" ? (
+                  <CheckIcon />
+                ) : (
+                  <span className="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+                    <ArrowIcon />
+                  </span>
+                )}
+              </button>
+
+              {/* SUBMISSION STATUS */}
+
+              {submitMessage && (
+                <p
+                  role={submitStatus === "error" ? "alert" : "status"}
+                  aria-live="polite"
+                  className={`mt-3 rounded-lg border px-4 py-3 text-center text-xs leading-relaxed ${
+                    submitStatus === "success"
+                      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-200"
+                      : "border-[#FF6A1F]/25 bg-[#FF6A1F]/10 text-[#FFB28C]"
+                  }`}
+                >
+                  {submitMessage}
+                </p>
+              )}
+
+              {/* WHATSAPP OPTION */}
 
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="link"
-                className="group mt-7 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl bg-[#FF6A1F] px-5 py-4 text-sm font-semibold text-[#111D2B] transition-all duration-300 hover:bg-[#FF874A] hover:shadow-[0_10px_30px_rgba(255,106,31,0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="group mt-3 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl border border-white/[0.12] px-5 py-3.5 text-xs font-medium text-white/80 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.05] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A1F]"
               >
-                {t("contact.send")}
-
-                <span className="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
-                  <ArrowIcon />
-                </span>
+                {x({
+                  en: "Continue via WhatsApp",
+                  ar: "التواصل عبر واتساب",
+                })}
+                <ArrowIcon />
               </a>
 
               {/* COPY BUTTON */}
@@ -528,8 +736,8 @@ export default function BriefBuilder() {
 
           <p className="mt-4 px-2 text-center text-xs leading-relaxed text-white/60">
             {x({
-              en: "No account required on this website. Your brief opens in WhatsApp, where you can review and send it.",
-              ar: "مش محتاج تعمل حساب على الموقع. تفاصيل مشروعك هتتفتح في واتساب علشان تراجعها وتبعتها.",
+              en: "When you submit, your details are sent securely to SAIL and stored for follow-up. You can also contact us via WhatsApp.",
+              ar: "عند إرسال الطلب، بياناتك بتوصل لفريق سيل وبتتسجل للمتابعة. وتقدر كمان تتواصل معانا عبر واتساب.",
             })}
           </p>
         </motion.div>
