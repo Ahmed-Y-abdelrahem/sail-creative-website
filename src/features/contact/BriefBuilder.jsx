@@ -338,6 +338,23 @@ export default function BriefBuilder() {
           ar: "تم استلام طلبك بنجاح! فريقنا هيتواصل معاك قريبًا.",
         })
       );
+
+      // Track only successful submissions.
+      // Do not send personal information to analytics.
+      try {
+        if (typeof window !== "undefined") {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "sail_lead_submit",
+            lead_type: "project_inquiry",
+            form_id: "sail-contact-form",
+            form_location: "contact_page",
+            language: isRTL ? "ar" : "en",
+          });
+        }
+      } catch {
+        // Analytics must never affect form submission.
+      }
     } catch (error) {
       setSubmitStatus("error");
       setSubmitMessage(
