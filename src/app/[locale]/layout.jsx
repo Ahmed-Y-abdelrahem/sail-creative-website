@@ -1,5 +1,6 @@
 
 import { notFound } from "next/navigation";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 import "@fontsource-variable/bricolage-grotesque/wdth.css";
 import "@fontsource/bricolage-grotesque/latin-800.css";
@@ -24,6 +25,8 @@ import {
 
 import { site } from "@/data/site";
 import { t } from "@/data/dictionary";
+
+const GTM_ID = "GTM-N4BCQL7B";
 
 export const dynamicParams = false;
 
@@ -152,6 +155,8 @@ export default async function LocaleLayout({
             __html: safeJsonLd(structuredData),
           }}
         />
+
+        <GoogleTagManager gtmId={GTM_ID} />
       </body>
     </html>
   );
