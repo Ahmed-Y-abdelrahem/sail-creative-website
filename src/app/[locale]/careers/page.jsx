@@ -78,7 +78,7 @@ const content = {
     messageHeading:
       "طلب انضمام جديد إلى سيل للحلول الإبداعية",
 
-    footer: "Your next chapter starts here.",
+    footer: "هنا تبدأ خطوتك القادمة نحو المستقبل.",
   },
 
   en: {
