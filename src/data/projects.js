@@ -975,7 +975,7 @@ export const projects = [
   {
     slug: "ramadan-duas",
     name: t("Ramadan Duas", "أدعية رمضان"),
-    client: t("SAIL Creative", "سيل"),
+    client: t("SAIL Creative Solutions", "سيل للحلول الإبداعية"),
     categories: ["marketing"],
     layout: "pano",
     featured: false,
