@@ -4,89 +4,113 @@
  * Logo files are stored in /public/partners.
  *
  * Notes:
- * - 017.webp is excluded from display because it
- *   repeats the Bawan brand shown in 020.webp.
- * - 018.webp is retained as Bawan Wood Industries.
- * - The restaurant logo reads "Cart Restaurant".
+ * - 017.webp is excluded because it repeats Bawan.
+ * - 018.webp is Bawan Wood Industries.
+ * - Brand names remain unchanged when they are
+ *   distinctive trademarks without a clear translation.
+ * - Descriptive names have Arabic translations.
  */
 
+const t = (en, ar = en) => ({ en, ar });
+
 const names = {
-  1: "Shavery & Co.",
-  2: "Enigma",
-  3: "Baab",
-  4: "Tawlead",
-  5: "Cart Restaurant",
-  6: "Tricycle",
-  7: "Tawiya",
-  8: "Namar",
-  9: "Fayya Beauty Salon & Spa",
-  10: "Chayt",
-  11: "Armadio",
-  12: "Bella Physical Therapy Center",
-  14: "Gerflor",
-  15: "Green Light",
-  16: "Arnon",
-  18: "Bawan Wood Industries",
-  19: "UTEC",
-  20: "Bawan",
-  24: "We One 1",
-  26: "Taj Azal",
-  28: "88 Port",
-  31: "Aram Art",
-  32: "Stay In",
-  33: "Gulf Cattle",
-  35: "BAN",
-  36: "Bistro Catering",
-  37: "FIX",
-  38: "Blake Urban Kitchen",
-  39: "Bling Bay",
-  40: "The BLK",
-  41: "Cloud",
-  42: "The City School",
-  44: "Deraah",
-  45: "Dine Eatery",
-  47: "El-Faleh",
-  48: "Falafel & Co",
-  49: "SARF",
-  50: "Linde",
-  51: "Le Goût Chocolatier",
-  52: "Layers",
-  53: "La Gondola",
-  54: "Kyla",
-  55: "KiiN",
-  57: "Kazoya",
-  58: "Katoosh",
-  59: "Joe’s Diner",
-  60: "Golden Rawafed Company",
-  63: "L’italiano",
-  64: "Luini Bakery",
-  66: "Nawar",
-  67: "Nano-Ceramic",
-  68: "Mora",
-  69: "Beut AlMisk",
-  71: "Maxim",
-  72: "Mary",
-  73: "Makani",
-  74: "Sidra",
-  76: "Optimus",
-  77: "Pepsi",
-  78: "Pizzapoli",
-  79: "Café Quindío",
-  80: "Ramada by Wyndham",
-  81: "Renad",
-  82: "Rollsrice",
-  83: "Rais International Schools",
-  84: "Sumou AlHayat",
-  85: "Saldwich",
-  87: "PC",
-  89: "Squash",
-  91: "Toast Hub",
-  92: "UCICOAT",
-  93: "Hazim Real Estate",
-  94: "Vicoli",
-  96: "Radicon",
-  97: "Zyro",
-  98: "Aszu",
+  1: t("Shavery & Co."),
+  2: t("Enigma"),
+  3: t("Baab", "باب"),
+  4: t("Tawlead", "توليد"),
+  5: t("Cart Restaurant", "مطعم كارت"),
+  6: t("Tricycle"),
+  7: t("Tawiya", "توعية"),
+  8: t("Namar", "نمار"),
+  9: t(
+    "Fayya Beauty Salon & Spa",
+    "صالون وسبا فيّا للتجميل"
+  ),
+  10: t("Chayt"),
+  11: t("Armadio"),
+  12: t(
+    "Bella Physical Therapy Center",
+    "مركز بيلا للعلاج الطبيعي"
+  ),
+  14: t("Gerflor"),
+  15: t("Green Light", "الضوء الأخضر"),
+  16: t("Arnon"),
+  18: t(
+    "Bawan Wood Industries",
+    "بوان للصناعات الخشبية"
+  ),
+  19: t("UTEC"),
+  20: t("Bawan", "بوان"),
+  24: t("We One 1"),
+  26: t("Taj Azal", "تاج أزال"),
+  28: t("88 Port"),
+  31: t("Aram Art", "آرام للفنون"),
+  32: t("Stay In"),
+  33: t("Gulf Cattle", "المواشي الخليجية"),
+  35: t("BAN"),
+  36: t(
+    "Bistro Catering",
+    "بيسترو لخدمات الضيافة"
+  ),
+  37: t("FIX"),
+  38: t("Blake Urban Kitchen"),
+  39: t("Bling Bay"),
+  40: t("The BLK"),
+  41: t("Cloud", "سحابة"),
+  42: t("The City School", "مدرسة المدينة"),
+  44: t("Deraah", "درعة"),
+  45: t("Dine Eatery"),
+  47: t("El-Faleh", "الفالح"),
+  48: t("Falafel & Co", "فلافل وشركاه"),
+  49: t("SARF"),
+  50: t("Linde"),
+  51: t("Le Goût Chocolatier"),
+  52: t("Layers", "طبقات"),
+  53: t("La Gondola"),
+  54: t("Kyla"),
+  55: t("KiiN"),
+  57: t("Kazoya"),
+  58: t("Katoosh"),
+  59: t("Joe’s Diner"),
+  60: t(
+    "Golden Rawafed Company",
+    "شركة الروافد الذهبية"
+  ),
+  63: t("L’italiano"),
+  64: t("Luini Bakery", "مخبز لويني"),
+  66: t("Nawar", "نوار"),
+  67: t("Nano-Ceramic", "نانو سيراميك"),
+  68: t("Mora"),
+  69: t("Beut AlMisk", "بيوت المسك"),
+  71: t("Maxim"),
+  72: t("Mary"),
+  73: t("Makani", "مكاني"),
+  74: t("Sidra", "سدرة"),
+  76: t("Optimus"),
+  77: t("Pepsi"),
+  78: t("Pizzapoli"),
+  79: t("Café Quindío"),
+  80: t("Ramada by Wyndham"),
+  81: t("Renad", "رناد"),
+  82: t("Rollsrice"),
+  83: t(
+    "Rais International Schools",
+    "مدارس رايس العالمية"
+  ),
+  84: t("Sumou AlHayat", "سمو الحياة"),
+  85: t("Saldwich"),
+  87: t("PC"),
+  89: t("Squash"),
+  91: t("Toast Hub"),
+  92: t("UCICOAT"),
+  93: t(
+    "Hazim Real Estate",
+    "حازم العقارية"
+  ),
+  94: t("Vicoli"),
+  96: t("Radicon"),
+  97: t("Zyro"),
+  98: t("Aszu"),
 };
 
 // Keep original file numbering and IDs.
@@ -100,7 +124,8 @@ export const partners = Array.from(
       3,
       "0"
     )}.webp`,
-    name: names[i + 1] || null,
+    name: names[i + 1]?.en || null,
+    nameAr: names[i + 1]?.ar || null,
   })
 ).filter(
   (partner) => !excludedPartnerIds.has(partner.id)

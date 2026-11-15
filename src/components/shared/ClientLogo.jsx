@@ -1,29 +1,47 @@
 
+"use client";
+
 import Image from "next/image";
+import { useLocale } from "@/components/shared/LocaleProvider";
 
 export default function ClientLogo({
   partner,
   size = 112,
   className = "",
 }) {
+  const { isRTL } = useLocale();
+
   if (!partner?.src) {
     return null;
   }
 
-  const partnerName =
+  const englishName =
     typeof partner.name === "string"
       ? partner.name.trim()
       : "";
+
+  const arabicName =
+    typeof partner.nameAr === "string"
+      ? partner.nameAr.trim()
+      : "";
+
+  const partnerName = isRTL
+    ? arabicName || englishName
+    : englishName || arabicName;
 
   const logoNumber = String(
     partner.id ?? ""
   ).padStart(3, "0");
 
-  // Use the verified brand name when available.
-  // Avoid inventing a brand name for unidentified logos.
+  // Localized alternative text for accessibility and SEO.
+  // Keep unidentified brands unnamed.
   const altText = partnerName
-    ? `${partnerName} logo`
-    : `Unidentified SAIL Creative partner logo ${logoNumber}`;
+    ? isRTL
+      ? `شعار ${partnerName}`
+      : `${partnerName} logo`
+    : isRTL
+      ? `شعار شريك غير محدد الاسم لدى سيل للحلول الإبداعية، رقم ${logoNumber}`
+      : `Unidentified SAIL Creative partner logo ${logoNumber}`;
 
   return (
     <div
