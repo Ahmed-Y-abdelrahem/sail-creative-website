@@ -1,15 +1,6 @@
 
 import { M } from "./media";
 
-/**
- * Every project comes from the SAIL Creative portfolio (2026 edition).
- * Overviews are tightened rewrites of the profile text — meaning is unchanged.
- * Nothing here is invented: no metrics, no years, no testimonials.
- *
- * layout  → how the project is presented in listings and previews
- * media   → ordered blocks the case-study page turns into scenes
- */
-
 const cols = (base, n = 4) =>
   Array.from({ length: n }, (_, i) => M(`${base}/col${i + 1}`));
 
@@ -23,8 +14,8 @@ const t = (en, ar) => ({ en, ar });
 export const projects = [
   {
     slug: "tawlead",
-    name: t("Tawlead", "Tawlead"),
-    client: t("Tawlead", "Tawlead"),
+    name: t("Tawlead", "توليد"),
+    client: t("Tawlead", "توليد"),
     categories: ["branding", "digital"],
     layout: "board",
     featured: true,
@@ -78,7 +69,10 @@ export const projects = [
   {
     slug: "shavery",
     name: t("Shavery & Co.", "Shavery & Co."),
-    client: t("Shavery & Co. Luxury Salon", "Shavery & Co. Luxury Salon"),
+    client: t(
+      "Shavery & Co. Luxury Salon",
+      "صالون Shavery & Co. الفاخر"
+    ),
     categories: ["branding", "marketing", "media"],
     layout: "board",
     featured: true,
@@ -123,8 +117,11 @@ export const projects = [
   },
   {
     slug: "fayya",
-    name: t("Fayya", "Fayya"),
-    client: t("Fayya Beauty Salon & Spa", "Fayya Beauty Salon & Spa"),
+    name: t("Fayya", "فيه"),
+    client: t(
+      "Fayya Beauty Salon & Spa",
+      "صالون وسبا فيّا للتجميل"
+    ),
     categories: ["branding", "marketing", "events"],
     layout: "board",
     featured: true,
@@ -197,8 +194,8 @@ export const projects = [
   },
   {
     slug: "manafesh",
-    name: t("Manafesh", "Manafesh"),
-    client: t("Manafesh", "Manafesh"),
+    name: t("Manafesh", "منافش"),
+    client: t("Manafesh", "منافش"),
     categories: ["branding"],
     layout: "board",
     featured: true,
@@ -328,7 +325,10 @@ export const projects = [
   {
     slug: "stayin",
     name: t("Stay In", "Stay In"),
-    client: t("Stay In Hotels & Resorts", "Stay In Hotels & Resorts"),
+    client: t(
+      "Stay In Hotels & Resorts",
+      "فنادق ومنتجعات Stay In"
+    ),
     categories: ["branding", "marketing", "media"],
     layout: "board",
     featured: false,
@@ -471,7 +471,10 @@ export const projects = [
   {
     slug: "beut-almisk",
     name: t("Beut AlMisk", "بيوت المسك"),
-    client: t("Beut AlMisk Real Estate Development", "بيوت المسك للتطوير العقاري"),
+    client: t(
+      "Beut AlMisk Real Estate Development",
+      "بيوت المسك للتطوير العقاري"
+    ),
     categories: ["branding", "marketing", "digital"],
     layout: "board",
     featured: false,
@@ -516,7 +519,7 @@ export const projects = [
   },
   {
     slug: "afya",
-    name: t("AFYA", "AFYA"),
+    name: t("AFYA", "عافية"),
     client: t("AFYA", "عافية"),
     categories: ["branding"],
     layout: "board",
@@ -558,7 +561,7 @@ export const projects = [
   },
   {
     slug: "namar-door",
-    name: t("Namar Door", "Namar Door"),
+    name: t("Namar Door", "نمار"),
     client: t("Namar Door", "نمار"),
     categories: ["marketing"],
     layout: "strips",
@@ -598,7 +601,7 @@ export const projects = [
   {
     slug: "armadio",
     name: t("Armadio", "Armadio"),
-    client: t("Armadio", "ارماديو"),
+    client: t("Armadio", "Armadio"),
     categories: ["marketing"],
     layout: "board",
     featured: false,
@@ -683,7 +686,7 @@ export const projects = [
   },
   {
     slug: "gulf-cattle",
-    name: t("Gulf Cattle", "Gulf Cattle"),
+    name: t("Gulf Cattle", "المواشي الخليجية"),
     client: t("Gulf Cattle", "المواشي الخليجية"),
     categories: ["marketing", "media"],
     layout: "strips",
@@ -726,8 +729,8 @@ export const projects = [
   },
   {
     slug: "carte-restaurant",
-    name: t("Cart Restaurant", "Cart Restaurant"),
-    client: t("Cart Restaurant", "Cart Restaurant"),
+    name: t("Cart Restaurant", "مطعم كارت"),
+    client: t("Cart Restaurant", "مطعم كارت"),
     categories: ["marketing", "media"],
     layout: "strips",
     featured: false,
@@ -741,7 +744,7 @@ export const projects = [
     ],
     overview: t(
       "We refined the visual identity by simplifying the logo system — removing gradients and converting it into a clean, stroke-based mark — and built supporting elements for consistency across touchpoints. A dedicated photo and video shoot and managed social media elevate the dishes through premium visual storytelling.",
-      "صقلنا الهوية البصرية بتبسيط نظام الشعار وإزالة التدرجات وتحويله إلى علامة نظيفة قائمة على الخطوط، وطورنا عناصر داعمة لتحقيق الاتساق في كل نقطة تواصل. وتسمو الأطباق عبر جلسة تصوير فوتوغرافي وفيديو مخصصة وإدارة لوسائل التواصل بسرد بصري فاخر."
+      "صقلنا الهوية البصرية بتبسيط نظام الشعار وإزالة التدرجات اللونية، وطوّرنا عناصر بصرية داعمة لتحقيق الاتساق في مختلف نقاط التواصل. وأبرزنا الأطباق بجلسة تصوير فوتوغرافي وفيديو مخصصة، مع إدارة حسابات التواصل الاجتماعي بأسلوب بصري فاخر."
     ),
     brand: {
       bg: "#4a1414",
@@ -774,7 +777,7 @@ export const projects = [
   },
   {
     slug: "baab-app",
-    name: t("Baab App", "Baab App"),
+    name: t("Baab App", "تطبيق باب"),
     client: t("Baab App", "باب"),
     categories: ["marketing"],
     layout: "strips",
@@ -846,8 +849,14 @@ export const projects = [
   },
   {
     slug: "bella-center",
-    name: t("Bella Center", "Bella Center"),
-    client: t("Bella Physical Therapy Center", "Bella Physical Therapy Center"),
+    name: t(
+      "Bella Physical Therapy Center",
+      "مركز بيلا للعلاج الطبيعي"
+    ),
+    client: t(
+      "Bella Physical Therapy Center",
+      "مركز بيلا للعلاج الطبيعي"
+    ),
     categories: ["marketing"],
     layout: "strips",
     featured: false,
@@ -858,8 +867,8 @@ export const projects = [
       t("Print Materials", "المواد المطبوعة"),
     ],
     overview: t(
-      "Social media built on a clear, structured visual identity that reflects the brand’s position in beauty and aesthetic services. Treatments and services are shown in a clean, professional and informative way — results, procedures and before-and-after transformations that strengthen trust and credibility.",
-      "محتوى تواصل مبني على هوية بصرية واضحة ومنظمة تعكس مكانة العلامة في خدمات التجميل. تُعرض العلاجات والخدمات بأسلوب نظيف ومهني وتعريفي — النتائج والإجراءات والتحولات قبل وبعد — بما يعزز الثقة والمصداقية."
+      "We developed clear, professional social media communications for a physical therapy center. The visual direction presents physical therapy and rehabilitation services in an accessible and informative way, supported by consistent content, marketing planning and print materials.",
+      "طوّرنا محتوى تواصل واضحًا واحترافيًا لمركز متخصص في العلاج الطبيعي. يعرض التوجه البصري خدمات العلاج الطبيعي والتأهيل بأسلوب مبسط ومعلوماتي، مع محتوى متسق وتخطيط تسويقي ومواد مطبوعة."
     ),
     brand: {
       bg: "#0b6d61",
@@ -883,8 +892,8 @@ export const projects = [
   },
   {
     slug: "luini-bakery",
-    name: t("Luini Bakery", "Luini Bakery"),
-    client: t("Luini Bakery", "Luini Bakery"),
+    name: t("Luini Bakery", "مخبز لويني"),
+    client: t("Luini Bakery", "مخبز لويني"),
     categories: ["events", "marketing"],
     layout: "pano",
     featured: false,
@@ -1002,7 +1011,10 @@ export const projects = [
   {
     slug: "le-gout",
     name: t("Le Goût", "Le Goût"),
-    client: t("Le Goût Chocolatier", "Le Goût Chocolatier"),
+    client: t(
+      "Le Goût Chocolatier",
+      "Le Goût للشوكولاتة"
+    ),
     categories: ["media"],
     layout: "film",
     featured: false,
@@ -1042,7 +1054,7 @@ export const projects = [
   {
     slug: "88-port",
     name: t("88 Port", "88 Port"),
-    client: t("88 Port Burger", "٨٨ بورت برجر"),
+    client: t("88 Port Burger", "88 بورت برجر"),
     categories: ["media"],
     layout: "film",
     featured: false,
@@ -1077,7 +1089,10 @@ export const projects = [
   {
     slug: "alkhaleej",
     name: t("Alkhaleej", "الخليج"),
-    client: t("Alkhaleej Training and Education", "الخليج للتدريب والتعليم"),
+    client: t(
+      "Alkhaleej Training and Education",
+      "الخليج للتدريب والتعليم"
+    ),
     categories: ["media"],
     layout: "film",
     featured: false,
@@ -1115,8 +1130,8 @@ export const projects = [
   },
   {
     slug: "bistro-catering",
-    name: t("Bistro Catering", "Bistro Catering"),
-    client: t("Bistro Catering", "Bistro Catering"),
+    name: t("Bistro Catering", "بيسترو لخدمات الضيافة"),
+    client: t("Bistro Catering", "بيسترو لخدمات الضيافة"),
     categories: ["media"],
     layout: "film",
     featured: false,
@@ -1224,7 +1239,10 @@ export const projects = [
   {
     slug: "ucicoat",
     name: t("UCICOAT", "UCICOAT"),
-    client: t("United Coatings Industries Ltd", "الشركة المتحدة لصناعة الطلاء"),
+    client: t(
+      "United Coatings Industries Ltd",
+      "الشركة المتحدة لصناعة الطلاء"
+    ),
     categories: ["events"],
     layout: "pano",
     featured: false,
@@ -1258,10 +1276,10 @@ export const projects = [
   },
   {
     slug: "the-city-school",
-    name: t("The City School", "The City School"),
+    name: t("The City School", "مدرسة المدينة"),
     client: t(
       "The City School International – Saudi",
-      "The City School International – Saudi"
+      "مدرسة المدينة الدولية – السعودية"
     ),
     categories: ["events"],
     layout: "pano",
