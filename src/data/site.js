@@ -1,14 +1,14 @@
 
-// Company facts — based on the SAIL Creative profile (2026 edition).
+ // Company facts — based on the SAIL Creative profile (2026 edition).
 // Source statement displayed in both languages on the About page.
 export const companyStatement = {
-  en: "SAIL Creative is a SAUDI based company providing innovative marketing & advertisement solutions. Runs by a team that believes in creativity, excellence, and distinctiveness. We’ll Sail together with our clients to the safe shore by assisting with a unique, dedicated & original solutions.",
-  ar: "سيل شركة سعودية تقدم حلولًا مبتكرة في التسويق والإعلان، يقودها فريق يؤمن بالإبداع والجودة والتميّز. نرافق عملاءنا في رحلتهم نحو تحقيق أهدافهم، ونقدم لهم حلولًا أصيلة ومبتكرة مصممة خصيصًا لتلبية احتياجاتهم.",
+  en: "SAIL Creative Solutions is a Saudi company providing innovative marketing and creative solutions. Led by a team passionate about every detail, we accompany our clients from the first idea to launch, with solutions tailored to each brand.",
+  ar: "سيل للحلول الإبداعية شركة سعودية تقدم حلولًا تسويقية وإبداعية مبتكرة، يقودها فريق شغوف بالتفاصيل. نرافق عملاءنا من الفكرة الأولى حتى الإطلاق، بحلول تُصمّم لكل علامة على حدة.",
 };
 
 export const site = {
-  name: "SAIL Creative",
-  since: 2020,
+  name: "SAIL Creative Solutions",
+  since: 2018,
   website: "https://www.sail-ksa.com",
   websiteLabel: "www.sail-ksa.com",
   social: {
@@ -383,6 +383,6 @@ export const mediaPhases = [
 ];
 
 export const eventIntro = {
-  en: "SAIL Creative is a full service, professional event planning company that specializes in corporate events, dinner galas, fundraisers, long service awards, grand openings, conferences and private events. We handle all details involved with the event process so you can focus on what’s important to you.",
-  ar: "تقدم سيل كرييتف خدمات متكاملة لتخطيط الفعاليات وتنظيمها، بدءًا من فعاليات الشركات وحفلات العشاء الرسمية وفعاليات جمع التبرعات وتكريم الموظفين، وصولًا إلى الافتتاحات الكبرى والمؤتمرات والمناسبات الخاصة. نتولى جميع تفاصيل الفعالية من التخطيط وحتى التنفيذ والمتابعة، لتتفرغ أنت لما يهمك.",
+  en: "SAIL Creative Solutions is a full-service event planning company specializing in corporate events, dinner galas, fundraisers, employee recognition, grand openings, conferences and private events. We manage every detail from planning to execution and follow-up, so you can focus on what matters most.",
+  ar: "تقدم سيل للحلول الإبداعية خدمات متكاملة لتخطيط الفعاليات وتنظيمها، بدءًا من فعاليات الشركات وحفلات العشاء الرسمية وفعاليات جمع التبرعات وتكريم الموظفين، وصولًا إلى الافتتاحات الكبرى والمؤتمرات والمناسبات الخاصة. نتولى جميع تفاصيل الفعالية من التخطيط وحتى التنفيذ والمتابعة، لتتفرغ أنت لما يهمك.",
 };
