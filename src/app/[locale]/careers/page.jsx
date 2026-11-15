@@ -10,70 +10,96 @@ const content = {
     eyebrow: "انضم إلى فريق سيل",
     title: "اصنع مستقبلك معنا.",
     description:
-      "كل فكرة عظيمة بتبدأ بشخص شغوف. سواء بتدور على فرصة عمل أو تدريب عملي، يسعدنا نتعرف عليك وعلى مهاراتك.",
+      "تبدأ كل فكرة عظيمة بشخص شغوف. سواء كنت تبحث عن فرصة عمل أو تدريب عملي، يسعدنا التعرف عليك وعلى مهاراتك.",
+
     career: "الوظائف",
     internship: "التدريب",
+
     careerDescription:
-      "حابب تطور مسارك المهني وتشارك في مشاريع إبداعية؟ ابعتلنا معلوماتك وأعمالك.",
+      "هل تطمح إلى تطوير مسارك المهني والمشاركة في مشاريع إبداعية؟ شاركنا خبراتك وأعمالك.",
+
     internshipDescription:
-      "لسه في بداية الطريق؟ شاركنا اهتماماتك ومهاراتك علشان نتعرف عليك.",
-    fieldsTitle: "مجالات تقدر تقدم فيها",
+      "هل أنت في بداية مسيرتك المهنية؟ شاركنا اهتماماتك ومهاراتك لنتعرف عليك.",
+
+    fieldsTitle: "مجالات يمكنك التقديم فيها",
     fieldsDescription:
-      "المجالات دي للتقديم العام، ومش معناها إن فيه وظيفة شاغرة حاليًا في كل مجال.",
+      "هذه المجالات متاحة للتقديم العام، ولا تعني بالضرورة وجود شواغر وظيفية حاليًا في جميع التخصصات.",
+
     areas: [
       "التسويق الرقمي والإعلانات",
-      "التصميم الجرافيكي والهوية",
-      "صناعة المحتوى والسوشيال ميديا",
-      "التصوير وإنتاج الفيديو",
-      "تنظيم الفعاليات",
+      "التصميم الجرافيكي والهوية البصرية",
+      "صناعة المحتوى ووسائل التواصل الاجتماعي",
+      "التصوير والإنتاج المرئي",
+      "تنظيم وإدارة الفعاليات",
       "تطوير المواقع والبرمجيات",
       "إدارة المشاريع وخدمة العملاء",
       "مجال آخر",
     ],
+
     formTitle: "عرّفنا بنفسك.",
     formDescription:
-      "املأ البيانات، وهنجهزلك رسالة تقدر تنسخها وترسلها لفريق سيل عبر واتساب.",
-    name: "الاسم بالكامل",
+      "أكمل بياناتك لتجهيز رسالة التقديم، ثم يمكنك نسخها وإرسالها إلى فريق سيل عبر واتساب.",
+
+    name: "الاسم الكامل",
     email: "البريد الإلكتروني",
     phone: "رقم الجوال",
     area: "المجال المهني",
     choose: "اختر المجال",
+
     portfolio: "رابط السيرة الذاتية أو معرض الأعمال",
     portfolioHint:
-      "ممكن تضيف رابط Google Drive أو LinkedIn أو Behance. اتأكد إن الرابط متاح للمشاهدة.",
-    about: "احكيلنا عن نفسك",
+      "يمكنك إضافة رابط من Google Drive أو LinkedIn أو Behance. يُرجى التأكد من إتاحة الرابط للمشاهدة.",
+
+    about: "حدّثنا عن نفسك",
     aboutPlaceholder:
-      "خبراتك، مهاراتك، اهتماماتك، وليه حابب تنضم لسيل...",
+      "أخبرنا عن خبراتك ومهاراتك واهتماماتك، ولماذا ترغب في الانضمام إلى فريق سيل...",
+
     prepare: "تجهيز طلب التقديم",
-    preview: "رسالتك جاهزة",
+    preview: "رسالة التقديم جاهزة",
     copy: "نسخ الرسالة",
     copied: "تم نسخ الرسالة",
-    copyFailed: "تعذّر النسخ. حدّد الرسالة وانسخها يدويًا.",
+    copyFailed:
+      "تعذّر نسخ الرسالة. يُرجى تحديد النص ونسخه يدويًا.",
+
     whatsapp: "فتح واتساب الشركة",
     whatsappNote:
-      "بعد فتح واتساب، الصق الرسالة واضغط إرسال بنفسك. فتح واتساب لا يعني إن الطلب اتبعت.",
-    required: "من فضلك املأ الاسم والإيميل ورقم الجوال والمجال.",
-    emailError: "من فضلك اكتب بريدًا إلكترونيًا صحيحًا.",
+      "بعد فتح واتساب، الصق الرسالة واضغط على إرسال. فتح واتساب لا يعني إرسال طلب التقديم تلقائيًا.",
+
+    required:
+      "يُرجى إدخال الاسم والبريد الإلكتروني ورقم الجوال واختيار المجال المهني.",
+
+    emailError:
+      "يُرجى إدخال عنوان بريد إلكتروني صحيح.",
+
     note:
-      "التقديم العام لا يُعد إعلانًا عن وظيفة متاحة أو ضمانًا للقبول. تواصل الشركة مع المتقدمين حسب احتياجاتها.",
+      "التقديم العام لا يُعد إعلانًا عن وظيفة شاغرة أو ضمانًا للقبول. تتواصل الشركة مع المتقدمين وفقًا لاحتياجاتها.",
+
     typeLabel: "نوع التقديم",
-    messageHeading: "طلب انضمام جديد إلى SAIL Creative",
+    messageHeading:
+      "طلب انضمام جديد إلى سيل للحلول الإبداعية",
+
     footer: "Your next chapter starts here.",
   },
+
   en: {
-    eyebrow: "JOIN SAIL CREATIVE",
+    eyebrow: "JOIN SAIL CREATIVE SOLUTIONS",
     title: "Build what comes next.",
     description:
       "Great ideas start with passionate people. Whether you're looking for a career opportunity or practical training, we'd love to learn about you.",
+
     career: "Careers",
     internship: "Internships",
+
     careerDescription:
       "Looking to grow your career and contribute to creative projects? Share your experience and work with us.",
+
     internshipDescription:
       "Just starting your journey? Tell us about your interests and skills.",
+
     fieldsTitle: "Areas of interest",
     fieldsDescription:
       "These are general application areas and do not indicate currently available vacancies.",
+
     areas: [
       "Digital Marketing & Advertising",
       "Graphic Design & Branding",
@@ -84,34 +110,49 @@ const content = {
       "Project Management & Client Services",
       "Other",
     ],
+
     formTitle: "Tell us about yourself.",
     formDescription:
       "Complete the details below to prepare a message you can copy and send to SAIL via WhatsApp.",
+
     name: "Full name",
     email: "Email address",
     phone: "Mobile number",
     area: "Professional field",
     choose: "Choose a field",
+
     portfolio: "CV or portfolio link",
     portfolioHint:
       "You can share a Google Drive, LinkedIn or Behance link. Make sure it is accessible.",
+
     about: "Tell us about yourself",
     aboutPlaceholder:
       "Your experience, skills, interests and why you'd like to join SAIL...",
+
     prepare: "Prepare application",
     preview: "Your message is ready",
     copy: "Copy message",
     copied: "Message copied",
-    copyFailed: "Copy failed. Please select and copy the message manually.",
+    copyFailed:
+      "Copy failed. Please select and copy the message manually.",
+
     whatsapp: "Open company WhatsApp",
     whatsappNote:
       "Paste the message into WhatsApp and press Send yourself. Opening WhatsApp does not submit your application.",
-    required: "Please enter your name, email, phone number and field.",
-    emailError: "Please enter a valid email address.",
+
+    required:
+      "Please enter your name, email, phone number and field.",
+
+    emailError:
+      "Please enter a valid email address.",
+
     note:
       "General applications do not represent advertised vacancies or guarantee acceptance. Applicants may be contacted based on business needs.",
+
     typeLabel: "Application type",
-    messageHeading: "New application to SAIL Creative",
+    messageHeading:
+      "New application to SAIL Creative Solutions",
+
     footer: "Your next chapter starts here.",
   },
 };
@@ -131,7 +172,9 @@ function Field({ label, children, hint }) {
       <span className="mb-2 block text-sm font-medium text-white/85">
         {label}
       </span>
+
       {children}
+
       {hint && (
         <span className="mt-2 block text-xs leading-6 text-white/55">
           {hint}
@@ -155,7 +198,18 @@ export default function CareersPage() {
   const [copyStatus, setCopyStatus] = useState("");
 
   const update = (key, value) => {
-    setForm((current) => ({ ...current, [key]: value }));
+    setForm((current) => ({
+      ...current,
+      [key]: value,
+    }));
+
+    setMessage("");
+    setError("");
+    setCopyStatus("");
+  };
+
+  const changeType = (value) => {
+    setType(value);
     setMessage("");
     setError("");
     setCopyStatus("");
@@ -174,7 +228,11 @@ export default function CareersPage() {
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+        form.email.trim()
+      )
+    ) {
       setError(c.emailError);
       return;
     }
@@ -194,11 +252,15 @@ export default function CareersPage() {
     ];
 
     if (form.portfolio.trim()) {
-      lines.push(`${c.portfolio}: ${form.portfolio.trim()}`);
+      lines.push(
+        `${c.portfolio}: ${form.portfolio.trim()}`
+      );
     }
 
     if (form.about.trim()) {
-      lines.push(`${c.about}: ${form.about.trim()}`);
+      lines.push(
+        `${c.about}: ${form.about.trim()}`
+      );
     }
 
     setMessage(lines.join("\n"));
@@ -234,6 +296,7 @@ export default function CareersPage() {
         <div className="relative mx-auto max-w-[1440px]">
           <div className="mb-8 flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-[#FF6A1F]" />
+
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#FF985F]">
               {c.eyebrow}
             </span>
@@ -265,11 +328,7 @@ export default function CareersPage() {
               <button
                 key={item.id}
                 type="button"
-                onClick={() => {
-                  setType(item.id);
-                  setMessage("");
-                  setCopyStatus("");
-                }}
+                onClick={() => changeType(item.id)}
                 aria-pressed={type === item.id}
                 className={`min-h-[150px] rounded-2xl border p-6 text-start transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A1F] ${
                   type === item.id
@@ -280,9 +339,11 @@ export default function CareersPage() {
                 <span className="text-xs text-[#FF985F]">
                   {item.number}
                 </span>
+
                 <h2 className="mt-4 text-2xl font-semibold">
                   {item.title}
                 </h2>
+
                 <p className="mt-3 text-sm leading-7 text-white/60">
                   {item.description}
                 </p>
@@ -298,6 +359,7 @@ export default function CareersPage() {
           <h2 className="display text-[clamp(2rem,4vw,3.8rem)]">
             {c.fieldsTitle}
           </h2>
+
           <p className="mt-4 max-w-2xl text-sm leading-8 text-white/60">
             {c.fieldsDescription}
           </p>
@@ -311,6 +373,7 @@ export default function CareersPage() {
                 <span className="text-xs text-[#FF874A]">
                   {String(index + 1).padStart(2, "0")}
                 </span>
+
                 <h3 className="mt-5 text-sm font-medium leading-6">
                   {area}
                 </h3>
@@ -345,11 +408,15 @@ export default function CareersPage() {
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-[#172837] p-5 sm:p-8">
-            <form onSubmit={prepareApplication} className="space-y-5">
+            <form
+              onSubmit={prepareApplication}
+              className="space-y-5"
+            >
               <fieldset>
                 <legend className="mb-3 text-sm font-medium">
                   {c.typeLabel}
                 </legend>
+
                 <div className="flex flex-wrap gap-3">
                   {[
                     ["career", c.career],
@@ -368,12 +435,10 @@ export default function CareersPage() {
                         name="application-type"
                         value={value}
                         checked={type === value}
-                        onChange={() => {
-                          setType(value);
-                          setMessage("");
-                        }}
+                        onChange={() => changeType(value)}
                         className="accent-[#FF6A1F]"
                       />
+
                       {label}
                     </label>
                   ))}
@@ -385,9 +450,12 @@ export default function CareersPage() {
                   <input
                     className={inputClass}
                     required
+                    maxLength={150}
                     autoComplete="name"
                     value={form.name}
-                    onChange={(e) => update("name", e.target.value)}
+                    onChange={(event) =>
+                      update("name", event.target.value)
+                    }
                   />
                 </Field>
 
@@ -396,10 +464,13 @@ export default function CareersPage() {
                     className={inputClass}
                     required
                     type="email"
+                    maxLength={200}
                     autoComplete="email"
                     dir="ltr"
                     value={form.email}
-                    onChange={(e) => update("email", e.target.value)}
+                    onChange={(event) =>
+                      update("email", event.target.value)
+                    }
                   />
                 </Field>
 
@@ -408,10 +479,13 @@ export default function CareersPage() {
                     className={inputClass}
                     required
                     type="tel"
+                    maxLength={50}
                     autoComplete="tel"
                     dir="ltr"
                     value={form.phone}
-                    onChange={(e) => update("phone", e.target.value)}
+                    onChange={(event) =>
+                      update("phone", event.target.value)
+                    }
                   />
                 </Field>
 
@@ -420,11 +494,17 @@ export default function CareersPage() {
                     className={inputClass}
                     required
                     value={form.area}
-                    onChange={(e) => update("area", e.target.value)}
+                    onChange={(event) =>
+                      update("area", event.target.value)
+                    }
                   >
-                    <option value="" className="bg-[#172837]">
+                    <option
+                      value=""
+                      className="bg-[#172837]"
+                    >
                       {c.choose}
                     </option>
+
                     {c.areas.map((area, index) => (
                       <option
                         key={index}
@@ -446,9 +526,12 @@ export default function CareersPage() {
                   className={inputClass}
                   type="url"
                   placeholder="https://"
+                  maxLength={1000}
                   dir="ltr"
                   value={form.portfolio}
-                  onChange={(e) => update("portfolio", e.target.value)}
+                  onChange={(event) =>
+                    update("portfolio", event.target.value)
+                  }
                 />
               </Field>
 
@@ -456,14 +539,20 @@ export default function CareersPage() {
                 <textarea
                   className={`${inputClass} min-h-[145px] resize-y`}
                   rows={5}
+                  maxLength={5000}
                   placeholder={c.aboutPlaceholder}
                   value={form.about}
-                  onChange={(e) => update("about", e.target.value)}
+                  onChange={(event) =>
+                    update("about", event.target.value)
+                  }
                 />
               </Field>
 
               {error && (
-                <p role="alert" className="text-sm text-[#FFB28C]">
+                <p
+                  role="alert"
+                  className="text-sm text-[#FFB28C]"
+                >
                   {error}
                 </p>
               )}
@@ -476,6 +565,7 @@ export default function CareersPage() {
               </button>
             </form>
 
+            {/* APPLICATION PREVIEW */}
             {message && (
               <div className="mt-8 border-t border-white/10 pt-7">
                 <h3 className="text-lg font-semibold">
@@ -515,7 +605,9 @@ export default function CareersPage() {
                   aria-live="polite"
                   className="mt-3 text-xs text-white/70"
                 >
-                  {copyStatus === "error" ? c.copyFailed : ""}
+                  {copyStatus === "error"
+                    ? c.copyFailed
+                    : ""}
                 </p>
 
                 <p className="mt-4 text-xs leading-7 text-white/60">
@@ -527,6 +619,7 @@ export default function CareersPage() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <div className="border-t border-white/10 px-[var(--pad)] py-10 text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-white/45">
           {c.footer}
