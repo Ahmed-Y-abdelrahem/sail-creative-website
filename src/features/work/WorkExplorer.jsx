@@ -294,9 +294,19 @@ export default function WorkExplorer({
 
                 {showDevelopment &&
                   developmentProjects.length > 0 && (
-                    <DevelopmentShowcase
-                      projects={developmentProjects}
-                    />
+                    
+<DevelopmentShowcase
+  projects={developmentProjects}
+  startIndex={
+    active === "all" ? creativeProjects.length : 0
+  }
+  total={
+    active === "all"
+      ? counts.all
+      : developmentProjects.length
+  }
+/>
+
                   )}
               </>
             )}

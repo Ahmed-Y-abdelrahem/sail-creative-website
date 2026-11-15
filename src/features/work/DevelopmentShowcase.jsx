@@ -9,8 +9,13 @@ import {
 
 import { useLocale } from "@/components/shared/LocaleProvider";
 
+const pad2 = (value) =>
+  String(value).padStart(2, "0");
+
 export default function DevelopmentShowcase({
   projects = [],
+  startIndex = 0,
+  total = projects.length,
 }) {
   const { isRTL } = useLocale();
   const reduceMotion = useReducedMotion();
@@ -131,8 +136,11 @@ export default function DevelopmentShowcase({
                       : project.category}
                   </span>
 
-                  <span className="text-xs tabular-nums text-white/45">
-                    {project.year}
+                  <span
+                    dir="ltr"
+                    className="text-xs tabular-nums text-white/45"
+                  >
+                    {pad2(startIndex + index + 1)} / {pad2(total)}
                   </span>
                 </div>
 
@@ -175,6 +183,10 @@ export default function DevelopmentShowcase({
                   >
                     ↗
                   </span>
+                </div>
+
+                <div className="mt-2 text-xs tabular-nums text-white/40">
+                  {project.year}
                 </div>
               </div>
             </a>
