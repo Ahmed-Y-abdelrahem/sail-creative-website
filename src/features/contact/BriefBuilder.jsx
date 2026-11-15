@@ -326,7 +326,7 @@ export default function BriefBuilder() {
           result.message ||
             x({
               en: "Unable to send your request. Please try again.",
-              ar: "تعذر إرسال طلبك. حاول مرة تانية.",
+              ar: "تعذّر إرسال طلبك. يُرجى المحاولة مرة أخرى.",
             })
         );
       }
@@ -335,12 +335,11 @@ export default function BriefBuilder() {
       setSubmitMessage(
         x({
           en: "Your request was received successfully. Our team will contact you soon.",
-          ar: "تم استلام طلبك بنجاح! فريقنا هيتواصل معاك قريبًا.",
+          ar: "تم استلام طلبك بنجاح. سيتواصل معك فريقنا قريبًا.",
         })
       );
 
-      // Track only successful submissions.
-      // Do not send personal information to analytics.
+      // Track successful submissions without personal information.
       try {
         if (typeof window !== "undefined") {
           window.dataLayer = window.dataLayer || [];
@@ -362,7 +361,7 @@ export default function BriefBuilder() {
           ? error.message
           : x({
               en: "Something went wrong. Please try again.",
-              ar: "حصلت مشكلة أثناء الإرسال. حاول مرة تانية.",
+              ar: "حدث خطأ أثناء الإرسال. يُرجى المحاولة مرة أخرى.",
             })
       );
     }
@@ -373,7 +372,6 @@ export default function BriefBuilder() {
   return (
     <div className="relative">
       {/* HEADER */}
-
       <motion.div {...animationProps} className="mb-8">
         <div className="mb-3 flex items-center gap-3">
           <span
@@ -392,23 +390,21 @@ export default function BriefBuilder() {
         <h2 className="text-[clamp(1.6rem,2.8vw,2.5rem)] font-semibold leading-tight tracking-[-0.035em] text-white">
           {x({
             en: "Tell us what you have in mind.",
-            ar: "احكيلنا عن فكرة مشروعك.",
+            ar: "حدّثنا عن فكرة مشروعك.",
           })}
         </h2>
 
         <p className="mt-3 max-w-xl text-sm leading-[1.8] text-white/65">
           {x({
-            en: "Choose the services you need, share a few details and start the conversation.",
-            ar: "اختار الخدمات اللي محتاجها، واكتب تفاصيل بسيطة، وابدأ التواصل مع فريقنا.",
+            en: "Choose the services you need, share a short brief, and our team will get back to you.",
+            ar: "اختر الخدمات التي تحتاجها، وأضف نبذة مختصرة، وسيتواصل معك فريقنا.",
           })}
         </p>
       </motion.div>
 
       {/* MAIN GRID */}
-
       <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8">
         {/* FORM */}
-
         <motion.form
           {...animationProps}
           id="sail-contact-form"
@@ -416,7 +412,6 @@ export default function BriefBuilder() {
           className="rounded-2xl border border-white/[0.10] bg-white/[0.035] p-5 sm:p-7"
         >
           {/* SERVICES */}
-
           <fieldset disabled={isSubmitting || submitStatus === "success"}>
             <legend className="text-sm font-semibold text-white">
               {t("contact.pick")}
@@ -426,7 +421,7 @@ export default function BriefBuilder() {
               <p className="text-xs leading-relaxed text-white/60">
                 {x({
                   en: "You can select more than one service.",
-                  ar: "تقدر تختار أكتر من خدمة.",
+                  ar: "يمكنك اختيار أكثر من خدمة.",
                 })}
               </p>
 
@@ -455,19 +450,18 @@ export default function BriefBuilder() {
           <div className="my-8 h-px bg-white/10" />
 
           {/* CONTACT DETAILS */}
-
           <div className="mb-5">
             <h3 className="text-sm font-semibold text-white">
               {x({
                 en: "A little about you",
-                ar: "خلينا نتعرف عليك",
+                ar: "عرّفنا بنفسك",
               })}
             </h3>
 
             <p className="mt-2 text-xs text-white/60">
               {x({
                 en: "Just the essentials to get started.",
-                ar: "بيانات بسيطة علشان نبدأ.",
+                ar: "بيانات مختصرة لنبدأ.",
               })}
             </p>
           </div>
@@ -478,7 +472,7 @@ export default function BriefBuilder() {
               label={t("contact.name")}
               placeholder={x({
                 en: "Your full name",
-                ar: "اسمك بالكامل",
+                ar: "الاسم الكامل",
               })}
               value={name}
               onChange={setName}
@@ -508,10 +502,7 @@ export default function BriefBuilder() {
                 en: "Phone number",
                 ar: "رقم الهاتف",
               })}
-              placeholder={x({
-                en: "+966 5X XXX XXXX",
-                ar: "+966 5X XXX XXXX",
-              })}
+              placeholder="+966 5X XXX XXXX"
               value={phone}
               onChange={setPhone}
               autoComplete="tel"
@@ -544,7 +535,7 @@ export default function BriefBuilder() {
               label={t("contact.msg")}
               placeholder={x({
                 en: "Tell us about your goals, challenges or project idea...",
-                ar: "احكيلنا عن أهدافك أو التحديات اللي بتواجهك أو فكرة المشروع...",
+                ar: "أخبرنا عن أهداف مشروعك والتحديات التي تواجهها أو الفكرة التي ترغب في تنفيذها...",
               })}
               value={msg}
               onChange={setMsg}
@@ -556,12 +547,13 @@ export default function BriefBuilder() {
           </div>
 
           {/* SPAM PROTECTION */}
-
           <div
             className="absolute -left-[9999px] h-px w-px overflow-hidden"
             aria-hidden="true"
           >
-            <label htmlFor="brief-website">Website</label>
+            <label htmlFor="brief-website">
+              {isRTL ? "الموقع الإلكتروني" : "Website"}
+            </label>
             <input
               id="brief-website"
               type="text"
@@ -575,14 +567,12 @@ export default function BriefBuilder() {
         </motion.form>
 
         {/* LIVE PREVIEW */}
-
         <motion.div
           {...animationProps}
           className="lg:sticky lg:top-24"
         >
           <div className="overflow-hidden rounded-2xl border border-white/[0.12] bg-[#172837]">
             {/* PREVIEW HEADER */}
-
             <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4 sm:px-6">
               <div className="flex items-center gap-2">
                 <span
@@ -604,7 +594,6 @@ export default function BriefBuilder() {
             </div>
 
             {/* MESSAGE */}
-
             <div className="p-5 sm:p-6">
               <div className="mb-5 flex items-center gap-3">
                 <div
@@ -616,7 +605,7 @@ export default function BriefBuilder() {
 
                 <div>
                   <p className="text-sm font-semibold text-white">
-                    SAIL Creative
+                    SAIL Creative Solutions
                   </p>
 
                   <p className="mt-0.5 text-xs text-white/60">
@@ -640,12 +629,11 @@ export default function BriefBuilder() {
               <p className="mt-4 text-xs leading-relaxed text-white/60">
                 {x({
                   en: "Your message updates automatically as you complete the brief.",
-                  ar: "الرسالة بتتحدث تلقائيًا مع كل معلومة بتضيفها.",
+                  ar: "تُحدَّث معاينة الرسالة تلقائيًا عند إضافة بياناتك.",
                 })}
               </p>
 
               {/* DIRECT SUBMISSION */}
-
               <button
                 type="submit"
                 form="sail-contact-form"
@@ -656,7 +644,7 @@ export default function BriefBuilder() {
                 {isSubmitting
                   ? x({
                       en: "Sending your request...",
-                      ar: "جاري إرسال طلبك...",
+                      ar: "جارٍ إرسال طلبك...",
                     })
                   : submitStatus === "success"
                     ? x({
@@ -678,7 +666,6 @@ export default function BriefBuilder() {
               </button>
 
               {/* SUBMISSION STATUS */}
-
               {submitMessage && (
                 <p
                   role={submitStatus === "error" ? "alert" : "status"}
@@ -694,7 +681,6 @@ export default function BriefBuilder() {
               )}
 
               {/* WHATSAPP OPTION */}
-
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -710,7 +696,6 @@ export default function BriefBuilder() {
               </a>
 
               {/* COPY BUTTON */}
-
               <button
                 type="button"
                 onClick={copyMessage}
@@ -740,7 +725,7 @@ export default function BriefBuilder() {
                 {copyStatus === "error"
                   ? x({
                       en: "Copy failed. Please select and copy the message manually.",
-                      ar: "تعذّر نسخ الرسالة. من فضلك حدّد النص وانسخه يدويًا.",
+                      ar: "تعذّر نسخ الرسالة. يُرجى تحديد النص ونسخه يدويًا.",
                     })
                   : copyStatus === "success"
                     ? t("contact.copied")
@@ -750,11 +735,10 @@ export default function BriefBuilder() {
           </div>
 
           {/* PRIVACY NOTE */}
-
           <p className="mt-4 px-2 text-center text-xs leading-relaxed text-white/60">
             {x({
-              en: "When you submit, your details are sent securely to SAIL and stored for follow-up. You can also contact us via WhatsApp.",
-              ar: "عند إرسال الطلب، بياناتك بتوصل لفريق سيل وبتتسجل للمتابعة. وتقدر كمان تتواصل معانا عبر واتساب.",
+              en: "When you submit, your details are sent to SAIL and stored for follow-up. You can also contact us via WhatsApp.",
+              ar: "عند إرسال الطلب، تُرسل بياناتك إلى فريق سيل وتُحفظ لغرض متابعة طلبك. ويمكنك أيضًا التواصل معنا عبر واتساب.",
             })}
           </p>
         </motion.div>

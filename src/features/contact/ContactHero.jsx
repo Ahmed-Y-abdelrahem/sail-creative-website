@@ -5,13 +5,8 @@ import { useState } from "react";
 import RevealText from "@/components/ui/RevealText";
 import { useLocale } from "@/components/shared/LocaleProvider";
 
-/* ==========================================
-   SAIL OFFICE LOCATION
-   Existing coordinates and Maps link preserved.
-========================================== */
-
 const OFFICE = {
-  name: "Sail Creative Solutions",
+  name: "SAIL Creative Solutions",
   lat: 26.3728139,
   lng: 50.1203853,
   googleMaps: "https://maps.app.goo.gl/QiAmLrAUBEVztD9j7",
@@ -22,10 +17,6 @@ const OFFICE = {
 };
 
 const MAP_EMBED = `https://maps.google.com/maps?q=${OFFICE.lat},${OFFICE.lng}&z=17&output=embed`;
-
-/* ==========================================
-   ICONS
-========================================== */
 
 function ArrowIcon() {
   return (
@@ -60,17 +51,12 @@ function PinIcon() {
   );
 }
 
-/* ==========================================
-   COMPANY LOCATION MAP
-========================================== */
-
 function LocationMap({ isRTL }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#132532]">
       {/* MAP HEADER */}
-
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 px-5 py-4 sm:px-6">
         <div className="flex items-start gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#FF6A1F]/30 bg-[#FF6A1F]/10 text-[#FF6A1F]">
@@ -80,8 +66,8 @@ function LocationMap({ isRTL }) {
           <div>
             <p className="text-sm font-semibold text-white">
               {isRTL
-                ? "سيل للحلول التسويقية الإبداعية"
-                : "Sail Creative Solutions"}
+                ? "سيل للحلول الإبداعية"
+                : "SAIL Creative Solutions"}
             </p>
 
             <p className="mt-1 max-w-md text-xs leading-[1.8] text-white/60">
@@ -107,7 +93,6 @@ function LocationMap({ isRTL }) {
       </div>
 
       {/* ACTUAL OFFICE MAP */}
-
       <div className="relative h-[260px] w-full bg-[#172B37] sm:h-[320px] lg:h-[360px]">
         {!loaded && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -127,8 +112,8 @@ function LocationMap({ isRTL }) {
           key={MAP_EMBED}
           title={
             isRTL
-              ? "موقع شركة سيل للحلول التسويقية الإبداعية"
-              : "Sail Creative Solutions Office Location"
+              ? "موقع شركة سيل للحلول الإبداعية"
+              : "SAIL Creative Solutions Office Location"
           }
           src={MAP_EMBED}
           width="100%"
@@ -142,7 +127,6 @@ function LocationMap({ isRTL }) {
       </div>
 
       {/* MAP FOOTER */}
-
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 px-5 py-4 sm:px-6">
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-[#FF6A1F]" />
@@ -173,10 +157,6 @@ function LocationMap({ isRTL }) {
   );
 }
 
-/* ==========================================
-   CONTACT HERO
-========================================== */
-
 export default function ContactHero({ children }) {
   const { t, isRTL } = useLocale();
 
@@ -186,7 +166,6 @@ export default function ContactHero({ children }) {
       className="relative isolate overflow-hidden bg-[#101C2A] px-[var(--pad)] pb-12 pt-28 text-white sm:pb-16 sm:pt-32 lg:pt-36"
     >
       {/* CSS BACKGROUND - NO IMAGES */}
-
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
@@ -218,7 +197,6 @@ export default function ContactHero({ children }) {
       />
 
       {/* SUBTLE GRID */}
-
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.035]"
@@ -240,7 +218,6 @@ export default function ContactHero({ children }) {
 
       <div className="relative mx-auto max-w-[1440px]">
         {/* TOP LABEL */}
-
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A1F]" />
@@ -256,7 +233,6 @@ export default function ContactHero({ children }) {
         </div>
 
         {/* TITLE AND DESCRIPTION */}
-
         <div className="grid gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="min-w-0 lg:col-span-8">
             <h1
@@ -273,11 +249,11 @@ export default function ContactHero({ children }) {
             >
               {isRTL ? (
                 <span className="block">
-                  {t("cta.title")}
+                  {t("contact.title")}
                 </span>
               ) : (
                 <RevealText
-                  text={t("cta.title")}
+                  text={t("contact.title")}
                   immediate
                   stagger={0.07}
                 />
@@ -306,17 +282,14 @@ export default function ContactHero({ children }) {
         </div>
 
         {/* DIVIDER */}
-
         <div className="mt-10 h-px w-full bg-white/10 sm:mt-12" />
 
         {/* EXISTING CONTACT FORM */}
-
         <div className="mt-10 sm:mt-12">
           {children}
         </div>
 
         {/* LOCATION SECTION */}
-
         <div className="mt-14 border-t border-white/10 pt-10 sm:mt-16 sm:pt-12">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-5">
             <div>
