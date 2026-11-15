@@ -123,7 +123,7 @@ export const brandJourney = [
   { en: "Brand guidelines", ar: "دليل العلامة" },
 ];
 
-// Event journey — capabilities from the Event Management section.
+// Event journey — seven stages, from concept to completion.
 export const eventJourney = [
   {
     id: "concept",
@@ -131,12 +131,12 @@ export const eventJourney = [
     ar: "الفكرة",
     items: [
       {
-        en: "Planning & ideation",
-        ar: "التخطيط وتطوير الأفكار",
+        en: "Developing the event concept and objectives",
+        ar: "تطوير فكرة الفعالية وتحديد أهدافها",
       },
       {
-        en: "Branding creation and custom marketing strategy",
-        ar: "بناء هوية الفعالية ووضع استراتيجية تسويقية مخصصة",
+        en: "Creating the event identity and marketing direction",
+        ar: "تصميم هوية الفعالية وتحديد توجهها التسويقي",
       },
     ],
   },
@@ -146,20 +146,20 @@ export const eventJourney = [
     ar: "التخطيط",
     items: [
       {
-        en: "Budget creation & management",
-        ar: "إعداد الميزانية وإدارتها",
+        en: "Preparing and managing the event budget",
+        ar: "إعداد ميزانية الفعالية وإدارتها",
       },
       {
-        en: "Detailed critical path and timelines",
-        ar: "وضع خطة تنفيذ مفصلة وجداول زمنية دقيقة",
+        en: "Setting the execution plan and timeline",
+        ar: "وضع خطة التنفيذ والجدول الزمني",
       },
       {
-        en: "Social media planning",
-        ar: "تخطيط محتوى وسائل التواصل الاجتماعي",
+        en: "Planning social media communications",
+        ar: "تخطيط التواصل عبر وسائل التواصل الاجتماعي",
       },
       {
-        en: "Sponsorship packages specific to your event",
-        ar: "إعداد باقات رعاية مخصصة للفعالية",
+        en: "Preparing sponsorship packages",
+        ar: "إعداد باقات الرعاية المناسبة للفعالية",
       },
     ],
   },
@@ -169,16 +169,16 @@ export const eventJourney = [
     ar: "التصميم",
     items: [
       {
-        en: "Floor plan layout and décor planning",
-        ar: "تخطيط المساحات وتصميم الديكور",
+        en: "Designing the venue layout and décor",
+        ar: "تصميم توزيع المساحات والديكور",
       },
       {
-        en: "Menu creation specific to your event",
-        ar: "إعداد قوائم طعام تناسب طبيعة الفعالية",
+        en: "Selecting catering menus to suit the event",
+        ar: "اختيار قوائم الضيافة بما يناسب الفعالية",
       },
       {
-        en: "Speaker and sponsor management",
-        ar: "تنسيق وإدارة المتحدثين والرعاة",
+        en: "Coordinating speakers and sponsors",
+        ar: "التنسيق مع المتحدثين والرعاة",
       },
     ],
   },
@@ -188,16 +188,16 @@ export const eventJourney = [
     ar: "التجهيزات اللوجستية",
     items: [
       {
-        en: "Venue booking and contract negotiation",
-        ar: "حجز مواقع الفعاليات والتفاوض على العقود",
+        en: "Booking venues and coordinating contracts",
+        ar: "حجز مواقع الفعاليات وتنسيق العقود",
       },
       {
-        en: "Online registration set up and management",
-        ar: "إعداد أنظمة التسجيل الإلكتروني وإدارتها",
+        en: "Setting up and managing attendee registration",
+        ar: "إعداد نظام تسجيل الحضور وإدارته",
       },
       {
-        en: "Local professionals: entertainers, photographers, caterers, AV specialists, florists",
-        ar: "التنسيق مع المتخصصين المحليين في الترفيه والتصوير والضيافة والصوتيات والمرئيات وتنسيق الزهور",
+        en: "Coordinating photography, catering, audiovisual equipment and décor",
+        ar: "تنسيق خدمات التصوير والضيافة والتجهيزات الصوتية والمرئية والديكور",
       },
     ],
   },
@@ -207,16 +207,16 @@ export const eventJourney = [
     ar: "التنفيذ",
     items: [
       {
-        en: "Execution of every detail of your event",
-        ar: "تنفيذ جميع تفاصيل الفعالية بعناية",
+        en: "Overseeing the execution of event details",
+        ar: "الإشراف على تنفيذ تفاصيل الفعالية",
       },
       {
-        en: "Stage management",
-        ar: "إدارة المسرح",
+        en: "Managing the stage and programme",
+        ar: "إدارة المسرح وفقرات البرنامج",
       },
       {
-        en: "Detailed timelines, show flows & MC scripts",
-        ar: "إعداد الجداول الزمنية وتسلسل فقرات العرض ونصوص مقدّم الحفل",
+        en: "Coordinating the schedule and presenter scripts",
+        ar: "تنسيق الجدول الزمني ونصوص مقدّم الحفل",
       },
     ],
   },
@@ -226,16 +226,16 @@ export const eventJourney = [
     ar: "في موقع الفعالية",
     items: [
       {
-        en: "Onsite set up and day-of management",
-        ar: "تجهيز الموقع والإشراف على إدارة يوم الفعالية",
+        en: "Preparing the venue and managing event day",
+        ar: "تجهيز الموقع وإدارة يوم الفعالية",
       },
       {
-        en: "Volunteer management",
-        ar: "إدارة المتطوعين",
+        en: "Coordinating the event team and volunteers",
+        ar: "تنسيق عمل فريق الفعالية والمتطوعين",
       },
       {
-        en: "Crowd management",
-        ar: "تنظيم الحشود وإدارة حركة الحضور",
+        en: "Managing guest reception and crowd movement",
+        ar: "تنظيم استقبال الضيوف وحركة الحضور",
       },
     ],
   },
@@ -245,11 +245,11 @@ export const eventJourney = [
     ar: "ما بعد الفعالية",
     items: [
       {
-        en: "Tear down and clean-up",
-        ar: "فك التجهيزات وتنظيف الموقع",
+        en: "Venue handover after the event",
+        ar: "إخلاء الموقع وتسليمه بعد الفعالية",
       },
       {
-        en: "Post event summary and follow up",
+        en: "Preparing the final report and following up",
         ar: "إعداد التقرير الختامي والمتابعة بعد الفعالية",
       },
     ],
@@ -258,31 +258,31 @@ export const eventJourney = [
 
 export const eventSpecialties = [
   {
-    en: "Conferences, symposiums & destination meetings",
-    ar: "المؤتمرات والندوات والاجتماعات في مختلف الوجهات",
+    en: "Conferences, symposiums and business meetings",
+    ar: "المؤتمرات والندوات واجتماعات الأعمال",
   },
   {
-    en: "Long service awards & staff recognition events",
+    en: "Employee recognition and long-service awards",
     ar: "حفلات تكريم الموظفين وجوائز سنوات الخدمة",
   },
   {
-    en: "Silent & live auctions",
-    ar: "المزادات الصامتة والمباشرة",
+    en: "Charity auctions and fundraising events",
+    ar: "المزادات الخيرية وفعاليات جمع التبرعات",
   },
   {
-    en: "Parties & themed events",
-    ar: "الحفلات والفعاليات ذات الطابع الخاص",
+    en: "Formal dinners and themed events",
+    ar: "حفلات العشاء الرسمية والفعاليات ذات الطابع الخاص",
   },
   {
-    en: "Ground breakings & building openings",
-    ar: "مراسم وضع حجر الأساس وافتتاح المباني",
+    en: "Groundbreaking ceremonies and grand openings",
+    ar: "مراسم وضع حجر الأساس وحفلات الافتتاح",
   },
   {
-    en: "Media & PR events",
+    en: "Media and public relations events",
     ar: "الفعاليات الإعلامية وفعاليات العلاقات العامة",
   },
   {
-    en: "Private events & celebrations",
+    en: "Private celebrations and special occasions",
     ar: "المناسبات الخاصة والاحتفالات",
   },
 ];
@@ -383,6 +383,6 @@ export const mediaPhases = [
 ];
 
 export const eventIntro = {
-  en: "SAIL Creative Solutions is a full-service event planning company specializing in corporate events, dinner galas, fundraisers, employee recognition, grand openings, conferences and private events. We manage every detail from planning to execution and follow-up, so you can focus on what matters most.",
-  ar: "تقدم سيل للحلول الإبداعية خدمات متكاملة لتخطيط الفعاليات وتنظيمها، بدءًا من فعاليات الشركات وحفلات العشاء الرسمية وفعاليات جمع التبرعات وتكريم الموظفين، وصولًا إلى الافتتاحات الكبرى والمؤتمرات والمناسبات الخاصة. نتولى جميع تفاصيل الفعالية من التخطيط وحتى التنفيذ والمتابعة، لتتفرغ أنت لما يهمك.",
+  en: "SAIL Creative Solutions provides integrated event planning and management services, from corporate events, formal dinners, charity events and employee recognition ceremonies to grand openings, conferences and private celebrations. We take care of every detail, from concept to completion, so you can focus on your guests.",
+  ar: "تقدم سيل للحلول الإبداعية خدمات متكاملة لتخطيط الفعاليات وتنظيمها، تشمل فعاليات الشركات، وحفلات العشاء الرسمية، والفعاليات الخيرية، وحفلات تكريم الموظفين، والافتتاحات والمؤتمرات والمناسبات الخاصة. نتولّى تفاصيل فعاليتك كاملة، من الفكرة حتى الختام، لتتفرغ أنت لضيوفك.",
 };
