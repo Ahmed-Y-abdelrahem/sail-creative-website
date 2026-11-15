@@ -236,6 +236,12 @@ export default function WorkExplorer({
     creativeProjects.length > 0 ||
     (showDevelopment && developmentProjects.length > 0);
 
+  // توحيد إجمالي الترقيم مع عدد المشاريع في الفلتر.
+  const showcaseTotal =
+    active === "all"
+      ? counts.all
+      : creativeProjects.length;
+
   const change = (category) => {
     setActive(category);
 
@@ -282,7 +288,7 @@ export default function WorkExplorer({
                     key={project.slug}
                     project={project}
                     index={index}
-                    total={creativeProjects.length}
+                    total={showcaseTotal}
                   />
                 ))}
 
