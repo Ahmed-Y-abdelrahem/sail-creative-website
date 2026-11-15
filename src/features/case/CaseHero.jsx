@@ -53,9 +53,7 @@ export default function CaseHero({ project }) {
         <div className="flex items-center justify-between gap-4">
           <span
             className="shrink-0"
-            style={{
-              color: project.brand.accent,
-            }}
+            style={{ color: project.brand.accent }}
           >
             <ArrowLink
               href={href("/work")}
@@ -71,7 +69,21 @@ export default function CaseHero({ project }) {
           </p>
         </div>
 
-        <h1 className="display mt-14 max-w-full break-words text-[clamp(3rem,14vw,24rem)] leading-[0.9] sm:text-[clamp(4rem,18vw,24rem)] sm:leading-[0.8]">
+        <h1
+          className="
+            display
+            mt-14
+            max-w-full
+            break-words
+            text-[clamp(3rem,14vw,6rem)]
+            leading-[1.05]
+            sm:text-[clamp(4rem,8vw,7rem)]
+            sm:leading-[1.1]
+            lg:mt-16
+            lg:max-w-6xl
+            lg:text-[clamp(4.5rem,6vw,7.5rem)]
+          "
+        >
           <RevealText
             text={projectName}
             immediate
