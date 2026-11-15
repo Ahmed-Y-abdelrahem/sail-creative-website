@@ -158,9 +158,6 @@ export default async function ServiceDetailsPage({ params }) {
     contact: isArabic
       ? "تحدث معنا عن مشروعك"
       : "Let's discuss your project",
-    back: isArabic
-      ? "استكشف جميع الخدمات"
-      : "Explore all services",
     whyUs: isArabic
       ? "حلول تناسب أهداف أعمالك"
       : "Solutions built around your business",
@@ -357,37 +354,6 @@ export default async function ServiceDetailsPage({ params }) {
             </div>
           </section>
         )}
-
-        {/* Contact CTA */}
-        <section className="px-[var(--pad)] py-20 text-center sm:py-28">
-          <div className="mx-auto max-w-3xl">
-            <h2
-              className={`display ${
-                isArabic
-                  ? "text-3xl leading-[1.5] sm:text-5xl"
-                  : "text-4xl leading-tight sm:text-6xl"
-              }`}
-            >
-              {labels.contact}
-            </h2>
-
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
-              <TransitionLink
-                href={localePath(locale, "/contact")}
-                className="inline-flex rounded-full bg-[#FF6A1F] px-8 py-4 font-semibold text-[#101B29] transition-transform hover:-translate-y-1"
-              >
-                {labels.contact}
-              </TransitionLink>
-
-              <TransitionLink
-                href={localePath(locale, "/services")}
-                className="inline-flex rounded-full border border-white/25 px-8 py-4 font-semibold transition-colors hover:bg-white/10"
-              >
-                {labels.back}
-              </TransitionLink>
-            </div>
-          </div>
-        </section>
       </article>
 
       <script
