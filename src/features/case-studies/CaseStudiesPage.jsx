@@ -267,43 +267,6 @@ export default function CaseStudiesPage() {
           </section>
         ))}
       </div>
-
-      {/* FINAL CTA */}
-      <section
-        className="px-[var(--pad)] py-24 text-white sm:py-32"
-        style={{ background: gradient }}
-      >
-        <div className="mx-auto max-w-[1600px]">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-widest text-[#FF6A1F]">
-            {isRTL
-              ? "مشروعك القادم"
-              : "YOUR NEXT PROJECT"}
-          </p>
-
-          <h2
-            className={
-              isRTL
-                ? "max-w-4xl text-[clamp(2.5rem,5vw,5rem)] font-bold leading-[1.5]"
-                : "display max-w-5xl text-[clamp(3rem,7vw,8rem)] leading-[1.05]"
-            }
-          >
-            {isRTL
-              ? "خلّي قصتك الجاية معانا."
-              : "Let's create what's next."}
-          </h2>
-
-          <TransitionLink
-            href={href("/contact")}
-            className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#FF6A1F] px-7 py-4 font-semibold text-[#101B29] transition-transform hover:-translate-y-1"
-          >
-            {isRTL
-              ? "تواصل معنا"
-              : "Let's talk"}
-
-            <span>↗</span>
-          </TransitionLink>
-        </div>
-      </section>
     </main>
   );
 }
