@@ -141,6 +141,8 @@ const raw = {
   'gulf-cattle/campaign-2': [1200, 1500],
   'gulf-cattle/campaign-3': [1200, 1500],
   'gulf-cattle/campaign-4': [1200, 1500],
+  'le-gout/product-assortment': [1600, 2193],
+  'le-gout/product-display': [1467, 2200],
   'le-gout/photoshoot': [2560, 1716],
   'le-gout/campaign-1': [1200, 804],
   'le-gout/campaign-2': [1200, 1645],

@@ -15,7 +15,7 @@ const rowA = [
   "radicon/event-1",
   "shavery/top",
   "88-port/top",
-  "bistro-catering/top",
+  "le-gout/product-assortment",
   "carte-restaurant/top",
 ].map(M);
 
@@ -24,7 +24,7 @@ const rowB = [
   "carte-restaurant/bottom",
   "le-gout/photoshoot",
   "shavery/bottom",
-  "88-port/bottom",
+  "le-gout/product-display",
 ].map(M);
 
 function Timecode() {

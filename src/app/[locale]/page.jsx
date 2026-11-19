@@ -76,7 +76,7 @@ export default async function HomePage({ params }) {
 
       <MediaReel />
 
-      <EventJourney compact />
+      <EventJourney />
 
       <PartnersField />
 
