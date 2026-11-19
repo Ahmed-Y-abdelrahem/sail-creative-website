@@ -9,7 +9,6 @@ const staticPaths = [
   "/about",
   "/services",
   "/work",
-  "/case-studies",
   "/events",
   "/contact",
 ];
@@ -61,8 +60,6 @@ export default function sitemap() {
       priority = 0.8;
     } else if (path.startsWith("/work/")) {
       priority = 0.6;
-    } else if (path === "/case-studies") {
-      priority = 0.8;
     }
 
     return locales.map((locale) => ({

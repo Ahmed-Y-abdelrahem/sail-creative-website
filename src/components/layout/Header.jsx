@@ -84,7 +84,7 @@ export default function Header() {
     );
   };
 
-  // Add Case Studies and Careers & Internships
+  // Add Careers & Internships
   // without duplicating existing navigation entries.
   const baseNav = nav.filter(
     (item) =>
@@ -102,10 +102,6 @@ export default function Header() {
   );
 
   const extraNavItems = [
-    {
-      key: "caseStudies",
-      href: "/case-studies",
-    },
     {
       key: "careers",
       href: "/careers",
@@ -125,12 +121,6 @@ export default function Header() {
   }
 
   const getNavLabel = (item) => {
-    if (item.key === "caseStudies") {
-      return isRTL
-        ? "دراسات الحالة"
-        : "Case Studies";
-    }
-
     if (item.key === "careers") {
       return isRTL
         ? "الوظائف والتدريب"

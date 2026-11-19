@@ -69,7 +69,7 @@ export default function Intro() {
   return (
     <section
       ref={ref}
-      className="tex-night relative h-[260svh] max-md:h-[220svh]"
+      className="tex-night relative h-[155svh]"
       aria-label={t("intro.label")}
     >
       <div className="sticky top-0 flex h-svh flex-col justify-between overflow-hidden px-[var(--pad)] py-24 sm:py-28">

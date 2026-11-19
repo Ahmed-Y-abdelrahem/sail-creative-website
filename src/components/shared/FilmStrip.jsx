@@ -45,7 +45,7 @@ export default function FilmStrip({
               alt=""
               width={img.w}
               height={img.h}
-              sizes="(min-width:1024px) 60vw, 120vw"
+              sizes={`(min-width:640px) ${23 * img.w / img.h}vh, ${19 * img.w / img.h}vh`}
               data-cursor={
                 cursorLabel ? "view" : undefined
               }

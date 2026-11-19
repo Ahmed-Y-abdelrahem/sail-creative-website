@@ -231,10 +231,7 @@ function StripsRow({ project, index, total, flip }) {
         >
           <Link project={project}>
             <div
-              className="grid grid-cols-4 gap-[1.6%] overflow-hidden mask-fade-b"
-              style={{
-                height: "clamp(22rem, 46vw, 40rem)",
-              }}
+              className="grid grid-cols-4 items-start gap-2.5 py-14"
             >
               {strips.map((s, i) => (
                 <StripCol
@@ -294,7 +291,7 @@ function StripCol({
         alt={alt}
         width={s.w}
         height={s.h}
-        sizes="(min-width:1024px) 12vw, 22vw"
+        sizes="(min-width:1024px) 15vw, 24vw"
         className="h-auto w-full"
       />
     </motion.div>

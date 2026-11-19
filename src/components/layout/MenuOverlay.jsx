@@ -111,7 +111,7 @@ export default function MenuOverlay({ open, onClose }) {
 
   const [active, setActive] = useState("home");
 
-  // Add Case Studies and Careers & Internships
+  // Add Careers & Internships
   // after Work, without duplicates.
   const baseNav = nav.filter(
     (item) =>
@@ -128,10 +128,6 @@ export default function MenuOverlay({ open, onClose }) {
   );
 
   const extraNavItems = [
-    {
-      key: "caseStudies",
-      href: "/case-studies",
-    },
     {
       key: "careers",
       href: "/careers",
@@ -151,12 +147,6 @@ export default function MenuOverlay({ open, onClose }) {
   }
 
   const getNavLabel = (item) => {
-    if (item.key === "caseStudies") {
-      return isRTL
-        ? "دراسات الحالة"
-        : "Case Studies";
-    }
-
     if (item.key === "careers") {
       return isRTL
         ? "الوظائف والتدريب"

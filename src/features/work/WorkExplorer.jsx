@@ -14,6 +14,8 @@ import { useLocale } from "@/components/shared/LocaleProvider";
 import { categories } from "@/data/site";
 import { work as developmentProjects } from "@/data/developmentWork";
 
+import { caseStudySectors } from "@/data/caseStudies";
+
 const DEVELOPMENT = "development";
 
 function FilterBar({
@@ -84,6 +86,7 @@ function FilterBar({
 }
 
 function WorkHero({
+  sectors, sector, onSectorChange, projectCount,
   active,
   onChange,
   counts,
@@ -112,8 +115,8 @@ function WorkHero({
         <h1
           className={`relative max-w-full ${
             isRTL
-              ? "font-bold text-[clamp(2.8rem,7vw,7.5rem)] leading-[1.35]"
-              : "display text-[clamp(3.5rem,9vw,10rem)] leading-[0.98] tracking-[-0.045em]"
+              ? "font-bold page-heading leading-[1.35]"
+              : "display page-heading leading-[0.98] tracking-[-0.045em]"
           }`}
         >
           {isRTL ? (
@@ -144,7 +147,9 @@ function WorkHero({
                 : "text-lg leading-relaxed"
             }`}
           >
-            {t("work.page.sub")}
+            {isRTL
+              ? `${projectCount} مشروعًا · تصفّح حسب الخدمة أو القطاع`
+              : `${projectCount} projects · Browse by service or sector`}
           </p>
 
           <div
@@ -156,6 +161,18 @@ function WorkHero({
               onChange={onChange}
               counts={counts}
             />
+            <label className="mt-4 flex flex-wrap items-center gap-3">
+              <span>{isRTL ? "القطاع" : "Sector"}</span>
+              <select className="min-h-11 max-w-full rounded border border-white/50 bg-night px-3"
+                value={sector}
+                onChange={(event) => onSectorChange(event.target.value)}
+              >
+                <option value="">{isRTL ? "كل القطاعات" : "All sectors"}</option>
+                {sectors.map(({ id, title }) => (
+                  <option key={id} value={id}>{isRTL ? title.ar : title.en}</option>
+                ))}
+              </select>
+            </label>
           </div>
         </div>
       </div>
@@ -186,6 +203,15 @@ export default function WorkExplorer({
         : "all"
   );
 
+  const [sector, setSector] = useState(() =>
+    caseStudySectors.find(({ id }) => id === params.get("sector"))?.id ?? ""
+  );
+  const selectedSector = caseStudySectors.find(({ id }) => id === sector);
+  const sectorProjects = selectedSector
+    ? projects.filter(({ slug }) => selectedSector.slugs.includes(slug))
+    : projects;
+  const visibleDevelopment = selectedSector ? [] : developmentProjects;
+
   const [dock, setDock] = useState(false);
   const top = useRef(null);
 
@@ -210,22 +236,22 @@ export default function WorkExplorer({
   }, []);
 
   const counts = {
-    all: projects.length + developmentProjects.length,
-    [DEVELOPMENT]: developmentProjects.length,
+    all: sectorProjects.length + visibleDevelopment.length,
+    [DEVELOPMENT]: visibleDevelopment.length,
   };
 
   categories.forEach((category) => {
-    counts[category] = projects.filter((project) =>
+    counts[category] = sectorProjects.filter((project) =>
       project.categories.includes(category)
     ).length;
   });
 
   const creativeProjects =
     active === "all"
-      ? projects
+      ? sectorProjects
       : active === DEVELOPMENT
         ? []
-        : projects.filter((project) =>
+        : sectorProjects.filter((project) =>
             project.categories.includes(active)
           );
 
@@ -234,7 +260,7 @@ export default function WorkExplorer({
 
   const hasResults =
     creativeProjects.length > 0 ||
-    (showDevelopment && developmentProjects.length > 0);
+    (showDevelopment && visibleDevelopment.length > 0);
 
   // توحيد إجمالي الترقيم مع عدد المشاريع في الفلتر.
   const showcaseTotal =
@@ -256,9 +282,21 @@ export default function WorkExplorer({
     window.history.replaceState(null, "", url);
   };
 
+  const changeSector = (value) => {
+    setSector(value);
+    const url = new URL(window.location.href);
+    if (value) url.searchParams.set("sector", value);
+    else url.searchParams.delete("sector");
+    window.history.replaceState(null, "", url);
+  };
+
   return (
     <>
       <WorkHero
+        sectors={caseStudySectors}
+        sector={sector}
+        onSectorChange={changeSector}
+        projectCount={projects.length + developmentProjects.length}
         active={active}
         onChange={change}
         counts={counts}
@@ -268,7 +306,7 @@ export default function WorkExplorer({
       <div aria-live="polite">
         <AnimatePresence mode="wait">
           <motion.div
-            key={active}
+            key={`${active}:${sector}`}
             initial={{ opacity: 0, y: 35 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -293,17 +331,17 @@ export default function WorkExplorer({
                 ))}
 
                 {showDevelopment &&
-                  developmentProjects.length > 0 && (
+                  visibleDevelopment.length > 0 && (
                     
 <DevelopmentShowcase
-  projects={developmentProjects}
+  projects={visibleDevelopment}
   startIndex={
     active === "all" ? creativeProjects.length : 0
   }
   total={
     active === "all"
       ? counts.all
-      : developmentProjects.length
+      : visibleDevelopment.length
   }
 />
 

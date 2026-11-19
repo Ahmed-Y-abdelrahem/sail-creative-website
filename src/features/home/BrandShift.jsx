@@ -391,7 +391,7 @@ export default function BrandShift() {
 
             <h2
               id="brand-title"
-              className="max-w-[17ch] text-[clamp(2.2rem,4.5vw,3.8rem)] font-semibold leading-[1.13] tracking-[-0.04em]"
+              className="max-w-[17ch] section-heading font-semibold leading-[1.13] tracking-[-0.04em]"
             >
               {x({
                 en: "A new identity. A stronger presence.",

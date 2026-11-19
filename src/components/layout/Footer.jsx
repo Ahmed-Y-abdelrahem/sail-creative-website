@@ -94,14 +94,10 @@ export default function Footer({ locale }) {
   const isArabic = locale === "ar";
 
   const footerTopics = isArabic
-    ? ["التسويق", "التكنولوجيا", "النمو"]
+    ? ["التسويق", "التقنية", "النمو"]
     : ["Marketing", "Technology", "Growth"];
 
   const extraNavItems = [
-    {
-      key: "caseStudies",
-      href: "/case-studies",
-    },
     {
       key: "careers",
       href: "/careers",
@@ -136,12 +132,6 @@ export default function Footer({ locale }) {
   }
 
   const getNavLabel = (item) => {
-    if (item.key === "caseStudies") {
-      return isArabic
-        ? "دراسات الحالة"
-        : "Case Studies";
-    }
-
     if (item.key === "careers") {
       return isArabic
         ? "الوظائف والتدريب"
@@ -224,7 +214,7 @@ export default function Footer({ locale }) {
                 id="footer-cta-title"
                 className="
                   display max-w-[15ch]
-                  text-[clamp(2.7rem,5.2vw,5.6rem)]
+                  section-heading
                   leading-[0.98]
                   tracking-[-0.045em]
                   text-white
@@ -245,7 +235,7 @@ export default function Footer({ locale }) {
                   sm:text-base
                 "
               >
-                {L("cta.body")}
+                {isArabic ? "لنبدأ الرحلة معًا." : "Let’s get started together."}
               </p>
 
               <TransitionLink
@@ -288,8 +278,8 @@ export default function Footer({ locale }) {
           >
             <p className="text-xs text-white/45">
               {isArabic
-                ? "نحوّل الأفكار إلى تجارب رقمية تصنع الفرق."
-                : "Turning ideas into digital experiences that matter."}
+                ? "نحوّل الأفكار إلى علامات وتجارب تصنع الفرق."
+                : "Turning ideas into brands and experiences that matter."}
             </p>
 
             <div
@@ -375,7 +365,7 @@ export default function Footer({ locale }) {
             />
 
             <p className="meta text-xs opacity-55">
-              {L("hero.location")}
+              {isArabic ? "الظهران، المملكة العربية السعودية" : "Dhahran, Saudi Arabia"}
             </p>
 
             <a

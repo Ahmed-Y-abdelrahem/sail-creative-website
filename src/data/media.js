@@ -1,4 +1,4 @@
-// Auto-generated from the SAIL portfolio PDF. Replace any file in /public/work with a higher-resolution export and keep the key.
+// Portfolio and campaign exports. Dimensions describe the files in public/work.
 const raw = {
   '88-port/bottom': [2000, 364],
   '88-port/top': [2000, 355],
@@ -101,6 +101,75 @@ const raw = {
   'tricycle/col4': [382, 996],
   'ucicoat/board': [2000, 464],
   'we-one/board': [1559, 856],
+  'armadio/campaign-1': [1200, 1500],
+  'armadio/campaign-2': [1200, 1600],
+  'armadio/campaign-3': [1200, 1500],
+  'armadio/campaign-4': [1200, 1500],
+  'baab-app/campaign-1': [1200, 1500],
+  'baab-app/campaign-2': [1200, 1500],
+  'baab-app/campaign-3': [1200, 1500],
+  'baab-app/campaign-4': [1200, 1500],
+  'bella-center/campaign-1': [1080, 1080],
+  'bella-center/campaign-2': [1200, 1200],
+  'bella-center/campaign-3': [1200, 1200],
+  'bella-center/campaign-4': [1080, 1080],
+  'beut-almisk/campaign-1': [1080, 1350],
+  'beut-almisk/campaign-2': [1080, 1350],
+  'beut-almisk/campaign-3': [1080, 1350],
+  'beut-almisk/campaign-4': [1080, 1350],
+  'carte-restaurant/campaign-1': [1200, 1600],
+  'carte-restaurant/campaign-2': [1080, 1440],
+  'carte-restaurant/campaign-3': [1080, 1440],
+  'carte-restaurant/campaign-4': [1080, 1440],
+  'the-city-school/campaign-1': [1200, 1200],
+  'the-city-school/campaign-2': [1200, 1200],
+  'the-city-school/campaign-3': [1200, 1200],
+  'the-city-school/campaign-4': [1200, 1200],
+  'enigma/campaign-1': [1200, 1600],
+  'enigma/campaign-2': [1200, 1600],
+  'enigma/campaign-3': [1200, 1500],
+  'enigma/campaign-4': [1200, 1600],
+  'fayya/campaign-1': [1080, 1350],
+  'fayya/campaign-2': [1080, 1440],
+  'fayya/campaign-3': [1080, 1440],
+  'fayya/campaign-4': [1080, 1440],
+  'gerflor/campaign-1': [1200, 1500],
+  'gerflor/campaign-2': [1200, 1600],
+  'gerflor/campaign-3': [1200, 1500],
+  'gerflor/campaign-4': [1200, 1500],
+  'gulf-cattle/campaign-1': [1200, 1500],
+  'gulf-cattle/campaign-2': [1200, 1500],
+  'gulf-cattle/campaign-3': [1200, 1500],
+  'gulf-cattle/campaign-4': [1200, 1500],
+  'le-gout/photoshoot': [2560, 1716],
+  'le-gout/campaign-1': [1200, 804],
+  'le-gout/campaign-2': [1200, 1645],
+  'le-gout/campaign-3': [1200, 1800],
+  'le-gout/campaign-4': [1200, 1749],
+  'namar-door/campaign-1': [1080, 1440],
+  'namar-door/campaign-2': [1200, 1500],
+  'namar-door/campaign-3': [1200, 1500],
+  'namar-door/campaign-4': [1200, 1600],
+  'shavery/campaign-1': [1080, 1350],
+  'shavery/campaign-2': [1080, 1350],
+  'shavery/campaign-3': [1080, 1350],
+  'shavery/campaign-4': [1080, 1350],
+  'stayin/campaign-1': [1200, 1500],
+  'stayin/campaign-2': [1200, 1500],
+  'stayin/campaign-3': [1080, 1350],
+  'stayin/campaign-4': [1080, 1350],
+  'sumou/campaign-1': [1080, 1080],
+  'sumou/campaign-2': [1080, 1080],
+  'sumou/campaign-3': [1080, 1080],
+  'sumou/campaign-4': [1080, 1080],
+  'tawlead/campaign-1': [1200, 1500],
+  'tawlead/campaign-2': [1200, 1500],
+  'tawlead/campaign-3': [1200, 1500],
+  'tawlead/campaign-4': [1200, 1500],
+  'tricycle/campaign-1': [1200, 1200],
+  'tricycle/campaign-2': [1081, 1080],
+  'tricycle/campaign-3': [1200, 1200],
+  'tricycle/campaign-4': [1200, 1200],
 };
 
 export const media = Object.fromEntries(
@@ -112,3 +181,9 @@ export const M = (key) => {
   if (!m) throw new Error(`Missing media: ${key}`);
   return m;
 };
+
+export const campaignImage = (slug, index) =>
+  media[`${slug}/campaign-${index}`] ?? M(`${slug}/col${index}`);
+
+export const campaignGallery = (slug) =>
+  [1, 2, 3, 4].map((index) => media[`${slug}/campaign-${index}`]).filter(Boolean);

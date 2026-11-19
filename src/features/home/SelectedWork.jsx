@@ -32,7 +32,7 @@ function WorldMedia({ project, sizes, eager }) {
       )?.imgs || [];
 
     return (
-      <div className="absolute inset-0 grid grid-cols-4 gap-[0.6vw]">
+      <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2.5 sm:grid-cols-4 sm:grid-rows-1">
         {strips.map((strip, index) => (
           <div
             key={`${strip.src}-${index}`}
@@ -46,14 +46,9 @@ function WorldMedia({ project, sizes, eager }) {
                   : `${projectName} project work, image ${index + 1}`
               }
               fill
-              sizes="25vw"
+              sizes="(min-width:1024px) 31vw, (min-width:640px) 25vw, 47vw"
               loading={loading}
-              className="object-cover object-top"
-              style={{
-                transform: `translateY(${
-                  index % 2 ? "-6%" : "0"
-                })`,
-              }}
+              className="rounded-sm object-contain"
             />
           </div>
         ))}
@@ -72,7 +67,7 @@ function WorldMedia({ project, sizes, eager }) {
       fill
       sizes={sizes}
       loading={loading}
-      className="object-cover"
+      className="object-contain"
     />
   );
 }
@@ -93,7 +88,7 @@ function World({
 
   const local = useTransform(
     progress,
-    (p) => p * n - i
+    (p) => p * (n - 1) - i + 0.5
   );
 
   const reveal = useTransform(local, (l) =>
@@ -141,7 +136,7 @@ function World({
   const scrimOpacity = useTransform(
     open,
     [0, 1],
-    [0, 0.55]
+    [0, 0.14]
   );
 
   return (
@@ -155,7 +150,7 @@ function World({
       aria-hidden={!active}
       inert={!active}
     >
-      <div className="absolute inset-0 grid grid-rows-[auto_1fr_auto] max-lg:grid-rows-[auto_auto_1fr]">
+      <div className="absolute inset-0 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-4">
         {/* PROJECT NUMBER AND CATEGORY */}
 
         <div className="relative z-20 flex items-start justify-between px-[var(--pad)] pt-24 sm:pt-28">
@@ -173,7 +168,7 @@ function World({
 
         {/* PROJECT MEDIA */}
 
-        <div className="absolute inset-0 z-10 max-lg:relative max-lg:mx-[var(--pad)] max-lg:mt-6 max-lg:h-[36svh]">
+        <div className="relative z-10 mx-[var(--pad)] min-h-0">
           <TransitionLink
             href={href(`/work/${project.slug}`)}
             tabIndex={active ? 0 : -1}
@@ -199,7 +194,7 @@ function World({
               >
                 <WorldMedia
                   project={project}
-                  sizes="100vw"
+                  sizes="(min-width:1024px) 125vw, 94vw"
                   eager={near}
                 />
               </motion.div>
@@ -219,7 +214,7 @@ function World({
 
         {/* PROJECT TITLE AND SCOPE */}
 
-        <div className="pointer-events-none relative z-20 flex items-end px-[var(--pad)] pb-20 max-lg:items-start max-lg:pb-6 max-lg:pt-6 lg:row-start-3">
+        <div className="pointer-events-none relative z-20 flex items-end px-[var(--pad)] pb-12 lg:pb-16">
           <motion.div
             style={{ y: nameY }}
             className="w-full min-w-0"
@@ -230,15 +225,14 @@ function World({
                 max-w-full
                 break-words
                 leading-[0.9]
-                text-[clamp(2.5rem,10vw,17rem)]
-                sm:text-[clamp(4rem,13.2vw,17rem)]
+                project-heading
               "
             >
               {x(project.name)}
             </h3>
 
             <div className="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-10 gap-y-4">
-              <ul className="meta flex flex-wrap gap-x-5 gap-y-1 opacity-80">
+              <ul className="meta flex flex-wrap gap-x-5 gap-y-1 text-[0.875rem] opacity-80">
                 {project.scope
                   .slice(0, 3)
                   .map((scope) => (
@@ -298,7 +292,7 @@ export default function SelectedWork({ projects }) {
 
       setActive(
         clamp(
-          Math.floor(progress * n + 0.001),
+          Math.round(progress * (n - 1)),
           0,
           n - 1
         )
@@ -316,7 +310,7 @@ export default function SelectedWork({ projects }) {
       aria-label={t("work.title")}
       className="relative"
       style={{
-        height: `${n * 100}svh`,
+        height: `${100 + (n - 1) * 45}svh`,
       }}
     >
       <div className="sticky top-0 h-svh overflow-hidden bg-night">

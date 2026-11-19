@@ -28,16 +28,9 @@ export default function ProjectVisual({
       media.find((item) => item.type === "strips")
         ?.imgs || [cover];
 
-    const drops = [
-      "0%",
-      "-14%",
-      "-5%",
-      "-20%",
-    ];
-
     return (
       <div
-        className={`grid aspect-[16/10] grid-cols-4 gap-[1.2%] overflow-hidden ${className}`}
+        className={`grid grid-cols-4 items-start gap-2.5 ${className}`}
       >
         {strips.map((image, index) => (
           <div
@@ -55,12 +48,7 @@ export default function ProjectVisual({
               height={image.h}
               sizes={sizes}
               priority={priority && index === 0}
-              className="h-auto w-full"
-              style={{
-                transform: `translateY(${
-                  drops[index % drops.length]
-                })`,
-              }}
+              className="h-auto w-full rounded-sm"
             />
           </div>
         ))}

@@ -8,7 +8,7 @@ const rawSiteUrl =
 
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
 
-export const SITE_NAME = "SAIL Creative";
+export const SITE_NAME = site.name;
 
 const DEFAULT_OG_IMAGE = "/og.jpg";
 
@@ -22,7 +22,7 @@ function absoluteUrl(path = "/") {
 
 function cleanTitle(title) {
   if (!title) {
-    return `${SITE_NAME} | Creative Solutions`;
+    return `${SITE_NAME}`;
   }
 
   const value = String(title).trim();
@@ -133,7 +133,7 @@ export const organizationJsonLd = (social = {}) => {
 
     logo: absoluteUrl("/brand/sail-mark.png"),
 
-    foundingDate: "2020",
+    foundingDate: String(site.since),
 
     description:
       "SAIL Creative is a Saudi-based creative agency providing branding, digital marketing, web development, media production and event management solutions.",

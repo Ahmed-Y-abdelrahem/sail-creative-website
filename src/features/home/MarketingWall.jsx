@@ -15,10 +15,12 @@ import RevealText from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/Section";
 import { useLocale } from "@/components/shared/LocaleProvider";
 import { useDesktop } from "@/hooks/useMediaQuery";
-import { M } from "@/data/media";
+import { projects } from "@/data/projects";
+import { campaignImage } from "@/data/media";
 
 // Phone-format posts from real campaigns.
-const col = (base, n) => M(`${base}/col${n}`);
+const projectNames = new Map(projects.map(({ slug, name }) => [slug, name]));
+const col = campaignImage;
 
 const columns = [
   {
@@ -78,12 +80,12 @@ const columns = [
 ];
 
 function Column({ c, progress, desktop, index }) {
-  const { href, t } = useLocale();
+  const { href, t, x, isRTL } = useLocale();
 
   const y = useTransform(
     progress,
     [0, 1],
-    [0, desktop ? c.speed : c.speed * 0.35]
+    [0, desktop ? c.speed * 0.25 : c.speed * 0.12]
   );
 
   const visibility =
@@ -98,7 +100,7 @@ function Column({ c, progress, desktop, index }) {
   return (
     <motion.div
       style={{ y, marginTop: c.start }}
-      className={`w-[29vw] shrink-0 flex-col gap-[1.4vw] sm:w-[22vw] md:w-[19vw] lg:w-[15.5vw] ${visibility}`}
+      className={`min-w-0 flex-1 flex-col gap-2.5 ${visibility}`}
     >
       {c.tiles.map(([slug, img]) => (
         <TransitionLink
@@ -107,16 +109,16 @@ function Column({ c, progress, desktop, index }) {
           data-cursor="view"
           data-cursor-label={t("cursor.view")}
           className="block overflow-hidden shadow-[0_30px_60px_-30px_rgba(0,0,0,0.8)]"
-          tabIndex={-1}
-          aria-hidden="true"
         >
           <Image
             src={img.src}
-            alt=""
+            alt={isRTL
+              ? `تصاميم لمنصات التواصل لمشروع ${x(projectNames.get(slug))}`
+              : `Social media designs for ${x(projectNames.get(slug))}`}
             width={img.w}
             height={img.h}
             sizes="(min-width:1024px) 17vw, 34vw"
-            className="h-auto w-full transition-transform duration-[1400ms] ease-[var(--ease)] hover:scale-[1.04]"
+            className="aspect-square w-full rounded-sm object-contain transition-transform duration-[1400ms] ease-[var(--ease)] hover:scale-[1.04]"
           />
         </TransitionLink>
       ))}
@@ -125,7 +127,7 @@ function Column({ c, progress, desktop, index }) {
 }
 
 export default function MarketingWall() {
-  const { t, href } = useLocale();
+  const { t, href, isRTL } = useLocale();
 
   const ref = useRef(null);
   const desktop = useDesktop();
@@ -138,7 +140,7 @@ export default function MarketingWall() {
   return (
     <section
       ref={ref}
-      className="surface-night relative h-[185svh] overflow-hidden max-md:h-[150svh]"
+      className="surface-night relative grid gap-8 overflow-hidden py-16 lg:grid-cols-[2fr_3fr] lg:items-center lg:py-24"
       aria-labelledby="marketing-title"
     >
       <div
@@ -146,7 +148,7 @@ export default function MarketingWall() {
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(255,106,31,0.16),transparent_60%)]"
       />
 
-      <div className="absolute inset-x-0 top-0 flex justify-between gap-[1.4vw] px-[3vw]">
+      <div className="order-2 flex h-[clamp(16rem,45vw,34rem)] justify-center gap-2.5 overflow-auto px-[var(--pad)] lg:ps-0">
         {columns.map((c, i) => (
           <Column
             key={i}
@@ -158,14 +160,14 @@ export default function MarketingWall() {
         ))}
       </div>
 
-      <div className="pointer-events-none sticky top-0 z-10 flex h-svh flex-col justify-between px-[var(--pad)] py-24 text-white mix-blend-difference sm:py-28">
+      <div className="relative z-10 flex flex-col gap-6 px-[var(--pad)] text-white">
         <SectionLabel index="04">
           {t("marketing.kicker")}
         </SectionLabel>
 
         <h2
           id="marketing-title"
-          className="display text-[clamp(3.2rem,12vw,15rem)] leading-[0.84]"
+          className="display section-heading leading-tight"
         >
           <RevealText
             text={t("marketing.title")}
@@ -180,10 +182,10 @@ export default function MarketingWall() {
 
           <span className="inline-flex min-h-[44px] items-center">
             <ArrowLink
-              href={href("/work")}
+              href={href("/services/marketing")}
               className="inline-flex min-h-[44px] items-center"
             >
-              {t("common.seeAllWork")}
+              {isRTL ? "خدمات التسويق" : "Marketing services"}
             </ArrowLink>
           </span>
         </div>

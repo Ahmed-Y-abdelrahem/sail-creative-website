@@ -12,7 +12,7 @@ import { M } from "@/data/media";
 import { pad2 } from "@/lib/utils";
 
 const rowA = [
-  "le-gout/top",
+  "radicon/event-1",
   "shavery/top",
   "88-port/top",
   "bistro-catering/top",
@@ -20,9 +20,9 @@ const rowA = [
 ].map(M);
 
 const rowB = [
-  "bistro-catering/bottom",
+  "luini-bakery/event",
   "carte-restaurant/bottom",
-  "le-gout/bottom",
+  "le-gout/photoshoot",
   "shavery/bottom",
   "88-port/bottom",
 ].map(M);
@@ -114,7 +114,7 @@ export default function MediaReel() {
 
         <h2
           id="media-title"
-          className="display mt-7 max-w-[1050px] text-[clamp(2.3rem,5vw,5.5rem)] leading-[1.02] tracking-[-0.035em]"
+          className="display mt-7 max-w-[1050px] section-heading leading-[1.02] tracking-[-0.035em]"
         >
           <RevealText
             lines={t("media.title")

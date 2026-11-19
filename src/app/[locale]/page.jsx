@@ -64,11 +64,11 @@ export default async function HomePage({ params }) {
     <>
       <Hero />
 
-      <Intro />
+      <ServiceIndex services={services} />
 
       <SelectedWork projects={featuredProjects} />
 
-      <ServiceIndex services={services} />
+      <Intro />
 
       <MarketingWall />
 
@@ -76,7 +76,7 @@ export default async function HomePage({ params }) {
 
       <MediaReel />
 
-      <EventJourney />
+      <EventJourney compact />
 
       <PartnersField />
 

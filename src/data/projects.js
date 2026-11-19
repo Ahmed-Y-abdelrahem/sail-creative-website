@@ -1,8 +1,8 @@
 
-import { M } from "./media";
+import { M, campaignGallery, campaignImage } from "./media";
 
 const cols = (base, n = 4) =>
-  Array.from({ length: n }, (_, i) => M(`${base}/col${i + 1}`));
+  Array.from({ length: n }, (_, i) => campaignImage(base, i + 1));
 
 const film = (base) => [
   M(`${base}/top`),
@@ -11,7 +11,7 @@ const film = (base) => [
 
 const t = (en, ar) => ({ en, ar });
 
-export const projects = [
+const portfolio = [
   {
     slug: "tawlead",
     name: t("Tawlead", "توليد"),
@@ -271,7 +271,7 @@ export const projects = [
       "#d9765a",
       "#fbe6dc",
     ],
-    cover: M("tricycle/col2"),
+    cover: campaignImage("tricycle", 2),
     media: [
       {
         type: "strips",
@@ -589,7 +589,7 @@ export const projects = [
       "#f4ecdd",
       "#3b2a20",
     ],
-    cover: M("namar-door/col1"),
+    cover: campaignImage("namar-door", 1),
     media: [
       {
         type: "strips",
@@ -675,7 +675,7 @@ export const projects = [
       "#d2b48c",
       "#f1efe9",
     ],
-    cover: M("gerflor/col3"),
+    cover: campaignImage("gerflor", 3),
     media: [
       {
         type: "strips",
@@ -713,7 +713,7 @@ export const projects = [
       "#e2472a",
       "#f5efe6",
     ],
-    cover: M("gulf-cattle/col1"),
+    cover: campaignImage("gulf-cattle", 1),
     media: [
       {
         type: "strips",
@@ -729,8 +729,8 @@ export const projects = [
   },
   {
     slug: "carte-restaurant",
-    name: t("Cart Restaurant", "مطعم كارت"),
-    client: t("Cart Restaurant", "مطعم كارت"),
+    name: t("Carte Restaurant", "مطعم كارت"),
+    client: t("Carte Restaurant", "مطعم كارت"),
     categories: ["marketing", "media"],
     layout: "strips",
     featured: false,
@@ -756,7 +756,7 @@ export const projects = [
       "#d3a04a",
       "#f6ecdc",
     ],
-    cover: M("carte-restaurant/col1"),
+    cover: campaignImage("carte-restaurant", 1),
     media: [
       {
         type: "strips",
@@ -802,7 +802,7 @@ export const projects = [
       "#ffa85a",
       "#ffffff",
     ],
-    cover: M("baab-app/col2"),
+    cover: campaignImage("baab-app", 2),
     media: [
       {
         type: "strips",
@@ -838,7 +838,7 @@ export const projects = [
       "#7fd7ec",
       "#f6f0ff",
     ],
-    cover: M("enigma/col2"),
+    cover: campaignImage("enigma", 2),
     media: [
       {
         type: "strips",
@@ -881,7 +881,7 @@ export const projects = [
       "#7ddfc8",
       "#f2fbf8",
     ],
-    cover: M("bella-center/col1"),
+    cover: campaignImage("bella-center", 1),
     media: [
       {
         type: "strips",
@@ -1313,6 +1313,19 @@ export const projects = [
     ],
   },
 ];
+
+export const projects = portfolio.map((project) => {
+  const images = campaignGallery(project.slug);
+  if (images.length === 0 || project.layout === "strips") return project;
+
+  const hasStrips = project.media.some((block) => block.type === "strips");
+  if (hasStrips) return project;
+
+  return {
+    ...project,
+    media: [...project.media, { type: "campaign", imgs: images }],
+  };
+});
 
 export const projectBySlug = Object.fromEntries(
   projects.map((p) => [p.slug, p])

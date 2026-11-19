@@ -75,7 +75,7 @@ export const dictionary = {
     "marketing.sub": "Marketing strategies, social media, creative & design, digital campaigns.",
 
     "brand.kicker": "Branding",
-    "brand.title": "Knowable. Likable. Trustable.",
+    "brand.title": "A new identity. A stronger presence.",
     "brand.body": "Branding is the art of being known, loved and trusted.",
     "brand.old": "Old logo",
     "brand.new": "New logo",
@@ -219,7 +219,7 @@ export const dictionary = {
     "filter.digital": "الرقمي",
 
     "services.title": "ماذا نفعل",
-    "services.sub": "حلول إبداعية متكاملة. من الفكرة إلى التنفيذ.",
+    "services.sub": "تنقّل بين خدماتنا لتتعرّف على كل واحدة منها.",
     "services.page.title": "قدرات إبداعية. رؤية متكاملة.",
     "services.page.sub": "تنقّل بين خدماتنا لتتعرّف على كل واحدة منها.",
     "services.capabilities": "القدرات",
@@ -230,7 +230,7 @@ export const dictionary = {
     "marketing.sub": "استراتيجيات التسويق، وسائل التواصل الاجتماعي، الإبداع والتصميم، الحملات الرقمية.",
 
     "brand.kicker": "الهوية والعلامة",
-    "brand.title": "معروفة. محبوبة. موثوقة.",
+    "brand.title": "هوية جديدة. حضور أقوى.",
     "brand.body": "بناء العلامة فنّ أن تُعرف، وتُحب، وتكسب الثقة.",
     "brand.old": "الشعار القديم",
     "brand.new": "الشعار الجديد",

@@ -126,7 +126,7 @@ export default function PartnersField({
               id="partners-title"
               className="
                 display
-                text-[clamp(2rem,3.8vw,3.8rem)]
+                section-heading
                 leading-[1.08]
                 tracking-[-0.035em]
                 text-white

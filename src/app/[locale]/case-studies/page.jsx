@@ -1,24 +1,15 @@
+import { permanentRedirect } from "next/navigation";
+import { localePath } from "@/lib/i18n";
 
-import CaseStudiesPage from "@/features/case-studies/CaseStudiesPage";
-import { buildMetadata } from "@/lib/seo";
-
-export async function generateMetadata({ params }) {
+export default async function CaseStudiesRedirect({ params, searchParams }) {
   const { locale } = await params;
+  const query = new URLSearchParams();
 
-  return buildMetadata({
-    locale,
-    title:
-      locale === "ar"
-        ? "دراسات الحالة | SAIL Creative Solutions"
-        : "Case Studies | SAIL Creative Solutions",
-    description:
-      locale === "ar"
-        ? "اكتشف مشاريع SAIL Creative Solutions في 9 قطاعات، والشركات التي عملنا معها والخدمات التي قدمناها."
-        : "Explore SAIL Creative Solutions projects across nine industries, the brands we've worked with and the services we've delivered.",
-    path: "/case-studies",
-  });
-}
+  for (const [key, value] of Object.entries(await searchParams)) {
+    for (const item of Array.isArray(value) ? value : [value]) {
+      if (item !== undefined) query.append(key, item);
+    }
+  }
 
-export default function Page() {
-  return <CaseStudiesPage />;
+  permanentRedirect(`${localePath(locale, "/work")}${query.size ? `?${query}` : ""}`);
 }

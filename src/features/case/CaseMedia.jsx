@@ -100,7 +100,9 @@ export function CollageBlock({ block, name }) {
               "collage",
               i
             )}
-            sizes="(min-width:1024px) 50vw, 100vw"
+            sizes={block.imgs.length > 1 && i % spots.length === 0
+              ? "(min-width:1024px) 55vw, 100vw"
+              : "(min-width:1024px) 50vw, 100vw"}
             from={i % 2 ? "right" : "left"}
           />
         </div>
@@ -135,7 +137,7 @@ function Column({
         width={img.w}
         height={img.h}
         sizes="(min-width:1024px) 22vw, 46vw"
-        className="h-auto w-full"
+        className="h-auto w-full rounded-sm"
       />
     </motion.div>
   );
@@ -152,14 +154,14 @@ export function StripsBlock({ block, name }) {
     offset: ["start end", "end start"],
   });
 
-  const speeds = [-70, 90, -130, 40];
+  const speeds = [-24, 32, -40, 16];
 
   return (
     <div
       ref={ref}
       className="px-[var(--pad)]"
     >
-      <div className="mask-fade-b grid grid-cols-2 items-start gap-4 overflow-hidden pb-20 lg:grid-cols-4 lg:gap-8">
+      <div className="grid grid-cols-2 items-start gap-2.5 py-12 lg:grid-cols-4">
         {block.imgs.map((img, i) => (
           <Column
             key={img.src}
@@ -178,6 +180,24 @@ export function StripsBlock({ block, name }) {
       </div>
 
       <Note note={block.note} />
+    </div>
+  );
+}
+
+export function CampaignBlock({ block, name }) {
+  const { isRTL } = useLocale();
+
+  return (
+    <div className="grid grid-cols-2 items-start gap-2.5 px-[var(--pad)] lg:grid-cols-4">
+      {block.imgs.map((img, index) => (
+        <ImageReveal
+          key={img.src}
+          img={img}
+          sizes="(min-width:1024px) 24vw, 48vw"
+          alt={getImageAlt(name, isRTL, "strips", index)}
+          className="rounded-sm"
+        />
+      ))}
     </div>
   );
 }
@@ -236,7 +256,7 @@ export function PanoBlock({ block, name }) {
               isRTL,
               "pano"
             )}
-            sizes="100vw"
+            sizes="(max-width:767px) 175vw, 100vw"
             from="up"
           />
         </div>
@@ -253,6 +273,7 @@ export const blocks = {
   board: BoardBlock,
   collage: CollageBlock,
   strips: StripsBlock,
+  campaign: CampaignBlock,
   film: FilmBlock,
   pano: PanoBlock,
 };

@@ -26,7 +26,7 @@ const fragments = [
   {
     slug: "tawlead",
     img: M("tawlead/phones"),
-    alt: "Tawlead app and billboard",
+    alt: { en: "Tawlead app and billboard", ar: "تطبيق توليد ولوحة إعلانية" },
     className:
       "end-[6%] top-[16%] w-[15vw] min-w-[9rem] max-w-[17rem]",
     depth: 1,
@@ -35,7 +35,7 @@ const fragments = [
   {
     slug: "manafesh",
     img: M("frag/manafesh-bag"),
-    alt: "Manafesh shopping bag",
+    alt: { en: "Manafesh shopping bag", ar: "حقيبة تسوق من هوية منافش" },
     className:
       "end-[26%] top-[46%] w-[11vw] min-w-[7rem] max-w-[13rem] hidden md:block",
     depth: 1.8,
@@ -44,7 +44,7 @@ const fragments = [
   {
     slug: "shavery",
     img: M("frag/shavery-logo"),
-    alt: "Shavery & Co. logo",
+    alt: { en: "Shavery & Co. logo", ar: "شعار شيفري آند كو" },
     className:
       "end-[4%] top-[57%] w-[17vw] min-w-[9rem] max-w-[19rem]",
     depth: 0.6,
@@ -52,8 +52,8 @@ const fragments = [
   },
   {
     slug: "tricycle",
-    img: M("tricycle/col2"),
-    alt: "Tricycle social posts",
+    img: M("tricycle/campaign-2"),
+    alt: { en: "Tricycle cold-drink campaign design", ar: "تصميم من حملة مشروبات ترايسيكل الباردة" },
     className:
       "end-[30%] top-[12%] w-[9vw] min-w-[6rem] max-w-[11rem] hidden lg:block",
     depth: 2.2,
@@ -62,7 +62,7 @@ const fragments = [
   {
     slug: "fayya",
     img: M("frag/fayya-envelopes"),
-    alt: "Fayya stationery",
+    alt: { en: "Fayya stationery", ar: "مطبوعات من هوية فيّا" },
     className:
       "end-[18%] top-[70%] w-[13vw] min-w-[8rem] max-w-[15rem] hidden lg:block",
     depth: 1.3,
@@ -71,7 +71,7 @@ const fragments = [
 ];
 
 function Fragment({ f, px, py, ready }) {
-  const { href, t } = useLocale();
+  const { href, t, isRTL } = useLocale();
 
   const x = useTransform(
     px,
@@ -109,11 +109,11 @@ function Fragment({ f, px, py, ready }) {
           data-cursor-label={t("cursor.view")}
           className="block overflow-hidden shadow-[0_30px_60px_-24px_rgba(0,0,0,0.7)]"
           tabIndex={-1}
-          aria-label={f.alt}
+          aria-label={f.alt[isRTL ? "ar" : "en"]}
         >
           <Image
             src={f.img.src}
-            alt={f.alt}
+            alt={f.alt[isRTL ? "ar" : "en"]}
             width={f.img.w}
             height={f.img.h}
             sizes="17vw"
@@ -315,13 +315,13 @@ export default function Hero() {
             ${
               isRTL
                 ? `
-                  text-[clamp(3.3rem,8.2vw,8.5rem)]
+                  page-heading
                   leading-[1.3]
                   tracking-normal
                   sm:leading-[1.25]
                 `
                 : `
-                  text-[clamp(4rem,12vw,15rem)]
+                  page-heading
                   leading-[0.94]
                   tracking-[-0.045em]
                 `
@@ -504,7 +504,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          className="flex items-center gap-8"
+          className="flex flex-wrap items-center gap-3 sm:gap-6"
           initial={{
             opacity: 0,
             y: 20,
@@ -526,6 +526,12 @@ export default function Hero() {
           <Magnetic>
             <Button href={href("/work")}>
               {t("hero.cta")}
+            </Button>
+          </Magnetic>
+
+          <Magnetic>
+            <Button href={href("/contact")} variant="ghost">
+              {isRTL ? "ابدأ مشروعك" : "Start your project"}
             </Button>
           </Magnetic>
 

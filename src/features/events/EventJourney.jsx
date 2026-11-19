@@ -170,7 +170,32 @@ function Stage({
   );
 }
 
-export default function EventJourney({
+export default function EventJourney({ compact = false, ...props }) {
+  const { t, x, href, isRTL } = useLocale();
+
+  if (!compact) return <FullEventJourney {...props} />;
+
+  return (
+    <section className="surface-light relative isolate overflow-hidden px-[var(--pad)] py-16 lg:py-24">
+      <div aria-hidden="true" className="sail-signature pointer-events-none absolute -end-12 top-0 -z-10 size-64 opacity-[0.07]" />
+      <h2 className="display section-heading leading-tight">{t("events.title")}</h2>
+      <p className="mt-4 max-w-prose">{t("events.sub")}</p>
+      <ol className="my-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+        {eventJourney.map((stage, index) => (
+          <li key={stage.id} className="border-t border-current/25 py-3">
+            <span className="meta me-2">{index + 1}</span>
+            {x(stage)}
+          </li>
+        ))}
+      </ol>
+      <ArrowLink href={href("/events")} className="inline-flex min-h-11 items-center">
+        {isRTL ? "اكتشف خدمات الفعاليات" : "Explore event services"}
+      </ArrowLink>
+    </section>
+  );
+}
+
+function FullEventJourney({
   index = "07",
   showLink = true,
   showHeading = true,

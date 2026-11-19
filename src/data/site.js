@@ -23,7 +23,6 @@ export const nav = [
   { key: "about", href: "/about" },
   { key: "services", href: "/services" },
   { key: "work", href: "/work" },
-  { key: "caseStudies", href: "/work" },
   { key: "events", href: "/events" },
   { key: "contact", href: "/contact" },
 ];
