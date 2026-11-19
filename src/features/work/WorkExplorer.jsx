@@ -17,6 +17,7 @@ import { work as developmentProjects } from "@/data/developmentWork";
 import { caseStudySectors } from "@/data/caseStudies";
 
 const DEVELOPMENT = "development";
+const serviceFilters = ["all", ...categories, DEVELOPMENT];
 
 function FilterBar({
   active,
@@ -25,8 +26,6 @@ function FilterBar({
   dock = false,
 }) {
   const { t, num, isRTL } = useLocale();
-
-  const items = ["all", ...categories, DEVELOPMENT];
 
   const label = (category) => {
     if (category === DEVELOPMENT) {
@@ -46,7 +45,7 @@ function FilterBar({
           : "flex flex-wrap items-center gap-x-7 gap-y-4"
       }
     >
-      {items.map((category) => (
+      {serviceFilters.map((category) => (
         <button
           key={category}
           type="button"
@@ -62,7 +61,7 @@ function FilterBar({
           } ${
             active === category
               ? "opacity-100"
-              : "opacity-40 hover:opacity-80"
+              : "opacity-75 hover:opacity-100"
           }`}
         >
           {label(category)}
@@ -86,13 +85,13 @@ function FilterBar({
 }
 
 function WorkHero({
-  sectors, sector, onSectorChange, projectCount,
+  sectors, sector, onSectorChange, projectCount, resultCount,
   active,
   onChange,
   counts,
   topRef,
 }) {
-  const { t, isRTL } = useLocale();
+  const { t, isRTL, num } = useLocale();
 
   const heroTitle = isRTL
     ? "من الفكرة إلى التأثير."
@@ -100,13 +99,13 @@ function WorkHero({
 
   return (
     <section
-      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-[var(--pad)] pb-14 pt-36 text-[#F5F4F0] sm:pb-16 sm:pt-40"
+      className="relative isolate flex flex-col justify-end overflow-hidden px-[var(--pad)] pb-10 pt-28 text-[#F5F4F0] sm:pb-14 sm:pt-36"
       style={{
         background:
           "radial-gradient(ellipse at 0% 45%, rgba(10,90,96,0.38), transparent 48%), radial-gradient(ellipse at 100% 55%, rgba(8,116,119,0.32), transparent 48%), linear-gradient(135deg, #142535 0%, #101B29 60%, #0B1724 100%)",
       }}
     >
-      <div className="relative z-10 flex flex-1 flex-col justify-center py-10">
+      <div className="relative z-10 flex flex-1 flex-col justify-center py-6">
         <p className="mb-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6A1F]" />
           <span dir="ltr">SAIL CREATIVE SOLUTIONS</span>
@@ -139,7 +138,7 @@ function WorkHero({
           )}
         </h1>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
+        <div className="mt-8 grid gap-5 lg:grid-cols-12 lg:items-end">
           <p
             className={`max-w-md text-white/75 lg:col-span-4 ${
               isRTL
@@ -148,8 +147,8 @@ function WorkHero({
             }`}
           >
             {isRTL
-              ? `${projectCount} مشروعًا · تصفّح حسب الخدمة أو القطاع`
-              : `${projectCount} projects · Browse by service or sector`}
+              ? `${num(projectCount)} مشروعًا · تصفّح حسب الخدمة أو القطاع`
+              : `${num(projectCount)} projects · Browse by service or sector`}
           </p>
 
           <div
@@ -173,6 +172,11 @@ function WorkHero({
                 ))}
               </select>
             </label>
+            <p role="status" className="mt-3 text-sm text-white/75">
+              {isRTL
+                ? `عرض ${num(resultCount)} من ${num(projectCount)} مشروعًا`
+                : `Showing ${num(resultCount)} of ${num(projectCount)} projects`}
+            </p>
           </div>
         </div>
       </div>
@@ -189,28 +193,16 @@ export default function WorkExplorer({
   const params = useSearchParams();
   const fromUrl = params.get("category");
 
-  const allowedCategories = [
-    "all",
-    ...categories,
-    DEVELOPMENT,
-  ];
-
-  const [active, setActive] = useState(
-    allowedCategories.includes(fromUrl)
-      ? fromUrl
-      : allowedCategories.includes(initial)
-        ? initial
-        : "all"
-  );
-
-  const [sector, setSector] = useState(() =>
-    caseStudySectors.find(({ id }) => id === params.get("sector"))?.id ?? ""
-  );
-  const selectedSector = caseStudySectors.find(({ id }) => id === sector);
+  const active = serviceFilters.includes(fromUrl)
+    ? fromUrl
+    : serviceFilters.includes(initial) ? initial : "all";
+  const selectedSector = active === "all"
+    ? caseStudySectors.find(({ id }) => id === params.get("sector"))
+    : undefined;
+  const sector = selectedSector?.id ?? "";
   const sectorProjects = selectedSector
     ? projects.filter(({ slug }) => selectedSector.slugs.includes(slug))
     : projects;
-  const visibleDevelopment = selectedSector ? [] : developmentProjects;
 
   const [dock, setDock] = useState(false);
   const top = useRef(null);
@@ -236,59 +228,35 @@ export default function WorkExplorer({
   }, []);
 
   const counts = {
-    all: sectorProjects.length + visibleDevelopment.length,
-    [DEVELOPMENT]: visibleDevelopment.length,
+    all: projects.length + developmentProjects.length,
+    [DEVELOPMENT]: developmentProjects.length,
   };
 
-  categories.forEach((category) => {
-    counts[category] = sectorProjects.filter((project) =>
+  for (const category of categories) {
+    counts[category] = projects.filter((project) =>
       project.categories.includes(category)
     ).length;
-  });
+  }
 
-  const creativeProjects =
-    active === "all"
-      ? sectorProjects
-      : active === DEVELOPMENT
-        ? []
-        : sectorProjects.filter((project) =>
-            project.categories.includes(active)
-          );
+  const creativeProjects = active === "all"
+    ? sectorProjects
+    : sectorProjects.filter((project) => project.categories.includes(active));
+  const visibleDevelopment = !sector && (active === "all" || active === DEVELOPMENT)
+    ? developmentProjects
+    : [];
+  const resultCount = creativeProjects.length + visibleDevelopment.length;
 
-  const showDevelopment =
-    active === "all" || active === DEVELOPMENT;
-
-  const hasResults =
-    creativeProjects.length > 0 ||
-    (showDevelopment && visibleDevelopment.length > 0);
-
-  // توحيد إجمالي الترقيم مع عدد المشاريع في الفلتر.
-  const showcaseTotal =
-    active === "all"
-      ? counts.all
-      : creativeProjects.length;
-
-  const change = (category) => {
-    setActive(category);
-
+  const changeFilters = (category, nextSector) => {
     const url = new URL(window.location.href);
-
-    if (category === "all") {
-      url.searchParams.delete("category");
-    } else {
-      url.searchParams.set("category", category);
-    }
-
-    window.history.replaceState(null, "", url);
-  };
-
-  const changeSector = (value) => {
-    setSector(value);
-    const url = new URL(window.location.href);
-    if (value) url.searchParams.set("sector", value);
+    if (category === "all") url.searchParams.delete("category");
+    else url.searchParams.set("category", category);
+    if (nextSector) url.searchParams.set("sector", nextSector);
     else url.searchParams.delete("sector");
     window.history.replaceState(null, "", url);
   };
+
+  const change = (category) => changeFilters(category, "");
+  const changeSector = (value) => changeFilters("all", value);
 
   return (
     <>
@@ -296,14 +264,15 @@ export default function WorkExplorer({
         sectors={caseStudySectors}
         sector={sector}
         onSectorChange={changeSector}
-        projectCount={projects.length + developmentProjects.length}
-        active={active}
+        projectCount={counts.all}
+        resultCount={resultCount}
+        active={sector ? null : active}
         onChange={change}
         counts={counts}
         topRef={top}
       />
 
-      <div aria-live="polite">
+      <div>
         <AnimatePresence mode="wait">
           <motion.div
             key={`${active}:${sector}`}
@@ -315,7 +284,7 @@ export default function WorkExplorer({
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            {!hasResults ? (
+            {resultCount === 0 ? (
               <p className="px-[var(--pad)] py-40 text-center">
                 {t("work.empty")}
               </p>
@@ -326,26 +295,17 @@ export default function WorkExplorer({
                     key={project.slug}
                     project={project}
                     index={index}
-                    total={showcaseTotal}
+                    total={resultCount}
                   />
                 ))}
 
-                {showDevelopment &&
-                  visibleDevelopment.length > 0 && (
-                    
-<DevelopmentShowcase
-  projects={visibleDevelopment}
-  startIndex={
-    active === "all" ? creativeProjects.length : 0
-  }
-  total={
-    active === "all"
-      ? counts.all
-      : visibleDevelopment.length
-  }
-/>
-
-                  )}
+                {visibleDevelopment.length > 0 && (
+                  <DevelopmentShowcase
+                    projects={visibleDevelopment}
+                    startIndex={creativeProjects.length}
+                    total={resultCount}
+                  />
+                )}
               </>
             )}
           </motion.div>
@@ -365,7 +325,7 @@ export default function WorkExplorer({
             }}
           >
             <FilterBar
-              active={active}
+              active={sector ? null : active}
               onChange={change}
               counts={counts}
               dock

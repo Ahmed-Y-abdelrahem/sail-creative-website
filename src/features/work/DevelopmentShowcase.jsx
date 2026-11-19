@@ -112,7 +112,7 @@ export default function DevelopmentShowcase({
                   }
                   fill
                   sizes="(min-width:1280px) 33vw, (min-width:768px) 50vw, 100vw"
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.045] motion-reduce:transform-none"
+                  className="object-contain p-2 transition-[padding] duration-500 group-hover:p-1 motion-reduce:transition-none"
                 />
 
                 <div
