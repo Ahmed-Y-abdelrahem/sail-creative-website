@@ -120,8 +120,8 @@ function Chapter({ service, index }) {
           <h2
             className={`display mt-6 ${
               isRTL
-                ? "text-[clamp(2.8rem,6vw,6.5rem)] leading-[1.35]"
-                : "text-[clamp(3.4rem,9vw,11rem)] leading-[0.86]"
+                ? "section-heading leading-[1.35]"
+                : "section-heading leading-[0.86]"
             }`}
           >
             {x(service.title)}
@@ -539,8 +539,8 @@ function ServicesHero() {
         <h1
           className={`display max-w-[1200px] text-[#F5F4F0] ${
             isRTL
-              ? "text-[clamp(2.6rem,5.8vw,5.8rem)] leading-[1.4] tracking-normal"
-              : "text-[clamp(3.4rem,8.3vw,9rem)] leading-[1.02] tracking-[-0.045em]"
+              ? "page-heading leading-[1.4] tracking-normal"
+              : "page-heading leading-[1.02] tracking-[-0.045em]"
           }`}
         >
           {isRTL ? (

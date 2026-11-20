@@ -11,7 +11,7 @@ export const caseStudySectors = [
       "Distinctive brands and memorable experiences for restaurants, cafés and food concepts.",
       "هويات مميزة وتجارب متكاملة للمطاعم والمقاهي ومشاريع الأغذية."
     ),
-    slugs: ["tricycle", "carte-restaurant", "manafesh"],
+    slugs: ["tricycle", "carte-restaurant", "manafesh", "chayt", "88-port"],
   },
   {
     id: "healthcare",
@@ -38,16 +38,16 @@ export const caseStudySectors = [
       "Creative solutions for properties, hospitality and living spaces.",
       "حلول إبداعية للقطاع العقاري والضيافة والمساحات السكنية."
     ),
-    slugs: ["beut-almisk", "stayin", "namar-door"],
+    slugs: ["beut-almisk", "stayin", "namar-door", "aptc-contracting-website", "almeer-contracting-website", "azal-projects-ground-engineering", "eco-contracting-website", "high-dam-contracting-website"],
   },
   {
     id: "technology",
-    title: t("Technology & Digital", "التكنولوجيا والحلول الرقمية"),
+    title: t("Technology & Digital", "التقنية والحلول الرقمية"),
     description: t(
       "Making digital products and complex ideas easier to understand and connect with.",
       "تحويل المنتجات الرقمية والأفكار التقنية إلى تجارب واضحة وجذابة."
     ),
-    slugs: ["tawlead", "baab-app", "enigma"],
+    slugs: ["tawlead", "baab-app", "enigma", "develco-movies-hub", "game-over-gaming-platform"],
   },
   {
     id: "industry",
@@ -56,7 +56,7 @@ export const caseStudySectors = [
       "Brand communication and creative execution for industrial and product businesses.",
       "تواصل بصري وتنفيذ إبداعي لشركات الصناعة والمنتجات."
     ),
-    slugs: ["gerflor", "armadio", "ucicoat"],
+    slugs: ["gerflor", "armadio", "ucicoat", "ramadan-duas", "ounce-gold-retail-platform", "freshcart-ecommerce-frontend"],
   },
   {
     id: "events",

@@ -78,9 +78,9 @@ export default function ClientLogo({
           object-contain
           grayscale
           contrast-125
+          p-2
           transition-[filter]
           duration-500
-          group-hover/logo:grayscale-0
         "
       />
     </div>

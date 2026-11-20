@@ -302,7 +302,7 @@ export default function CareersPage() {
             </span>
           </div>
 
-          <h1 className="display max-w-4xl text-[clamp(2.8rem,7vw,7rem)] leading-[1.08] tracking-[-0.04em]">
+          <h1 className="display max-w-4xl page-heading leading-[1.08] tracking-[-0.04em]">
             {c.title}
           </h1>
 
@@ -356,7 +356,7 @@ export default function CareersPage() {
       {/* AREAS */}
       <section className="border-y border-white/10 bg-[#0D1B25] px-[var(--pad)] py-20">
         <div className="mx-auto max-w-[1440px]">
-          <h2 className="display text-[clamp(2rem,4vw,3.8rem)]">
+          <h2 className="display section-heading">
             {c.fieldsTitle}
           </h2>
 
@@ -394,7 +394,7 @@ export default function CareersPage() {
               SAIL / APPLY
             </span>
 
-            <h2 className="display mt-5 text-[clamp(2rem,4vw,4rem)] leading-[1.15]">
+            <h2 className="display mt-5 section-heading leading-[1.15]">
               {c.formTitle}
             </h2>
 

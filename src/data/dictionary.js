@@ -65,7 +65,7 @@ export const dictionary = {
 
     "services.title": "What we do",
     "services.sub": "Creative solutions. One line from idea to execution.",
-    "services.page.title": "Creative capabilities. One connected vision.",
+    "services.page.title": "SAIL’s creative and technology services.",
     "services.page.sub": "Explore our services to learn about each one.",
     "services.capabilities": "Capabilities",
     "services.related": "Related work",
@@ -220,7 +220,7 @@ export const dictionary = {
 
     "services.title": "ماذا نفعل",
     "services.sub": "تنقّل بين خدماتنا لتتعرّف على كل واحدة منها.",
-    "services.page.title": "قدرات إبداعية. رؤية متكاملة.",
+    "services.page.title": "خدمات سيل الإبداعية والتقنية.",
     "services.page.sub": "تنقّل بين خدماتنا لتتعرّف على كل واحدة منها.",
     "services.capabilities": "القدرات",
     "services.related": "أعمال ذات صلة",
@@ -273,7 +273,7 @@ export const dictionary = {
     "about.philosophy.title": "نفهم أولًا، ثم نصمّم ما يحقق الهدف.",
     "about.philosophy.body": "حكاية، لا شعارًا.",
     "about.line.label": "ما نحن عليه",
-    "about.line.title": "خط واحد، من الفكرة إلى التنفيذ.",
+    "about.line.title": "سيل خط متصل يحمل فكرتك من الاستراتيجية حتى التنفيذ.",
     "about.line.body": "سيل خط متصل يحمل فكرتك من الاستراتيجية حتى التنفيذ: العلامة، والمحتوى، والحملة، والإنتاج، والتجربة.",
     "about.clients.label": "من يبحر معنا",
     "about.today.label": "اليوم",

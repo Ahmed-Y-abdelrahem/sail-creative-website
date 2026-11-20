@@ -91,7 +91,7 @@ function Timecode() {
 }
 
 export default function MediaReel() {
-  const { t, x, href } = useLocale();
+  const { t, x, href, isRTL } = useLocale();
 
   return (
     <section
@@ -144,6 +144,7 @@ export default function MediaReel() {
           <FilmStrip
             images={rowA}
             duration={95}
+            description={isRTL ? "صور من فعالية راديكون وتصوير صالون شيفري وأطباق ومجموعات شوكولاتة" : "Radicon event photography, Shavery salon scenes, dishes and chocolate assortments"}
             cursorLabel="•"
           />
         </div>
@@ -156,6 +157,7 @@ export default function MediaReel() {
             images={rowB}
             reverse
             duration={110}
+            description={isRTL ? "صور افتتاح لويني وأطباق مطعم كارت ومنتجات لو غو وصالون شيفري" : "Luini opening, Carte dishes, Le Goût product photography and Shavery salon scenes"}
             cursorLabel="•"
           />
         </div>

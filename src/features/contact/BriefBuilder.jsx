@@ -629,7 +629,7 @@ export default function BriefBuilder() {
               <p className="mt-4 text-xs leading-relaxed text-white/60">
                 {x({
                   en: "Your message updates automatically as you complete the brief.",
-                  ar: "تُحدَّث معاينة الرسالة تلقائيًا عند إضافة بياناتك.",
+                  ar: "تتحدّث الرسالة تلقائيًا مع كل معلومة تضيفها.",
                 })}
               </p>
 
@@ -738,7 +738,7 @@ export default function BriefBuilder() {
           <p className="mt-4 px-2 text-center text-xs leading-relaxed text-white/60">
             {x({
               en: "When you submit, your details are sent to SAIL and stored for follow-up. You can also contact us via WhatsApp.",
-              ar: "عند إرسال الطلب، تُرسل بياناتك إلى فريق سيل وتُحفظ لغرض متابعة طلبك. ويمكنك أيضًا التواصل معنا عبر واتساب.",
+              ar: "عند إرسال الطلب تصل بياناتك إلى فريق سيل لمتابعتها. ويمكنك أيضًا التواصل معنا عبر واتساب.",
             })}
           </p>
         </motion.div>

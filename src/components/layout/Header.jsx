@@ -191,11 +191,11 @@ export default function Header() {
         >
           <Image
             src="/brand/sail-wordmark.png"
-            alt="SAIL"
+            alt={isRTL ? "سيل للحلول الإبداعية" : "SAIL Creative Solutions"}
             width={927}
             height={296}
             priority
-            className="h-6 w-auto sm:h-7"
+            className="h-8 w-auto md:h-10"
           />
         </TransitionLink>
 

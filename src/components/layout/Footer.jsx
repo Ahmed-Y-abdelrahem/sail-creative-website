@@ -10,7 +10,6 @@ import { localePath, numerals } from "@/lib/i18n";
 /* CONTACT DETAILS */
 
 const CONTACT_EMAIL = "Hello@sail-ksa.com";
-const CONTACT_PHONE = "+966557631575";
 
 /* CTA ARROW */
 
@@ -413,7 +412,7 @@ export default function Footer({ locale }) {
                 </a>
 
                 <a
-                  href={`tel:${CONTACT_PHONE}`}
+                  href={`tel:${site.phone.replace(/\s/g, "")}`}
                   dir="ltr"
                   className="
                     link-line inline-flex min-h-[44px]
@@ -428,11 +427,11 @@ export default function Footer({ locale }) {
                   "
                   aria-label={
                     isArabic
-                      ? `رقم التواصل: ${CONTACT_PHONE}`
-                      : `Phone: ${CONTACT_PHONE}`
+                      ? `رقم التواصل: ${site.phone}`
+                      : `Phone: ${site.phone}`
                   }
                 >
-                  {CONTACT_PHONE}
+                  {site.phone}
                 </a>
               </div>
             </div>
@@ -522,7 +521,7 @@ export default function Footer({ locale }) {
           "
         >
           <p className="meta text-xs opacity-55">
-            © {year} SAIL Creative.{" "}
+            © {year} {isArabic ? "سيل للحلول الإبداعية" : site.name}.{" "}
             {L("footer.rights")}
           </p>
 

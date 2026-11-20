@@ -241,9 +241,11 @@ export default function WorkExplorer({
   const creativeProjects = active === "all"
     ? sectorProjects
     : sectorProjects.filter((project) => project.categories.includes(active));
-  const visibleDevelopment = !sector && (active === "all" || active === DEVELOPMENT)
-    ? developmentProjects
-    : [];
+  const visibleDevelopment = selectedSector
+    ? developmentProjects.filter(({ slug }) => selectedSector.slugs.includes(slug))
+    : active === "all" || active === DEVELOPMENT
+      ? developmentProjects
+      : [];
   const resultCount = creativeProjects.length + visibleDevelopment.length;
 
   const changeFilters = (category, nextSector) => {

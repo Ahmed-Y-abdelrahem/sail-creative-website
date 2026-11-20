@@ -173,7 +173,7 @@ export default function PartnersField({
                 text-[#FF7A35]
               "
             >
-              {num(partnerCount)}
+              {num(partnerCount)}+
             </span>
 
             <span

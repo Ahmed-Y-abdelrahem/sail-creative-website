@@ -23,5 +23,4 @@ export const switchLocalePath = (pathname, target) => {
   return localePath(target, stripped);
 };
 
-export const numerals = (value, locale) =>
-  locale === "ar" ? String(value).replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]) : String(value);
+export const numerals = (value) => String(value);

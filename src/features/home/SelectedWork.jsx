@@ -56,14 +56,14 @@ function WorldMedia({ project, sizes, eager }) {
     );
   }
 
+  const coverDescription = project.slug === "tawlead"
+    ? (isRTL ? "هوية توليد على الشعار والبطاقات وشاشة الهاتف واللوحة الإعلانية" : "Tawlead identity across its logo, cards, phone screen and billboard")
+    : (isRTL ? `صورة من أعمال مشروع ${projectName} لدى سيل` : `${projectName} creative project by SAIL`);
+
   return (
     <Image
       src={project.cover.src}
-      alt={
-        isRTL
-          ? `صورة من أعمال مشروع ${projectName} لدى SAIL`
-          : `${projectName} creative project by SAIL`
-      }
+      alt={coverDescription}
       fill
       sizes={sizes}
       loading={loading}

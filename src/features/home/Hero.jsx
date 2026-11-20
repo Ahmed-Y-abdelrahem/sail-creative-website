@@ -26,7 +26,7 @@ const fragments = [
   {
     slug: "tawlead",
     img: M("tawlead/phones"),
-    alt: { en: "Tawlead app and billboard", ar: "تطبيق توليد ولوحة إعلانية" },
+    alt: { en: "Tawlead identity on a phone mockup", ar: "هوية توليد على نموذج هاتف" },
     className:
       "end-[6%] top-[16%] w-[15vw] min-w-[9rem] max-w-[17rem]",
     depth: 1,
@@ -87,7 +87,7 @@ function Fragment({ f, px, py, ready }) {
 
   return (
     <motion.div
-      className={`absolute ${f.className}`}
+      className={`absolute max-sm:hidden ${f.className}`}
       style={{ x, y }}
     >
       <motion.div
@@ -230,29 +230,6 @@ export default function Hero() {
           />
         ))}
 
-      {!fine && (
-        <div
-          className="
-            pointer-events-none
-            absolute
-            end-[-6%]
-            top-[18%]
-            w-[38vw]
-            opacity-80
-          "
-          aria-hidden="true"
-        >
-          <Image
-            src={fragments[0].img.src}
-            alt=""
-            width={fragments[0].img.w}
-            height={fragments[0].img.h}
-            sizes="40vw"
-            className="h-auto w-full"
-          />
-        </div>
-      )}
-
       {/* TOP CONTENT */}
 
       <div
@@ -267,26 +244,22 @@ export default function Hero() {
           sm:pt-32
         "
       >
-        <motion.p
-          className="
-            meta
-            max-w-[14rem]
-            leading-relaxed
-            opacity-80
-          "
+        <motion.div
+          className="meta grid gap-2"
           initial={{ opacity: 0 }}
-          animate={ready ? { opacity: 0.8 } : {}}
-          transition={{
-            duration: 1,
-            delay: 0.5,
-          }}
+          animate={ready ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 0.5 }}
         >
-          {t("hero.kicker")}
-          <br />
-          <span className="opacity-70">
-            {t("hero.location")}
-          </span>
-        </motion.p>
+          <Image
+            src="/brand/sail-wordmark.png"
+            width={927}
+            height={296}
+            alt={t("hero.kicker")}
+            sizes="(min-width:768px) 190px, 120px"
+            className="h-9 w-auto md:h-14"
+          />
+          <span className="opacity-70">{t("hero.location")}</span>
+        </motion.div>
       </div>
 
       {/* MAIN HERO TITLE */}

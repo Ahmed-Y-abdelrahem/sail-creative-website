@@ -6,7 +6,7 @@ export const serviceSeo = {
       description:
         "Brand strategy, naming, logo design, visual identity, rebranding, packaging and brand guidelines for businesses in Saudi Arabia.",
       intro:
-        "SAIL Creative helps businesses develop clear, consistent brand identities. Our branding services cover research, strategy, naming, logo design, visual systems, packaging and brand guidelines.",
+        "SAIL Creative Solutions helps businesses develop clear, consistent brand identities. Our branding services cover research, strategy, naming, logo design, visual systems, packaging and brand guidelines.",
     },
     ar: {
       title: "تصميم الهوية التجارية وبناء العلامات التجارية في السعودية",
@@ -23,7 +23,7 @@ export const serviceSeo = {
       description:
         "Digital marketing strategy, social media management, content creation, paid advertising, media buying and performance reporting.",
       intro:
-        "SAIL Creative provides digital marketing services that connect strategy, content, paid campaigns and performance measurement to support business growth.",
+        "SAIL Creative Solutions provides digital marketing services that connect strategy, content, paid campaigns and performance measurement to support business growth.",
     },
     ar: {
       title: "خدمات التسويق الرقمي وإدارة الحملات الإعلانية في السعودية",
@@ -40,7 +40,7 @@ export const serviceSeo = {
       description:
         "Professional photography, commercial video production, cinematography, motion graphics, editing and event coverage.",
       intro:
-        "SAIL Creative develops visual content from initial concepts and scripts through photography, filming, editing, motion graphics and final production.",
+        "SAIL Creative Solutions develops visual content from initial concepts and scripts through photography, filming, editing, motion graphics and final production.",
     },
     ar: {
       title: "خدمات التصوير والإنتاج المرئي والفيديو في السعودية",
@@ -57,7 +57,7 @@ export const serviceSeo = {
       description:
         "Corporate event planning, conferences, exhibitions, product launches, grand openings and event production services.",
       intro:
-        "SAIL Creative plans and executes corporate events, exhibitions, conferences and brand experiences, coordinating creative concepts and event production.",
+        "SAIL Creative Solutions plans and executes corporate events, exhibitions, conferences and brand experiences, coordinating creative concepts and event production.",
     },
     ar: {
       title: "تنظيم وإدارة الفعاليات والمؤتمرات والمعارض في السعودية",
@@ -74,7 +74,7 @@ export const serviceSeo = {
       description:
         "Corporate website development, landing pages, e-commerce, UI/UX design, responsive websites and performance optimization.",
       intro:
-        "SAIL Creative develops responsive websites and digital experiences for businesses, including corporate websites, landing pages, online stores and user-focused interfaces.",
+        "SAIL Creative Solutions develops responsive websites and digital experiences for businesses, including corporate websites, landing pages, online stores and user-focused interfaces.",
     },
     ar: {
       title: "تصميم وتطوير المواقع الإلكترونية والمتاجر في السعودية",
@@ -91,7 +91,7 @@ export const serviceSeo = {
       description:
         "Custom software development, web applications, business systems, dashboards, API integrations and database solutions.",
       intro:
-        "SAIL Creative offers custom software development for business workflows, including web applications, management systems, dashboards and technical integrations.",
+        "SAIL Creative Solutions offers custom software development for business workflows, including web applications, management systems, dashboards and technical integrations.",
     },
     ar: {
       title: "تطوير البرمجيات المخصصة وأنظمة إدارة الأعمال",
@@ -108,7 +108,7 @@ export const serviceSeo = {
       description:
         "Functional testing, UI/UX testing, cross-browser testing, performance testing, regression testing and API testing.",
       intro:
-        "SAIL Creative provides software testing and quality assurance services to evaluate functionality, usability, compatibility and performance before product release.",
+        "SAIL Creative Solutions provides software testing and quality assurance services to evaluate functionality, usability, compatibility and performance before product release.",
     },
     ar: {
       title: "خدمات اختبار البرمجيات وضمان الجودة QA",
@@ -125,7 +125,7 @@ export const serviceSeo = {
       description:
         "Technical SEO, keyword research, content optimization and search visibility strategies for traditional and AI-powered search.",
       intro:
-        "SAIL Creative helps businesses improve discoverability through technical SEO, keyword research, content optimization and clearer information for search and AI-assisted discovery.",
+        "SAIL Creative Solutions helps businesses improve discoverability through technical SEO, keyword research, content optimization and clearer information for search and AI-assisted discovery.",
     },
     ar: {
       title: "خدمات SEO وAEO وGEO لتحسين الظهور في البحث",
@@ -142,7 +142,7 @@ export const serviceSeo = {
       description:
         "Marketing consulting, digital strategy, team training, marketing workshops and strategic planning for businesses.",
       intro:
-        "SAIL Creative provides practical marketing and digital consulting, team training and workshops to help businesses strengthen internal capabilities and planning.",
+        "SAIL Creative Solutions provides practical marketing and digital consulting, team training and workshops to help businesses strengthen internal capabilities and planning.",
     },
     ar: {
       title: "الاستشارات التسويقية والتدريب الرقمي للشركات",

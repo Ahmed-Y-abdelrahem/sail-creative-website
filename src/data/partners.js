@@ -18,7 +18,7 @@ const names = {
   2: t("Enigma"),
   3: t("Baab", "باب"),
   4: t("Tawlead", "توليد"),
-  5: t("Cart Restaurant", "مطعم كارت"),
+  5: t("Carte Restaurant", "مطعم كارت"),
   6: t("Tricycle"),
   7: t("Tawiya", "توعية"),
   8: t("Namar", "نمار"),

@@ -242,8 +242,8 @@ export default function ContactHero({ children }) {
                 text-white
                 ${
                   isRTL
-                    ? "text-[clamp(2rem,3.8vw,4rem)] leading-[1.4] tracking-normal"
-                    : "text-[clamp(2.5rem,5.3vw,5.5rem)] leading-[1.08] tracking-[-0.045em]"
+                    ? "page-heading leading-[1.4] tracking-normal"
+                    : "page-heading leading-[1.08] tracking-[-0.045em]"
                 }
               `}
             >
@@ -307,8 +307,8 @@ export default function ContactHero({ children }) {
                   text-white
                   ${
                     isRTL
-                      ? "text-[clamp(1.6rem,2.6vw,2.5rem)] leading-[1.4]"
-                      : "text-[clamp(1.8rem,3vw,3rem)] leading-[1.1] tracking-[-0.03em]"
+                      ? "section-heading leading-[1.4]"
+                      : "section-heading leading-[1.1] tracking-[-0.03em]"
                   }
                 `}
               >

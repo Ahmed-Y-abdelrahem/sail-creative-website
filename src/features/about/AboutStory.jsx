@@ -153,8 +153,8 @@ function AboutHero() {
             max-w-[1100px] text-white
             ${
               isRTL
-                ? "text-[clamp(2.6rem,5.5vw,5.5rem)] leading-[1.4] tracking-normal"
-                : "text-[clamp(3.5rem,9vw,10rem)] leading-[1.02] tracking-[-0.045em]"
+                ? "page-heading leading-[1.4] tracking-normal"
+                : "page-heading leading-[1.02] tracking-[-0.045em]"
             }
           `}
         >
@@ -204,7 +204,7 @@ const philosophyContent = {
     eyebrow: "فلسفتنا",
     title: "نفكر بشكل مختلف. لنصنع أثرًا حقيقيًا.",
     description:
-      "نؤمن أن نجاح العلامات التجارية لا يعتمد على التصميم وحده، ولا على التكنولوجيا وحدها. النجاح يبدأ بفهم الأعمال والجمهور، ثم الجمع بين الاستراتيجية والإبداع والتنفيذ التقني لصناعة حلول تحقق أهدافًا واضحة.",
+      "نؤمن أن نجاح العلامات التجارية لا يعتمد على التصميم وحده، ولا على التقنية وحدها. النجاح يبدأ بفهم الأعمال والجمهور، ثم الجمع بين الاستراتيجية والإبداع والتنفيذ التقني لصناعة حلول تحقق أهدافًا واضحة.",
     quote: "لا نقدم خدمات منفصلة، بل نصنع حلولًا مترابطة.",
     pillars: [
       {
@@ -302,8 +302,8 @@ function PhilosophySection() {
                 display max-w-[850px]
                 ${
                   isRTL
-                    ? "text-[clamp(2rem,3.8vw,4rem)] leading-[1.5] tracking-normal"
-                    : "text-[clamp(2.8rem,5.8vw,6rem)] leading-[1.12] tracking-[-0.04em]"
+                    ? "section-heading leading-[1.5] tracking-normal"
+                    : "section-heading leading-[1.12] tracking-[-0.04em]"
                 }
               `}
             >
@@ -442,8 +442,8 @@ function LineOfWork() {
             display lg:col-span-8
             ${
               isRTL
-                ? "text-[clamp(2rem,4vw,4.5rem)] leading-[1.35]"
-                : "text-[clamp(2.6rem,6vw,7rem)] leading-[1.05]"
+                ? "section-heading leading-[1.35]"
+                : "section-heading leading-[1.05]"
             }
           `}
         >
@@ -572,7 +572,7 @@ function LineOfWork() {
 const todayContent = {
   ar: {
     eyebrow: "سيل اليوم",
-    title: "خبرات متعددة. فريق واحد. رؤية متكاملة.",
+    title: "فريق واحد يجمع خبرات متعددة.",
     description:
       "اليوم، نجمع في سيل بين الخبرة التقنية والتسويقية والإبداعية لنقدم حلولًا تساعد الشركات على بناء حضور أقوى، وتطوير أعمالها، وتحقيق نمو قابل للقياس.",
     areas: [
@@ -584,7 +584,7 @@ const todayContent = {
       "الفعاليات والحلول الإبداعية",
     ],
     closing:
-      "شريك واحد يجمع الاستراتيجية والإبداع والتكنولوجيا.",
+      "شريك يجمع الاستراتيجية والإبداع والتقنية.",
   },
 
   en: {
@@ -641,8 +641,8 @@ function TodaySection() {
                 display max-w-[750px] text-ink
                 ${
                   isRTL
-                    ? "text-[clamp(2rem,3.7vw,3.9rem)] leading-[1.5] tracking-normal"
-                    : "text-[clamp(2.7rem,5.2vw,5.5rem)] leading-[1.12] tracking-[-0.035em]"
+                    ? "section-heading leading-[1.5] tracking-normal"
+                    : "section-heading leading-[1.12] tracking-[-0.035em]"
                 }
               `}
             >

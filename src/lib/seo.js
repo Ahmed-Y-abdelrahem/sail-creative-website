@@ -136,7 +136,7 @@ export const organizationJsonLd = (social = {}) => {
     foundingDate: String(site.since),
 
     description:
-      "SAIL Creative is a Saudi-based creative agency providing branding, digital marketing, web development, media production and event management solutions.",
+      "SAIL Creative Solutions is a Saudi-based creative agency providing branding, digital marketing, web development, media production and event management solutions.",
 
     areaServed: {
       "@type": "Country",

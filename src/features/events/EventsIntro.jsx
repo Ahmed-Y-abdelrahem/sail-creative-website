@@ -36,8 +36,8 @@ export function EventsHero() {
             break-words
             ${
               isRTL
-                ? "text-[clamp(2.8rem,6.2vw,6.5rem)] leading-[1.35] tracking-normal"
-                : "text-[clamp(3.6rem,10vw,11rem)] leading-[0.95] tracking-[-0.035em]"
+                ? "page-heading leading-[1.35] tracking-normal"
+                : "page-heading leading-[0.95] tracking-[-0.035em]"
             }
           `}
         >

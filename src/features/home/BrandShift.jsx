@@ -150,7 +150,7 @@ function IdentitySlider() {
         </div>
 
         <span className="text-[11px] text-[#142832]/40">
-          Taj Azal / Rebranding
+          {x({ en: "Taj Azal rebrand", ar: "تطوير هوية تاج أزال" })}
         </span>
       </div>
 
@@ -200,13 +200,13 @@ function IdentitySlider() {
         }}
       >
         {/* Old identity */}
-        <div className="absolute inset-0 flex items-center justify-center bg-[#EAEAE7]">
+        <div className="absolute inset-0 flex items-center justify-center bg-[#efefef]">
           <Image
             src={oldLogo.src}
             alt={t("brand.old")}
             width={oldLogo.w}
             height={oldLogo.h}
-            sizes="(min-width:1024px) 45vw, 90vw"
+            sizes="(min-width:1024px) 30vw, 60vw"
             draggable={false}
             className="h-[55%] w-[65%] object-contain"
           />
@@ -214,7 +214,7 @@ function IdentitySlider() {
 
         {/* New identity */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center bg-[#17244A]"
+          className="absolute inset-0 flex items-center justify-center bg-[#1b274a]"
           style={{ clipPath: clipNew }}
         >
           <Image
@@ -222,7 +222,7 @@ function IdentitySlider() {
             alt={t("brand.new")}
             width={newLogo.w}
             height={newLogo.h}
-            sizes="(min-width:1024px) 45vw, 90vw"
+            sizes="(min-width:1024px) 30vw, 60vw"
             draggable={false}
             className="h-[55%] w-[65%] object-contain"
           />
@@ -242,7 +242,7 @@ function IdentitySlider() {
           className="pointer-events-none absolute inset-y-0 z-10 w-[2px] bg-[#FF6A1F]"
           style={{ left: handle }}
         >
-          <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-white bg-[#FF6A1F] shadow-lg">
+          <span className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-[#FF6A1F] shadow-lg">
             <span className="flex items-center gap-1 text-white">
               <svg
                 viewBox="0 0 24 24"
@@ -277,44 +277,26 @@ function IdentitySlider() {
         </motion.div>
       </div>
 
-      {/* Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-6">
-        <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-3 gap-2 px-3 pt-4 sm:px-6">
+        {[
+          [t("brand.old"), showBefore, 100],
+          [x({ en: "Compare", ar: "مقارنة" }), showComparison, 50],
+          [t("brand.new"), showAfter, 0],
+        ].map(([label, action, position]) => (
           <button
+            key={position}
             type="button"
-            onClick={showBefore}
-            className="rounded-full border border-[#142832]/15 px-4 py-2 text-xs font-medium text-[#142832] transition-colors hover:bg-[#142832] hover:text-white"
+            onClick={action}
+            aria-pressed={value === position}
+            className="min-h-11 rounded-full border border-[#142832]/25 px-2 text-xs font-medium transition-colors hover:bg-[#142832] hover:text-white aria-pressed:bg-[#142832] aria-pressed:text-white"
           >
-            {t("brand.old")}
+            {label}
           </button>
-
-          <button
-            type="button"
-            onClick={showComparison}
-            className="rounded-full border border-[#142832]/15 px-4 py-2 text-xs font-medium text-[#142832] transition-colors hover:bg-[#142832] hover:text-white"
-          >
-            {x({
-              en: "Compare",
-              ar: "مقارنة",
-            })}
-          </button>
-
-          <button
-            type="button"
-            onClick={showAfter}
-            className="rounded-full bg-[#142832] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#FF6A1F]"
-          >
-            {t("brand.new")}
-          </button>
-        </div>
-
-        <span className="text-[11px] text-[#142832]/45">
-          {x({
-            en: "Drag to explore",
-            ar: "اسحب للمقارنة",
-          })}
-        </span>
+        ))}
       </div>
+      <p className="px-4 py-4 text-center text-xs text-[#142832]/65">
+        {x({ en: "Drag to compare", ar: "اسحب للمقارنة" })}
+      </p>
     </div>
   );
 }
@@ -329,7 +311,7 @@ function JourneyCard({ item, index }) {
   return (
     <motion.li
       variants={fadeUp}
-      className="group flex items-start gap-4 rounded-xl border border-[#142832]/10 bg-white px-5 py-5 transition-all duration-300 hover:border-[#FF6A1F]/35 hover:shadow-[0_12px_35px_-25px_rgba(0,0,0,0.2)]"
+      className="flex items-center gap-4 border-t border-[#142832]/15 py-2"
     >
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F5F3EF] text-xs font-semibold text-[#FF6A1F]">
         {pad2(index + 1)}
@@ -341,7 +323,6 @@ function JourneyCard({ item, index }) {
         </h4>
       </div>
 
-      <ArrowIcon className="mt-2 h-4 w-4 shrink-0 text-[#142832]/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#FF6A1F] rtl:group-hover:-translate-x-1" />
     </motion.li>
   );
 }
@@ -412,7 +393,7 @@ export default function BrandShift() {
         </div>
 
         {/* Case study content */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start lg:gap-10">
+        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-stretch lg:gap-10">
           {/* Left */}
           <motion.div
             initial="hidden"
@@ -470,7 +451,7 @@ export default function BrandShift() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
               transition={{ staggerChildren: 0.09 }}
-              className="grid gap-3"
+              className="grid gap-1"
             >
               {brandJourney.map((item, index) => (
                 <JourneyCard

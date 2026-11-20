@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
       apple: "/icon.png",
     },
 
-    applicationName: "SAIL Creative",
+    applicationName: site.name,
   };
 }
 
@@ -74,8 +74,8 @@ function websiteJsonLd(locale) {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
 
-    name: "SAIL Creative",
-    alternateName: "SAIL Creative Solutions",
+    name: site.name,
+    alternateName: "SAIL",
     url: SITE_URL,
 
     inLanguage: ["ar-SA", "en"],

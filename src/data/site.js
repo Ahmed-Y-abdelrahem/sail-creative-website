@@ -6,7 +6,10 @@ export const companyStatement = {
   ar: "سيل للحلول الإبداعية شركة سعودية تقدم حلولًا تسويقية وإبداعية مبتكرة، يقودها فريق شغوف بالتفاصيل. نرافق عملاءنا من الفكرة الأولى حتى الإطلاق، بحلول تُصمّم لكل علامة على حدة.",
 };
 
+const phone = "+966 55 763 1575";
+
 export const site = {
+  phone,
   name: "SAIL Creative Solutions",
   since: 2018,
   website: "https://www.sail-ksa.com",
@@ -14,7 +17,7 @@ export const site = {
   social: {
     instagram: "https://www.instagram.com/sailksa/",
     linkedin: "https://www.linkedin.com/company/sail-ksa/posts/?feedView=all",
-    whatsapp: "https://api.whatsapp.com/message/HOD27ZPEG4UZM1?autoload=1&app_absent=0",
+    whatsapp: `https://wa.me/${phone.replace(/\D/g, "")}`,
   },
 };
 

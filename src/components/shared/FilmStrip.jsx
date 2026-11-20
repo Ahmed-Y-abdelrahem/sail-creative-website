@@ -13,6 +13,7 @@ export default function FilmStrip({
   duration = 100,
   height = "h-[19vh] sm:h-[23vh]",
   cursorLabel,
+  description,
 }) {
   const { isRTL } = useLocale();
 
@@ -21,9 +22,9 @@ export default function FilmStrip({
       className="bg-black py-2"
       role="img"
       aria-label={
-        isRTL
+        description ?? (isRTL
           ? "شريط سينمائي يعرض صورًا من أعمال المشروع"
-          : "Animated film strip showcasing project photography"
+          : "Animated film strip showcasing project photography")
       }
     >
       <div

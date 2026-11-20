@@ -9,7 +9,8 @@ import MediaReel from "@/features/home/MediaReel";
 import PartnersField from "@/features/home/PartnersField";
 import EventJourney from "@/features/events/EventJourney";
 
-import { featuredProjects } from "@/data/projects";
+import { work as developmentProjects } from "@/data/developmentWork";
+import { featuredProjects, projects } from "@/data/projects";
 import { services } from "@/data/services";
 
 import { buildMetadata, SITE_URL } from "@/lib/seo";
@@ -68,7 +69,7 @@ export default async function HomePage({ params }) {
 
       <SelectedWork projects={featuredProjects} />
 
-      <Intro />
+      <Intro projectCount={projects.length + developmentProjects.length} />
 
       <MarketingWall />
 

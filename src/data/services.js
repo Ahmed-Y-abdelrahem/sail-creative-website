@@ -251,7 +251,7 @@ export const services = [
 
     statement: {
       en: "Planning and executing memorable events from concept to final production.",
-      ar: "تخطيط وتنفيذ فعاليات متكاملة من الفكرة وحتى الإنتاج النهائي.",
+      ar: "تخطيط فعاليات متكاملة وتنفيذها، من الفكرة حتى يوم الفعالية وما بعده.",
     },
 
     capabilities: [
